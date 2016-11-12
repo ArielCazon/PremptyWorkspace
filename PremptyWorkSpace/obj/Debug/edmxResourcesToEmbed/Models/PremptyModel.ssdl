@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Prempty.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PremptyStoreContainer">
+    <EntitySet Name="Areas" EntityType="Prempty.Store.Areas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Entidades" EntityType="Prempty.Store.Entidades" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Eventos" EntityType="Prempty.Store.Eventos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ingresos" EntityType="Prempty.Store.Ingresos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Licencias" EntityType="Prempty.Store.Licencias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MotivoLicencia" EntityType="Prempty.Store.MotivoLicencia" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Respuestas" EntityType="Prempty.Store.Respuestas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="Prempty.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="Prempty.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios" EntityType="Prempty.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Licencias__Motivos" Association="Prempty.Store.FK__Licencias__Motivos">
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__Area" Association="Prempty.Store.FK__Usuarios__Area">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__IdRol" Association="Prempty.Store.FK__Usuarios__IdRol">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Areas_Entidades" Association="Prempty.Store.FK_Areas_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Areas" EntitySet="Areas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Eventos_Areas" Association="Prempty.Store.FK_Eventos_Areas">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Eventos_Entidades" Association="Prempty.Store.FK_Eventos_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingresos_Usuarios" Association="Prempty.Store.FK_Ingresos_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Ingresos" EntitySet="Ingresos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licencias_Usuarios" Association="Prempty.Store.FK_Licencias_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MotivoLicencia_Entidades" Association="Prempty.Store.FK_MotivoLicencia_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Eventos" Association="Prempty.Store.FK_Respuestas_Eventos">
+      <End Role="Eventos" EntitySet="Eventos" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Usuarios" Association="Prempty.Store.FK_Respuestas_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Entidades" Association="Prempty.Store.FK_Usuarios_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Areas">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IdEntidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Entidades">
+    <Key>
+      <PropertyRef Name="IdEntidad" />
+    </Key>
+    <Property Name="IdEntidad" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RazonSocial" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Cuit" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Domicilio" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Telefono" Type="nvarchar" MaxLength="50" />
+    <Property Name="Categoria" Type="nvarchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Eventos">
+    <Key>
+      <PropertyRef Name="IdEventos" />
+    </Key>
+    <Property Name="IdEventos" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Titulo" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="IdArea" Type="int" />
+    <Property Name="Tipo" Type="char" MaxLength="1" />
+    <Property Name="IdEntidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ingresos">
+    <Key>
+      <PropertyRef Name="IdIngresos" />
+    </Key>
+    <Property Name="IdIngresos" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="int" Nullable="false" />
+    <Property Name="FechaActual" Type="datetime" Nullable="false" />
+    <Property Name="HoraIngreso" Type="datetime" />
+    <Property Name="HoraEgreso" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Licencias">
+    <Key>
+      <PropertyRef Name="IdLicencia" />
+    </Key>
+    <Property Name="IdLicencia" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="int" Nullable="false" />
+    <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+    <Property Name="FechaFin" Type="datetime" Nullable="false" />
+    <Property Name="Motivo" Type="int" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Justificacion" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MotivoLicencia">
+    <Key>
+      <PropertyRef Name="IdMotivo" />
+    </Key>
+    <Property Name="IdMotivo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IdEntidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Respuestas">
+    <Key>
+      <PropertyRef Name="IdRespuesta" />
+    </Key>
+    <Property Name="IdRespuesta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdEvento" Type="int" Nullable="false" />
+    <Property Name="IdUsuario" Type="int" Nullable="false" />
+    <Property Name="Respuesta" Type="int" />
+    <Property Name="Comentario" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Rol" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdRol" Type="int" Nullable="false" />
+    <Property Name="Legajo" Type="int" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Apellido" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="FechaNac" Type="datetime" Nullable="false" />
+    <Property Name="FechaIngreso" Type="datetime" Nullable="false" />
+    <Property Name="IdArea" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Domicilio" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="NombreUsuario" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IdEntidad" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__Licencias__Motivos">
+    <End Role="MotivoLicencia" Type="Prempty.Store.MotivoLicencia" Multiplicity="0..1" />
+    <End Role="Licencias" Type="Prempty.Store.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MotivoLicencia">
+        <PropertyRef Name="IdMotivo" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="Motivo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__Area">
+    <End Role="Areas" Type="Prempty.Store.Areas" Multiplicity="1" />
+    <End Role="Usuarios" Type="Prempty.Store.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__IdRol">
+    <End Role="Roles" Type="Prempty.Store.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="Prempty.Store.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Areas_Entidades">
+    <End Role="Entidades" Type="Prempty.Store.Entidades" Multiplicity="1" />
+    <End Role="Areas" Type="Prempty.Store.Areas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="Areas">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Eventos_Areas">
+    <End Role="Areas" Type="Prempty.Store.Areas" Multiplicity="0..1" />
+    <End Role="Eventos" Type="Prempty.Store.Eventos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Eventos">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Eventos_Entidades">
+    <End Role="Entidades" Type="Prempty.Store.Entidades" Multiplicity="1" />
+    <End Role="Eventos" Type="Prempty.Store.Eventos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="Eventos">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingresos_Usuarios">
+    <End Role="Usuarios" Type="Prempty.Store.Usuarios" Multiplicity="1" />
+    <End Role="Ingresos" Type="Prempty.Store.Ingresos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Ingresos">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licencias_Usuarios">
+    <End Role="Usuarios" Type="Prempty.Store.Usuarios" Multiplicity="1" />
+    <End Role="Licencias" Type="Prempty.Store.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MotivoLicencia_Entidades">
+    <End Role="Entidades" Type="Prempty.Store.Entidades" Multiplicity="1" />
+    <End Role="MotivoLicencia" Type="Prempty.Store.MotivoLicencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="MotivoLicencia">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Respuestas_Eventos">
+    <End Role="Eventos" Type="Prempty.Store.Eventos" Multiplicity="1" />
+    <End Role="Respuestas" Type="Prempty.Store.Respuestas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Eventos">
+        <PropertyRef Name="IdEventos" />
+      </Principal>
+      <Dependent Role="Respuestas">
+        <PropertyRef Name="IdEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Respuestas_Usuarios">
+    <End Role="Usuarios" Type="Prempty.Store.Usuarios" Multiplicity="1" />
+    <End Role="Respuestas" Type="Prempty.Store.Respuestas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Respuestas">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Entidades">
+    <End Role="Entidades" Type="Prempty.Store.Entidades" Multiplicity="1" />
+    <End Role="Usuarios" Type="Prempty.Store.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

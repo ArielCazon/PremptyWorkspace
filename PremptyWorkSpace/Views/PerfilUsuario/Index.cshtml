@@ -1,0 +1,30 @@
+﻿@model PremptyWorkSpace.Models.Usuarios
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="widget">
+    <div class="widget-header">
+        <i class="icon-bookmark"></i>
+     <h3>Bienvenido @Session["sesNombCompleto"]</h3>
+    </div>
+    <!-- /widget-header -->
+    <div class="widget-content">
+        <div class="shortcuts">
+            
+            <a href="~/PerfilUsuario/Horas" class="shortcut"><i class="shortcut-icon icon-time"></i><span
+                class="shortcut-label">Control de Horas</span> </a>
+            <a href="~/PerfilUsuario/Novedades" class="shortcut"><i class="shortcut-icon  icon-calendar"></i><span
+                class="shortcut-label">Novedades y Eventos</span> </a>
+            <a href="~/PerfilUsuario/Licencia" class="shortcut"><i class="shortcut-icon   icon-list-alt"></i><span
+                class="shortcut-label">Licencias</span> </a>
+              <a href="~/PerfilUsuario/Perfil" class="shortcut"><i class="shortcut-icon  icon-user"></i><span
+                class="shortcut-label">Perfil</span> </a>
+
+        </div>
+        <!-- /shortcuts -->
+    </div>
+    <!-- /widget-content -->
+</div>

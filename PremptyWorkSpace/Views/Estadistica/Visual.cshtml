@@ -1,0 +1,89 @@
+﻿
+<!DOCTYPE HTML>
+    @using PremptyWorkSpace.Models;
+
+@{
+    ViewBag.Title = "Gerente";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<html>
+<head>
+
+
+<div class="widget">
+   <div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                <li><a href="~/Menu/Select"><i class="shortcut-icon icon-user"></i><span>Empleados</span> </a></li>
+                <li><a href="~/Control/Index"><i class="shortcut-icon icon-dashboard"></i><span>Control de Asistencia</span> </a></li>
+                <li><a href="~/Estadistica/Index"><i class="shortcut-icon icon-signal"></i><span>Estadisticas</span> </a></li>
+
+
+            </ul>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /subnavbar-inner -->
+</div>
+</div>
+    <script src="~/js/canvasjs.min.js"></script>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            title: {
+                text: "Posibles ausencias de empleados"
+            },
+            data: [
+            {
+                // Change type to "doughnut", "line", "splineArea", etc.
+                type: "column",
+                dataPoints: [
+                    { label: "01/07/2016", y: 10 },
+                    { label: "02/07/2016", y: 15 },
+                    { label: "03/07/2016", y: 25 },
+                    { label: "04/07/2016", y: 30 },
+                    { label: "05/07/2016", y: 35 },
+                    { label: "06/07/2016", y: 7 },
+                    { label: "07/07/2016", y: 12 },
+                    { label: "08/07/2016", y: 2 },
+                    { label: "09/07/2016", y: 9 },
+                    { label: "10/07/2016", y: 0 },
+                    { label: "11/07/2016", y: 1 },
+                    { label: "12/07/2016", y: 4 },
+                    { label: "13/07/2016", y: 10 },
+                    { label: "14/07/2016", y: 3 },
+                    { label: "15/07/2016", y: 1 },
+                    { label: "16/07/2016", y: 0 },
+                    { label: "17/07/2016", y: 0 },
+                    { label: "18/07/2016", y: 5 },
+                    { label: "19/07/2016", y: 9 },
+                    { label: "20/07/2016", y: 19 },
+                    { label: "21/07/2016", y: 5 },
+                    { label: "22/07/2016", y: 0 },
+                    { label: "23/07/2016", y: 0 },
+                    { label: "24/07/2016", y: 11 },
+                    { label: "25/07/2016", y: 3 },
+                    { label: "26/07/2016", y: 0 },
+                    { label: "27/07/2016", y: 9 },
+                    { label: "28/07/2016", y: 20 },
+                    { label: "29/07/2016", y: 25 },
+                    { label: "30/07/2016", y: 6 },
+                    { label: "31/07/2016", y: 1 }
+                ]
+            }
+            ]
+        });
+        chart.render();
+    }
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 80%; margin-left: 10%"></div>
+
+
+</body>
+</html>

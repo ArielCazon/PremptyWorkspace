@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Administrador";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+
+
+
+
+<div class="widget">
+    <div class="widget-header">
+        <i class="icon-bookmark"></i>
+        <h3>Administrador @Session["sesNombCompleto"]</h3>
+    </div>
+    <!-- /widget-header -->
+    <div class="widget-content">
+        <div class="shortcuts">
+            <a href="~/Horas/Index" class="shortcut"><i class="shortcut-icon icon-time"></i><span
+                class="shortcut-label">Control de Horas</span> </a>
+            <a href="~/Usuarios/Index" class="shortcut"><i class="shortcut-icon icon-group"></i><span
+                class="shortcut-label">Usuarios</span> </a>
+            <a href="~/Eventos/Index" class="shortcut"><i class="shortcut-icon  icon-calendar"></i><span
+                class="shortcut-label">Eventos</span> </a>
+            <a href="~/Licencias/Index" class="shortcut"><i class="shortcut-icon   icon-list-alt"></i><span
+                class="shortcut-label">Licencias</span> </a>
+            <a href="~/Areas/Index" class="shortcut"><i class="shortcut-icon icon-th"></i><span
+                class="shortcut-label">Areas</span> </a>
+        </div>
+        <!-- /shortcuts -->
+    </div>
+    <!-- /widget-content -->
+</div>

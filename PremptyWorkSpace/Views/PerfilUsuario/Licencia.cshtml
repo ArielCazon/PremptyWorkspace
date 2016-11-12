@@ -1,0 +1,87 @@
+﻿@model IEnumerable<PremptyWorkSpace.Models.LicenciaViewModel>
+@using PremptyWorkSpace.Models;
+
+
+@{
+    ViewBag.Title = "Mis Licencias";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                <li><a href="~/PerfilUsuario/Horas"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
+                <li><a href="~/PerfilUsuario/Perfil"><i class="shortcut-icon icon-pencil"></i><span>Perfil</span> </a></li>
+                <li><a href="~/PerfilUsuario/Licencia"><i class="shortcut-icon   icon-list-alt"></i><span>Solicitar Licencia</span> </a></li>
+                <li><a href="~/PerfilUsuario/Novedades"><i class="shortcut-icon icon-bookmark"></i><span>Novedades</span> </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="nav pull-left">
+            <a href="~/PerfilUsuario/SolicitarLicencia">
+                <input type="button" value="Solicitar Licencia" class="btn btn-danger ingresar" /></a>
+                </div>
+             <div id="target-1" class="widget">
+                <div class="widget widget-table action-table">
+                    <div class="widget-header">
+                        <i class="icon-th-list"></i>
+                        <h3>Solicitudes Pendientes</h3>
+                    </div>
+                    <div class="widget-content">
+
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FechaInicio)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FechaFin)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Motivo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Descripcion)
+                            </th>
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {                  
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FechaInicio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FechaFin)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Motivo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                </td>
+
+                            </tr>
+                        }
+
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    </div>
+
+
+

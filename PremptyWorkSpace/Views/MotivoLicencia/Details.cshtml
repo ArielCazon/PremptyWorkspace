@@ -1,0 +1,25 @@
+﻿@model PremptyWorkSpace.Models.MotivoLicencia
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+<div class="account-container register">
+    <div class="content clearfix">
+        <div class="login-fields">
+            <h2>Detalles del motivo</h2>
+            <div class="control-group">
+                @Html.DisplayNameFor(model => model.Descripcion)
+                <div class="alert alert-info">
+                    @Html.DisplayFor(model => model.Descripcion)
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a href="~/MotivoLicencia/Index">
+                <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.IdMotivo }, new { @class = "btn btn-danger ingresar" })
+        </div>
+    </div>
+</div>
+

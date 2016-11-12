@@ -1,0 +1,85 @@
+﻿@model PremptyWorkSpace.Models.Eventos
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="account-container register">
+
+    <div class="content clearfix">
+
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+
+            <div class="login-fields">
+                <h2>Editar evento</h2>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Titulo)
+
+                    @Html.EditorFor(model => model.Titulo)
+                    @Html.ValidationMessageFor(model => model.Titulo)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Descripcion)
+
+                    @Html.EditorFor(model => model.Descripcion)
+                    @Html.ValidationMessageFor(model => model.Descripcion)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Fecha)
+
+                    @Html.EditorFor(model => model.Fecha)
+                    @Html.ValidationMessageFor(model => model.Fecha)
+                </div>
+                <div class="field">
+                    @Html.LabelFor(model => model.IdArea, "Areas")
+
+                    @Html.DropDownList("IdArea", String.Empty)
+                    @Html.ValidationMessageFor(model => model.IdArea)
+                </div>
+            </div> 
+          <div class="form-actions">
+                <a href="~/Eventos/Index">
+                    <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+                <input id="Ingresar" type="submit" value="Editar" class=" btn btn-danger ingresar" />
+
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+        $('#Fecha').datepicker({
+            minDate: 1
+        }).on('changeDate', function (e) {
+            $('#Fecha').datepicker('hide');
+        });
+
+
+    });
+</script>

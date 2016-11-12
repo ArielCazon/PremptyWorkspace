@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6bf2959452d44bf4a474b2b11d862a05" Name="Diagrama1" ZoomLevel="86">
+        <EntityTypeShape EntityType="Prempty.Areas" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.Entidades" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.Eventos" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.Ingresos" Width="1.5" PointX="10.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.Licencias" Width="1.5" PointX="10.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.MotivoLicencia" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.Respuestas" Width="1.5" PointX="10.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.Roles" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Prempty.Usuarios" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="Prempty.FK__Usuarios__Area" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Areas_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Eventos_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Eventos_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_MotivoLicencia_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Usuarios_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Respuestas_Eventos" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Ingresos_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK__Licencias__Motivos" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Licencias_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK_Respuestas_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Prempty.FK__Usuarios__IdRol" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

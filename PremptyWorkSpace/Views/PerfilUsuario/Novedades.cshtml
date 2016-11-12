@@ -1,0 +1,122 @@
+﻿@model IEnumerable<PremptyWorkSpace.Models.NovedadesViewModel>
+@using PremptyWorkSpace.Models;
+
+@{
+    ViewBag.Title = "Novedades";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                 <li><a href="~/PerfilUsuario/Horas"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
+                <li><a href="~/PerfilUsuario/Perfil"><i class="shortcut-icon icon-pencil"></i><span>Perfil</span> </a></li>
+                <li><a href="~/PerfilUsuario/Licencia"><i class="shortcut-icon   icon-list-alt"></i><span>Solicitar Licencia</span> </a></li>
+                <li><a href="~/PerfilUsuario/Novedades"><i class="shortcut-icon icon-bookmark"></i><span>Novedades</span> </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="main">
+    <div class="main-inner">
+        <div class="container">
+            <div class="row">
+
+                <div class="span6">
+                    <div class="widget widget-nopad">
+                        <div class="widget-header">
+                            <i class="icon-list-alt"></i>
+                            <h3>Eventos del dia</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content">
+                            <ul class="news-items">
+
+                                 @foreach (var itemss in Model)
+                                {
+                                    <li>
+
+                                        <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => itemss.Fecha)</span> </div>
+                                        <div class="news-item-detail">
+                                            <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => itemss.Titulo)</a>
+                                            <p class="news-item-preview">@Html.DisplayFor(modelItem => itemss.Areas) </p>
+                                        </div>
+
+
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="widget widget-nopad">
+                        <div class="widget-header">
+                            <i class="icon-list-alt"></i>
+                            <h3>Proximos eventos</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content">
+                            <ul class="news-items">
+
+                                @foreach (var item in Model)
+                                {
+                                    <li>
+
+                                        <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => item.Fecha)</span> </div>
+                                        <div class="news-item-detail">
+                                            <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => item.Titulo)</a>
+                                            <p class="news-item-preview">@Html.DisplayFor(modelItem => item.Areas) </p>
+                                        </div>
+
+
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="widget widget-nopad">
+                        <div class="widget-header">
+                            <i class="icon-list-alt"></i>
+                            <h3>Noticias</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content">
+                            <ul class="news-items">
+                                <li>
+
+                                    <div class="news-item-date"><span class="news-item-day">29</span> <span class="news-item-month">Aug</span> </div>
+                                    <div class="news-item-detail">
+                                        <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">Thursday Roundup # 40</a>
+                                        <p class="news-item-preview">This is our web design and development news series where we share our favorite design/development related articles, resources, tutorials and awesome freebies. </p>
+                                    </div>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

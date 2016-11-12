@@ -1,0 +1,196 @@
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Users\ry7\Music\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\ry7\Music\PremptyWorkSpace2\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\Proyecto Final\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Users\ry7\Videos\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb

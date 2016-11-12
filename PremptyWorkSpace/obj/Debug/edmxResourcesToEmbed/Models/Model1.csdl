@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PremptyModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PremptyEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Areas" EntityType="PremptyModel.Areas" />
+    <EntitySet Name="Eventos" EntityType="PremptyModel.Eventos" />
+    <EntitySet Name="Ingresos" EntityType="PremptyModel.Ingresos" />
+    <EntitySet Name="Licencias" EntityType="PremptyModel.Licencias" />
+    <EntitySet Name="MotivoLicencia" EntityType="PremptyModel.MotivoLicencia" />
+    <EntitySet Name="Roles" EntityType="PremptyModel.Roles" />
+    <EntitySet Name="sysdiagrams" EntityType="PremptyModel.sysdiagrams" />
+    <EntitySet Name="TemaInteres" EntityType="PremptyModel.TemaInteres" />
+    <EntitySet Name="UsuarioInteres" EntityType="PremptyModel.UsuarioInteres" />
+    <EntitySet Name="Usuarios" EntityType="PremptyModel.Usuarios" />
+    <AssociationSet Name="FK__Eventos__IdArea__24927208" Association="PremptyModel.FK__Eventos__IdArea__24927208">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__Area__1FCDBCEB" Association="PremptyModel.FK__Usuarios__Area__1FCDBCEB">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Ingresos__IdUsua__21B6055D" Association="PremptyModel.FK__Ingresos__IdUsua__21B6055D">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Ingresos" EntitySet="Ingresos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Licencias__Motiv__22AA2996" Association="PremptyModel.FK__Licencias__Motiv__22AA2996">
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licencias_Usuarios" Association="PremptyModel.FK_Licencias_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__IdRol__20C1E124" Association="PremptyModel.FK__Usuarios__IdRol__20C1E124">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UsuarioIn__IdUsu__239E4DCF" Association="PremptyModel.FK__UsuarioIn__IdUsu__239E4DCF">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="UsuarioInteres" EntitySet="UsuarioInteres" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(PremptyModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(PremptyModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="Areas">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Eventos" Relationship="PremptyModel.FK__Eventos__IdArea__24927208" FromRole="Areas" ToRole="Eventos" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyModel.FK__Usuarios__Area__1FCDBCEB" FromRole="Areas" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Eventos">
+    <Key>
+      <PropertyRef Name="IdEventos" />
+    </Key>
+    <Property Name="IdEventos" Type="Int32" Nullable="false" />
+    <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IdArea" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Areas" Relationship="PremptyModel.FK__Eventos__IdArea__24927208" FromRole="Eventos" ToRole="Areas" />
+  </EntityType>
+  <EntityType Name="Ingresos">
+    <Key>
+      <PropertyRef Name="IdIngresos" />
+    </Key>
+    <Property Name="IdIngresos" Type="Int32" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaActual" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HoraIngreso" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HoraEgreso" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyModel.FK__Ingresos__IdUsua__21B6055D" FromRole="Ingresos" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Licencias">
+    <Key>
+      <PropertyRef Name="IdLicencia" />
+    </Key>
+    <Property Name="IdLicencia" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Motivo" Type="Int32" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MotivoLicencia" Relationship="PremptyModel.FK__Licencias__Motiv__22AA2996" FromRole="Licencias" ToRole="MotivoLicencia" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyModel.FK_Licencias_Usuarios" FromRole="Licencias" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="MotivoLicencia">
+    <Key>
+      <PropertyRef Name="IdMotivo" />
+    </Key>
+    <Property Name="IdMotivo" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Licencias" Relationship="PremptyModel.FK__Licencias__Motiv__22AA2996" FromRole="MotivoLicencia" ToRole="Licencias" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="Rol" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyModel.FK__Usuarios__IdRol__20C1E124" FromRole="Roles" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TemaInteres">
+    <Key>
+      <PropertyRef Name="IdTema" />
+    </Key>
+    <Property Name="IdTema" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UsuarioInteres">
+    <Key>
+      <PropertyRef Name="IdUsuarioI" />
+    </Key>
+    <Property Name="IdUsuarioI" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="IdTema" Type="Int32" Nullable="false" />
+    <Property Name="Respuesta" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyModel.FK__UsuarioIn__IdUsu__239E4DCF" FromRole="UsuarioInteres" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="Legajo" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FechaNac" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Area" Type="Int32" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Supervisor" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Domicilio" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Areas" Relationship="PremptyModel.FK__Usuarios__Area__1FCDBCEB" FromRole="Usuarios" ToRole="Areas" />
+    <NavigationProperty Name="Ingresos" Relationship="PremptyModel.FK__Ingresos__IdUsua__21B6055D" FromRole="Usuarios" ToRole="Ingresos" />
+    <NavigationProperty Name="Licencias" Relationship="PremptyModel.FK_Licencias_Usuarios" FromRole="Usuarios" ToRole="Licencias" />
+    <NavigationProperty Name="Roles" Relationship="PremptyModel.FK__Usuarios__IdRol__20C1E124" FromRole="Usuarios" ToRole="Roles" />
+    <NavigationProperty Name="UsuarioInteres" Relationship="PremptyModel.FK__UsuarioIn__IdUsu__239E4DCF" FromRole="Usuarios" ToRole="UsuarioInteres" />
+  </EntityType>
+  <Association Name="FK__Eventos__IdArea__24927208">
+    <End Role="Areas" Type="PremptyModel.Areas" Multiplicity="1" />
+    <End Role="Eventos" Type="PremptyModel.Eventos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Eventos">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__Area__1FCDBCEB">
+    <End Role="Areas" Type="PremptyModel.Areas" Multiplicity="0..1" />
+    <End Role="Usuarios" Type="PremptyModel.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="Area" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Ingresos__IdUsua__21B6055D">
+    <End Role="Usuarios" Type="PremptyModel.Usuarios" Multiplicity="1" />
+    <End Role="Ingresos" Type="PremptyModel.Ingresos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Ingresos">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Licencias__Motiv__22AA2996">
+    <End Role="MotivoLicencia" Type="PremptyModel.MotivoLicencia" Multiplicity="0..1" />
+    <End Role="Licencias" Type="PremptyModel.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MotivoLicencia">
+        <PropertyRef Name="IdMotivo" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="Motivo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licencias_Usuarios">
+    <End Role="Usuarios" Type="PremptyModel.Usuarios" Multiplicity="1" />
+    <End Role="Licencias" Type="PremptyModel.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__IdRol__20C1E124">
+    <End Role="Roles" Type="PremptyModel.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyModel.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UsuarioIn__IdUsu__239E4DCF">
+    <End Role="Usuarios" Type="PremptyModel.Usuarios" Multiplicity="1" />
+    <End Role="UsuarioInteres" Type="PremptyModel.UsuarioInteres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="UsuarioInteres">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

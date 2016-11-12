@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PremptyWSModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PremptyWSEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Areas" EntityType="PremptyWSModel.Areas" />
+    <EntitySet Name="Eventos" EntityType="PremptyWSModel.Eventos" />
+    <EntitySet Name="Ingresos" EntityType="PremptyWSModel.Ingresos" />
+    <EntitySet Name="Licencias" EntityType="PremptyWSModel.Licencias" />
+    <EntitySet Name="MotivoLicencia" EntityType="PremptyWSModel.MotivoLicencia" />
+    <EntitySet Name="Roles" EntityType="PremptyWSModel.Roles" />
+    <EntitySet Name="TemaInteres" EntityType="PremptyWSModel.TemaInteres" />
+    <EntitySet Name="UsuarioInteres" EntityType="PremptyWSModel.UsuarioInteres" />
+    <EntitySet Name="Usuarios" EntityType="PremptyWSModel.Usuarios" />
+    <AssociationSet Name="FK__Usuarios__Area" Association="PremptyWSModel.FK__Usuarios__Area">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Eventos_Areas" Association="PremptyWSModel.FK_Eventos_Areas">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingresos_Usuarios" Association="PremptyWSModel.FK_Ingresos_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Ingresos" EntitySet="Ingresos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Licencias__Motivos" Association="PremptyWSModel.FK__Licencias__Motivos">
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licencias_Usuarios" Association="PremptyWSModel.FK_Licencias_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__IdRol" Association="PremptyWSModel.FK__Usuarios__IdRol">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioInteres_TemaInteres" Association="PremptyWSModel.FK_UsuarioInteres_TemaInteres">
+      <End Role="TemaInteres" EntitySet="TemaInteres" />
+      <End Role="UsuarioInteres" EntitySet="UsuarioInteres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioInteres_Usuarios" Association="PremptyWSModel.FK_UsuarioInteres_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="UsuarioInteres" EntitySet="UsuarioInteres" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Areas">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IdSupervisor" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyWSModel.FK__Usuarios__Area" FromRole="Areas" ToRole="Usuarios" />
+    <NavigationProperty Name="Eventos" Relationship="PremptyWSModel.FK_Eventos_Areas" FromRole="Areas" ToRole="Eventos" />
+  </EntityType>
+  <EntityType Name="Eventos">
+    <Key>
+      <PropertyRef Name="IdEventos" />
+    </Key>
+    <Property Name="IdEventos" Type="Int32" Nullable="false" />
+    <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IdArea" Type="Int32" />
+    <NavigationProperty Name="Areas" Relationship="PremptyWSModel.FK_Eventos_Areas" FromRole="Eventos" ToRole="Areas" />
+  </EntityType>
+  <EntityType Name="Ingresos">
+    <Key>
+      <PropertyRef Name="IdIngresos" />
+    </Key>
+    <Property Name="IdIngresos" Type="Int32" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaActual" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HoraIngreso" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HoraEgreso" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyWSModel.FK_Ingresos_Usuarios" FromRole="Ingresos" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Licencias">
+    <Key>
+      <PropertyRef Name="IdLicencia" />
+    </Key>
+    <Property Name="IdLicencia" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Motivo" Type="Int32" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MotivoLicencia" Relationship="PremptyWSModel.FK__Licencias__Motivos" FromRole="Licencias" ToRole="MotivoLicencia" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyWSModel.FK_Licencias_Usuarios" FromRole="Licencias" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="MotivoLicencia">
+    <Key>
+      <PropertyRef Name="IdMotivo" />
+    </Key>
+    <Property Name="IdMotivo" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Licencias" Relationship="PremptyWSModel.FK__Licencias__Motivos" FromRole="MotivoLicencia" ToRole="Licencias" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="Rol" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyWSModel.FK__Usuarios__IdRol" FromRole="Roles" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="TemaInteres">
+    <Key>
+      <PropertyRef Name="IdTema" />
+    </Key>
+    <Property Name="IdTema" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="UsuarioInteres" Relationship="PremptyWSModel.FK_UsuarioInteres_TemaInteres" FromRole="TemaInteres" ToRole="UsuarioInteres" />
+  </EntityType>
+  <EntityType Name="UsuarioInteres">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTema" Type="Int32" Nullable="false" />
+    <Property Name="Respuesta" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TemaInteres" Relationship="PremptyWSModel.FK_UsuarioInteres_TemaInteres" FromRole="UsuarioInteres" ToRole="TemaInteres" />
+    <NavigationProperty Name="Usuarios" Relationship="PremptyWSModel.FK_UsuarioInteres_Usuarios" FromRole="UsuarioInteres" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="Legajo" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FechaNac" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IdArea" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Domicilio" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Areas" Relationship="PremptyWSModel.FK__Usuarios__Area" FromRole="Usuarios" ToRole="Areas" />
+    <NavigationProperty Name="Ingresos" Relationship="PremptyWSModel.FK_Ingresos_Usuarios" FromRole="Usuarios" ToRole="Ingresos" />
+    <NavigationProperty Name="Licencias" Relationship="PremptyWSModel.FK_Licencias_Usuarios" FromRole="Usuarios" ToRole="Licencias" />
+    <NavigationProperty Name="Roles" Relationship="PremptyWSModel.FK__Usuarios__IdRol" FromRole="Usuarios" ToRole="Roles" />
+    <NavigationProperty Name="UsuarioInteres" Relationship="PremptyWSModel.FK_UsuarioInteres_Usuarios" FromRole="Usuarios" ToRole="UsuarioInteres" />
+  </EntityType>
+  <Association Name="FK__Usuarios__Area">
+    <End Role="Areas" Type="PremptyWSModel.Areas" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyWSModel.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Eventos_Areas">
+    <End Role="Areas" Type="PremptyWSModel.Areas" Multiplicity="0..1" />
+    <End Role="Eventos" Type="PremptyWSModel.Eventos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Eventos">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingresos_Usuarios">
+    <End Role="Usuarios" Type="PremptyWSModel.Usuarios" Multiplicity="1" />
+    <End Role="Ingresos" Type="PremptyWSModel.Ingresos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Ingresos">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Licencias__Motivos">
+    <End Role="MotivoLicencia" Type="PremptyWSModel.MotivoLicencia" Multiplicity="0..1" />
+    <End Role="Licencias" Type="PremptyWSModel.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MotivoLicencia">
+        <PropertyRef Name="IdMotivo" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="Motivo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licencias_Usuarios">
+    <End Role="Usuarios" Type="PremptyWSModel.Usuarios" Multiplicity="1" />
+    <End Role="Licencias" Type="PremptyWSModel.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__IdRol">
+    <End Role="Roles" Type="PremptyWSModel.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyWSModel.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioInteres_TemaInteres">
+    <End Role="TemaInteres" Type="PremptyWSModel.TemaInteres" Multiplicity="1" />
+    <End Role="UsuarioInteres" Type="PremptyWSModel.UsuarioInteres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TemaInteres">
+        <PropertyRef Name="IdTema" />
+      </Principal>
+      <Dependent Role="UsuarioInteres">
+        <PropertyRef Name="IdTema" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioInteres_Usuarios">
+    <End Role="Usuarios" Type="PremptyWSModel.Usuarios" Multiplicity="1" />
+    <End Role="UsuarioInteres" Type="PremptyWSModel.UsuarioInteres" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="UsuarioInteres">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

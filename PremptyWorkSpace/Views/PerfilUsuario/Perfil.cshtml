@@ -1,0 +1,67 @@
+﻿@model PremptyWorkSpace.Models.Usuarios
+
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                 <li><a href="~/PerfilUsuario/Horas"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
+                <li><a href="~/PerfilUsuario/Perfil"><i class="shortcut-icon icon-pencil"></i><span>Perfil</span> </a></li>
+                <li><a href="~/PerfilUsuario/Licencia"><i class="shortcut-icon   icon-list-alt"></i><span>Solicitar Licencia</span> </a></li>
+                <li><a href="~/PerfilUsuario/Novedades"><i class="shortcut-icon icon-bookmark"></i><span>Novedades</span> </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="account-container register">
+            <div class="content clearfix">
+                <div class="login-fields">
+                    <h3>Mi Perfil</h3>
+                    <div class="control-group">
+                        @Html.DisplayNameFor(model => model.Nombre)
+                        <div class="alert alert-info">
+                            @Html.DisplayFor(model => model.Nombre)
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.DisplayNameFor(model => model.Apellido)
+                        <div class="alert alert-info">
+                            @Html.DisplayFor(model => model.Apellido)
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.DisplayNameFor(model => model.FechaNac)
+                        <div class="alert alert-info">
+                            @Html.DisplayFor(model => model.FechaNac)
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        @Html.DisplayNameFor(model => model.Domicilio)
+                        <div class="alert alert-info">
+                            @Html.DisplayFor(model => model.Domicilio)
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.DisplayNameFor(model => model.NombreUsuario)
+                        <div class="alert alert-info">
+                            @Html.DisplayFor(model => model.NombreUsuario)
+                        </div>
+                    </div>
+
+                </div>
+                @Html.ActionLink("EditarPerfil", "EditarPerfil","PerfilUsuario", new { id = Model.IdUsuario }, new { @class = "btn btn-danger ingresar" })
+
+            </div>
+        </div>
+
+
+

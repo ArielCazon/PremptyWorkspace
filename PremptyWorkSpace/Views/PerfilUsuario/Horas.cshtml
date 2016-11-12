@@ -1,0 +1,45 @@
+﻿@model PremptyWorkSpace.Models.Ingresos
+
+@{
+    ViewBag.Title = "Horas";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                <li><a href="~/PerfilUsuario/Horas"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
+                <li><a href="~/PerfilUsuario/Perfil"><i class="shortcut-icon icon-pencil"></i><span>Perfil</span> </a></li>
+                <li><a href="~/PerfilUsuario/Licencia"><i class="shortcut-icon   icon-list-alt"></i><span>Solicitar Licencia</span> </a></li>
+                <li><a href="~/PerfilUsuario/Novedades"><i class="shortcut-icon icon-bookmark"></i><span>Novedades</span> </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="account-container register">
+    <div class="content clearfix">
+        <div class="login-fields">
+            <h2>Control de Horas</h2>
+        <div class="alert alert-info">
+               Hora y fecha actual: @DateTime.Now
+            </div>
+            <div class="alert alert-info">
+                <p>Hora de ingreso: </p>
+                <p>@ViewBag.HoraIngreso</p>
+                <a href="~/PerfilUsuario/MarcarEntrada">
+                    <button class="btn btn-danger ingresar">Marcar Entrada</button></a>
+            </div>
+            <div class="alert alert-info">
+                <p>Hora de salida: </p>
+                <p>@ViewBag.HoraSalida</p>
+                <a href="~/PerfilUsuario/MarcarSalida">
+                    <button class="btn btn-danger ingresar">Marcar Salida</button></a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

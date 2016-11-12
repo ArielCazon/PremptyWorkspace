@@ -1,0 +1,58 @@
+﻿@model PremptyWorkSpace.Models.ControlHsViewModel
+
+@{
+    ViewBag.Title = "Gerente";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                <li><a href="~/Menu/Select"><i class="shortcut-icon icon-user"></i><span>Empleado</span> </a></li>
+                <li><a href="~/Control/Index"><i class="shortcut-icon icon-dashboard"></i><span>Control de asistencias</span> </a></li>
+                <li><a href="~/Estadistica/Index"><i class="shortcut-icon  icon-signal"></i><span>Estadisticas</span> </a></li>
+
+
+            </ul>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /subnavbar-inner -->
+</div>
+<!-- /widget-header -->
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div id="target-1" class="widget">
+                <div class="widget-content">
+                    @using (Html.BeginForm("Visual", "Control"))
+                    {
+                        <div class="shortcuts">
+                            <div class="display-label">
+                                <ul>
+                                    <h3>Información de control de horas</h3>
+                                </ul>
+                            </div>
+                            @Html.DropDownList("IdArea", null, "Seleccione Area..", null)
+                            @Html.DropDownList("IdMes", null, "Seleccione Mes..", null)
+                            <ul>
+
+                                <!-- Invoca a la action para visualizar el grafico -->
+
+
+                            </ul>
+                            <div>
+                                <input type="submit" name="Visualizar" value="Filtrar" class="btn btn-danger ingresar" />
+                            </div>
+                        </div>
+                        <!-- /shortcuts -->
+                    }
+                </div>
+                <!-- /widget-content -->
+            </div>
+        </div>
+    </div>
+</div>
+

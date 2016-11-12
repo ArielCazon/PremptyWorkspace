@@ -1,0 +1,95 @@
+﻿@model PremptyWorkSpace.Models.Usuarios
+
+
+@{
+    ViewBag.Title = "EditarPerfil";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="account-container register">
+
+    <div class="content clearfix">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div class="login-fields">
+                <h2>Editar usuario</h2>
+                <div class="field">
+                    @Html.LabelFor(model => model.Nombre)
+
+                    @Html.EditorFor(model => model.Nombre)
+                    @Html.ValidationMessageFor(model => model.Nombre)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Apellido)
+
+                    @Html.EditorFor(model => model.Apellido)
+                    @Html.ValidationMessageFor(model => model.Apellido)
+                </div>
+                <div class="field">
+                    @Html.LabelFor(model => model.NombreUsuario)
+
+                    @Html.TextBoxFor(model => model.NombreUsuario, new { @placeholder = "Ingrese un Nombre Usuario" })
+                    @Html.ValidationMessageFor(model => model.NombreUsuario)
+                </div>
+                <div class="field">
+                    @Html.LabelFor(model => model.FechaNac)
+
+                    @Html.EditorFor(model => model.FechaNac)
+                    @Html.ValidationMessageFor(model => model.FechaNac)
+                </div>
+                
+                <div class="field">
+                    @Html.LabelFor(model => model.Email)
+
+                    @Html.EditorFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+                        
+                <div class="field">
+                    @Html.LabelFor(model => model.Domicilio)
+
+                    @Html.EditorFor(model => model.Domicilio)
+                    @Html.ValidationMessageFor(model => model.Domicilio)
+                </div>
+                
+            </div> 
+            <div class="form-actions">
+                <a href="~/PerfilUsuario/Perfil">
+                    <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+                <input id="Ingresar" type="submit" value="Editar" class=" btn btn-danger ingresar" />
+
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+        $(document).ready(function () {
+            $('#FechaNac').datepicker({
+            });
+        });
+    });
+
+
+</script>

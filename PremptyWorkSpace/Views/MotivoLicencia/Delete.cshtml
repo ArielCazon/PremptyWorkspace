@@ -1,0 +1,29 @@
+﻿@model PremptyWorkSpace.Models.MotivoLicencia
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+<div class="account-container register">
+    <div class="content clearfix">
+        <div class="login-fields">
+            <h3>Detalles del motivo</h3>
+            <h4>Esta seguro en eliminar este motivo de licencia?</h4>
+            <div class="control-group">
+                @Html.DisplayNameFor(model => model.Descripcion)
+                <div class="alert alert-info">
+                    @Html.DisplayFor(model => model.Descripcion)
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {          
+            <div class="form-actions">
+                <a href="~/MotivoLicencia/Index">
+                    <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+                <input type="submit" value="Eliminar" class=" btn btn-danger ingresar" />
+            </div>
+        }
+    </div>
+</div>
+

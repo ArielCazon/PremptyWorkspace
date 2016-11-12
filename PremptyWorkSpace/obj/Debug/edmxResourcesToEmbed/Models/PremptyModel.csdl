@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Prempty" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PremptyDb" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Areas" EntityType="Prempty.Areas" />
+    <EntitySet Name="Entidades" EntityType="Prempty.Entidades" />
+    <EntitySet Name="Eventos" EntityType="Prempty.Eventos" />
+    <EntitySet Name="Ingresos" EntityType="Prempty.Ingresos" />
+    <EntitySet Name="Licencias" EntityType="Prempty.Licencias" />
+    <EntitySet Name="MotivoLicencia" EntityType="Prempty.MotivoLicencia" />
+    <EntitySet Name="Respuestas" EntityType="Prempty.Respuestas" />
+    <EntitySet Name="Roles" EntityType="Prempty.Roles" />
+    <EntitySet Name="sysdiagrams" EntityType="Prempty.sysdiagrams" />
+    <EntitySet Name="Usuarios" EntityType="Prempty.Usuarios" />
+    <AssociationSet Name="FK__Usuarios__Area" Association="Prempty.FK__Usuarios__Area">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Areas_Entidades" Association="Prempty.FK_Areas_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Areas" EntitySet="Areas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Eventos_Areas" Association="Prempty.FK_Eventos_Areas">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Eventos_Entidades" Association="Prempty.FK_Eventos_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MotivoLicencia_Entidades" Association="Prempty.FK_MotivoLicencia_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Entidades" Association="Prempty.FK_Usuarios_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Eventos" Association="Prempty.FK_Respuestas_Eventos">
+      <End Role="Eventos" EntitySet="Eventos" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingresos_Usuarios" Association="Prempty.FK_Ingresos_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Ingresos" EntitySet="Ingresos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Licencias__Motivos" Association="Prempty.FK__Licencias__Motivos">
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licencias_Usuarios" Association="Prempty.FK_Licencias_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Usuarios" Association="Prempty.FK_Respuestas_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__IdRol" Association="Prempty.FK__Usuarios__IdRol">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Areas">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="Prempty.FK__Usuarios__Area" FromRole="Areas" ToRole="Usuarios" />
+    <NavigationProperty Name="Entidades" Relationship="Prempty.FK_Areas_Entidades" FromRole="Areas" ToRole="Entidades" />
+    <NavigationProperty Name="Eventos" Relationship="Prempty.FK_Eventos_Areas" FromRole="Areas" ToRole="Eventos" />
+  </EntityType>
+  <EntityType Name="Entidades">
+    <Key>
+      <PropertyRef Name="IdEntidad" />
+    </Key>
+    <Property Name="IdEntidad" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="RazonSocial" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Cuit" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Domicilio" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Categoria" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
+    <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Areas" Relationship="Prempty.FK_Areas_Entidades" FromRole="Entidades" ToRole="Areas" />
+    <NavigationProperty Name="Eventos" Relationship="Prempty.FK_Eventos_Entidades" FromRole="Entidades" ToRole="Eventos" />
+    <NavigationProperty Name="MotivoLicencia" Relationship="Prempty.FK_MotivoLicencia_Entidades" FromRole="Entidades" ToRole="MotivoLicencia" />
+    <NavigationProperty Name="Usuarios" Relationship="Prempty.FK_Usuarios_Entidades" FromRole="Entidades" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Eventos">
+    <Key>
+      <PropertyRef Name="IdEventos" />
+    </Key>
+    <Property Name="IdEventos" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IdArea" Type="Int32" />
+    <Property Name="Tipo" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+    <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Areas" Relationship="Prempty.FK_Eventos_Areas" FromRole="Eventos" ToRole="Areas" />
+    <NavigationProperty Name="Entidades" Relationship="Prempty.FK_Eventos_Entidades" FromRole="Eventos" ToRole="Entidades" />
+    <NavigationProperty Name="Respuestas" Relationship="Prempty.FK_Respuestas_Eventos" FromRole="Eventos" ToRole="Respuestas" />
+  </EntityType>
+  <EntityType Name="Ingresos">
+    <Key>
+      <PropertyRef Name="IdIngresos" />
+    </Key>
+    <Property Name="IdIngresos" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaActual" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HoraIngreso" Type="DateTime" Precision="3" />
+    <Property Name="HoraEgreso" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Usuarios" Relationship="Prempty.FK_Ingresos_Usuarios" FromRole="Ingresos" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Licencias">
+    <Key>
+      <PropertyRef Name="IdLicencia" />
+    </Key>
+    <Property Name="IdLicencia" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Motivo" Type="Int32" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MotivoLicencia" Relationship="Prempty.FK__Licencias__Motivos" FromRole="Licencias" ToRole="MotivoLicencia" />
+    <NavigationProperty Name="Usuarios" Relationship="Prempty.FK_Licencias_Usuarios" FromRole="Licencias" ToRole="Usuarios" />
+    <Property Type="Boolean" Name="Justificacion" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MotivoLicencia">
+    <Key>
+      <PropertyRef Name="IdMotivo" />
+    </Key>
+    <Property Name="IdMotivo" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Entidades" Relationship="Prempty.FK_MotivoLicencia_Entidades" FromRole="MotivoLicencia" ToRole="Entidades" />
+    <NavigationProperty Name="Licencias" Relationship="Prempty.FK__Licencias__Motivos" FromRole="MotivoLicencia" ToRole="Licencias" />
+  </EntityType>
+  <EntityType Name="Respuestas">
+    <Key>
+      <PropertyRef Name="IdRespuesta" />
+    </Key>
+    <Property Name="IdRespuesta" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdEvento" Type="Int32" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="Respuesta" Type="Int32" />
+    <Property Name="Comentario" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Eventos" Relationship="Prempty.FK_Respuestas_Eventos" FromRole="Respuestas" ToRole="Eventos" />
+    <NavigationProperty Name="Usuarios" Relationship="Prempty.FK_Respuestas_Usuarios" FromRole="Respuestas" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Rol" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Usuarios" Relationship="Prempty.FK__Usuarios__IdRol" FromRole="Roles" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="Legajo" Type="Int32" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FechaNac" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IdArea" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Domicilio" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="IdEntidad" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Areas" Relationship="Prempty.FK__Usuarios__Area" FromRole="Usuarios" ToRole="Areas" />
+    <NavigationProperty Name="Entidades" Relationship="Prempty.FK_Usuarios_Entidades" FromRole="Usuarios" ToRole="Entidades" />
+    <NavigationProperty Name="Ingresos" Relationship="Prempty.FK_Ingresos_Usuarios" FromRole="Usuarios" ToRole="Ingresos" />
+    <NavigationProperty Name="Licencias" Relationship="Prempty.FK_Licencias_Usuarios" FromRole="Usuarios" ToRole="Licencias" />
+    <NavigationProperty Name="Respuestas" Relationship="Prempty.FK_Respuestas_Usuarios" FromRole="Usuarios" ToRole="Respuestas" />
+    <NavigationProperty Name="Roles" Relationship="Prempty.FK__Usuarios__IdRol" FromRole="Usuarios" ToRole="Roles" />
+  </EntityType>
+  <Association Name="FK__Usuarios__Area">
+    <End Role="Areas" Type="Prempty.Areas" Multiplicity="1" />
+    <End Role="Usuarios" Type="Prempty.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Areas_Entidades">
+    <End Role="Entidades" Type="Prempty.Entidades" Multiplicity="1" />
+    <End Role="Areas" Type="Prempty.Areas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="Areas">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Eventos_Areas">
+    <End Role="Areas" Type="Prempty.Areas" Multiplicity="0..1" />
+    <End Role="Eventos" Type="Prempty.Eventos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Eventos">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Eventos_Entidades">
+    <End Role="Entidades" Type="Prempty.Entidades" Multiplicity="1" />
+    <End Role="Eventos" Type="Prempty.Eventos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="Eventos">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MotivoLicencia_Entidades">
+    <End Role="Entidades" Type="Prempty.Entidades" Multiplicity="1" />
+    <End Role="MotivoLicencia" Type="Prempty.MotivoLicencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="MotivoLicencia">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Entidades">
+    <End Role="Entidades" Type="Prempty.Entidades" Multiplicity="1" />
+    <End Role="Usuarios" Type="Prempty.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entidades">
+        <PropertyRef Name="IdEntidad" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdEntidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Respuestas_Eventos">
+    <End Role="Eventos" Type="Prempty.Eventos" Multiplicity="1" />
+    <End Role="Respuestas" Type="Prempty.Respuestas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Eventos">
+        <PropertyRef Name="IdEventos" />
+      </Principal>
+      <Dependent Role="Respuestas">
+        <PropertyRef Name="IdEvento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ingresos_Usuarios">
+    <End Role="Usuarios" Type="Prempty.Usuarios" Multiplicity="1" />
+    <End Role="Ingresos" Type="Prempty.Ingresos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Ingresos">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Licencias__Motivos">
+    <End Role="MotivoLicencia" Type="Prempty.MotivoLicencia" Multiplicity="0..1" />
+    <End Role="Licencias" Type="Prempty.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MotivoLicencia">
+        <PropertyRef Name="IdMotivo" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="Motivo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Licencias_Usuarios">
+    <End Role="Usuarios" Type="Prempty.Usuarios" Multiplicity="1" />
+    <End Role="Licencias" Type="Prempty.Licencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Licencias">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Respuestas_Usuarios">
+    <End Role="Usuarios" Type="Prempty.Usuarios" Multiplicity="1" />
+    <End Role="Respuestas" Type="Prempty.Respuestas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Respuestas">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__IdRol">
+    <End Role="Roles" Type="Prempty.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="Prempty.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

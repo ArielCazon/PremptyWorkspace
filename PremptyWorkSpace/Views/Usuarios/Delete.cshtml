@@ -1,0 +1,68 @@
+﻿@model PremptyWorkSpace.Models.Usuarios
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="account-container register">
+
+    <div class="content clearfix">
+
+        <div class="login-fields">
+         <h3>Detalles del usuario</h3>
+            <h4>Esta seguro en eliminar este usuario?</h4>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Legajo):    
+
+                @Html.DisplayFor(model => model.Legajo)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Nombre):
+
+                @Html.DisplayFor(model => model.Nombre)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Apellido):
+
+                @Html.DisplayFor(model => model.Apellido)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.FechaNac):
+
+                @Html.DisplayFor(model => model.FechaNac)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.FechaIngreso):
+
+                @Html.DisplayFor(model => model.FechaIngreso)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Areas.Descripcion):
+
+                @Html.DisplayFor(model => model.Areas.Descripcion)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Domicilio):
+
+                @Html.DisplayFor(model => model.Domicilio)
+            </div>
+
+        </div>
+        @using (Html.BeginForm())
+        {          
+            <div class="form-actions">
+                <a href="~/Usuarios/Index">
+                    <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+                <input type="submit" value="Eliminar" class=" btn btn-danger ingresar" />
+            </div>
+        }
+    </div>
+</div>

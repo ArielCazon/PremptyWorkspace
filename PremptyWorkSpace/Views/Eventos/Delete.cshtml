@@ -1,0 +1,51 @@
+﻿@model PremptyWorkSpace.Models.Eventos
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="account-container register">
+
+    <div class="content clearfix">
+
+        <div class="login-fields">
+            <h2>Detalles del evento</h2>
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Titulo)
+
+                @Html.DisplayFor(model => model.Titulo)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Descripcion)
+
+                @Html.DisplayFor(model => model.Descripcion)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Fecha)
+
+                @Html.DisplayFor(model => model.Fecha)
+            </div>
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Areas.Descripcion):
+
+                @Html.DisplayFor(model => model.Areas.Descripcion)
+            </div>
+        </div>
+
+
+
+        @using (Html.BeginForm())
+        {
+             <div class="form-actions">
+                <a href="~/Eventos/Index">
+                    <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+                <input type="submit" value="Eliminar" class=" btn btn-danger ingresar" />
+            </div>
+        }
+    </div>
+</div>
+

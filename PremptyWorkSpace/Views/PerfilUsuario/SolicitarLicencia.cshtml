@@ -1,0 +1,94 @@
+﻿@model PremptyWorkSpace.Models.Licencias
+
+
+@{
+    ViewBag.Title = "Solicitar Licencia";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+<link href="@Url.Content("~/css/jquery-ui.css")" rel="stylesheet" type="text/css" />
+<script src="~/js/jquery-3.0.0.min.js"></script>
+<script src="~/js/jquery-ui-1.9.1.custom.js"></script>
+<script src="~/js/jquery-ui.js" type="text/javascript"></script>
+<div class="account-container register">
+    <div class="content clearfix">
+
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div class="login-fields">
+                <h2>Solicitar licencia</h2>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.FechaInicio)
+                    @Html.TextBoxFor(model => model.FechaInicio, new { @placeholder = "Ingrese fecha de inicio" })
+                    @Html.ValidationMessageFor(model => model.FechaInicio)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.FechaFin)
+
+                    @Html.TextBoxFor(model => model.FechaFin, new { @placeholder = "Ingrese fecha de fin" })
+                    @Html.ValidationMessageFor(model => model.FechaFin)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Motivo, "MotivoLicencia")
+
+                    @Html.DropDownList("Motivo", "Motivo de licencia")
+                    @Html.ValidationMessageFor(model => model.Motivo)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Descripcion)
+
+                    @Html.TextBoxFor(model => model.Descripcion, new { @placeholder = "Ingrese Descripcion" })
+                    @Html.ValidationMessageFor(model => model.Descripcion)
+                </div>
+
+
+
+            </div>
+            <div class="form-actions">
+                <a href="~/PerfilUsuario/Licencia">
+                    <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+                <input id="Ingresar" type="submit" value="Solicitar licencia" class=" btn btn-danger ingresar" />
+
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+        $('#FechaInicio').datepicker({
+            minDate: 1
+        }).on('changeDate', function (e) {
+            $('#FechaInicio').datepicker('hide');
+        });
+
+        $('#FechaFin').datepicker({
+            format: 'dd/mm/yyyy'
+        }).on('changeDate', function (e) {
+            $('#FechaFin').datepicker('hide');
+        });
+    });
+</script>
