@@ -1,15 +1,14 @@
 ﻿
 <!DOCTYPE HTML>
-    @using PremptyWorkSpace.Models;
+  @using PremptyWorkSpace.Models;
+  @using System.Data;
 
 @{
     ViewBag.Title = "Gerente";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
-
 <html>
 <head>
-
 
 <div class="widget">
    <div class="subnavbar">
@@ -26,64 +25,67 @@
         <!-- /container -->
     </div>
     <!-- /subnavbar-inner -->
+   </div>
 </div>
-</div>
-    <script src="~/js/canvasjs.min.js"></script>
-
-<script type="text/javascript">
-
-    window.onload = function () {
-        var chart = new CanvasJS.Chart("chartContainer", {
-            title: {
-                text: "Posibles ausencias de empleados"
-            },
-            data: [
-            {
-                // Change type to "doughnut", "line", "splineArea", etc.
-                type: "column",
-                dataPoints: [
-                    { label: "01/07/2016", y: 10 },
-                    { label: "02/07/2016", y: 15 },
-                    { label: "03/07/2016", y: 25 },
-                    { label: "04/07/2016", y: 30 },
-                    { label: "05/07/2016", y: 35 },
-                    { label: "06/07/2016", y: 7 },
-                    { label: "07/07/2016", y: 12 },
-                    { label: "08/07/2016", y: 2 },
-                    { label: "09/07/2016", y: 9 },
-                    { label: "10/07/2016", y: 0 },
-                    { label: "11/07/2016", y: 1 },
-                    { label: "12/07/2016", y: 4 },
-                    { label: "13/07/2016", y: 10 },
-                    { label: "14/07/2016", y: 3 },
-                    { label: "15/07/2016", y: 1 },
-                    { label: "16/07/2016", y: 0 },
-                    { label: "17/07/2016", y: 0 },
-                    { label: "18/07/2016", y: 5 },
-                    { label: "19/07/2016", y: 9 },
-                    { label: "20/07/2016", y: 19 },
-                    { label: "21/07/2016", y: 5 },
-                    { label: "22/07/2016", y: 0 },
-                    { label: "23/07/2016", y: 0 },
-                    { label: "24/07/2016", y: 11 },
-                    { label: "25/07/2016", y: 3 },
-                    { label: "26/07/2016", y: 0 },
-                    { label: "27/07/2016", y: 9 },
-                    { label: "28/07/2016", y: 20 },
-                    { label: "29/07/2016", y: 25 },
-                    { label: "30/07/2016", y: 6 },
-                    { label: "31/07/2016", y: 1 }
-                ]
-            }
-            ]
-        });
-        chart.render();
-    }
-</script>
-</head>
-<body>
-<div id="chartContainer" style="height: 300px; width: 80%; margin-left: 10%"></div>
 
 
-</body>
+@section javascript
+{
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="~/js/pieChart.js")></script>
+    <script type="text/javascript">
+
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', { 'packages': ['corechart'] });
+
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawChart);
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                @{int count = 0;}
+                @foreach (DataRow row in ((DataTable)ViewBag.data).Rows)
+                {
+                    if (count>0)
+                    {
+                        @Html.Raw(",['"+row[0]+"',"+row[1]+"]");
+                    }
+                    else
+                    {
+                        @Html.Raw("['" + row[0] + "'," + row[1] + "]");
+                    }
+                    count++;
+                }
+            ]);
+
+            // Set chart options
+            var options = {
+                'title': 'Grafico de Estadisticas',
+                'width': 400,
+                'height': 300
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+
+}
+    </head>
+
+    <body>
+        <div id="chart_div"></div>
+
+     </body>
+
+
 </html>

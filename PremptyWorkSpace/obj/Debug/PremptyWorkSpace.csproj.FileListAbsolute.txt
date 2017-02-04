@@ -194,3 +194,29 @@ C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\bin\e
 C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
 C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
 C:\Users\ry7\Desktop\PremptyWorkSpaceGit\PremptyWorkSpace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Mvc.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+D:\Version Final\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb

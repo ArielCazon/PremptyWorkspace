@@ -12,14 +12,13 @@
                 <li><a href="~/Menu/Select"><i class="shortcut-icon icon-user"></i><span>Empleado</span> </a></li>
                 <li><a href="~/Control/Index"><i class="shortcut-icon icon-dashboard"></i><span>Control de asistencias</span> </a></li>
                 <li><a href="~/Estadistica/Index"><i class="shortcut-icon  icon-signal"></i><span>Estadisticas</span> </a></li>
-
-
             </ul>
         </div>
         <!-- /container -->
     </div>
     <!-- /subnavbar-inner -->
 </div>
+
 <div class="container">
     <div class="row">
         <div class="span12">
@@ -36,9 +35,9 @@
 
                             <ul>
 
-                                @Html.DropDownList("IdArea", null, "Seleccione Area..", null)
-                                @Html.DropDownList("IdMes", null, "Seleccione Mes..", null)
-                                @Html.DropDownList("IdMotivo", null, "Seleccione Motivo..", null)
+                                @Html.DropDownList("IdArea", null, "Todos", null)
+                                @Html.DropDownList("IdMes", null, "Todos", null)
+                                @Html.DropDownList("IdMotivo", null, "Todos" , null) <!--Se dejara para lo ultimo-->
 
                                 <!-- Invoca a la action para visualizar el grafico -->
 
@@ -47,7 +46,6 @@
                                 </div>
                             </ul>
                         </div>
-                        <!-- /shortcuts -->
                     }
                 </div>
             </div>

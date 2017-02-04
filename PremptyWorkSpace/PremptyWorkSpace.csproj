@@ -286,6 +286,7 @@
     <Content Include="js\MicrosoftMvcValidation.js" />
     <Content Include="js\modernizr-2.5.3.js" />
     <Content Include="js\modernizr-2.6.2.js" />
+    <Content Include="js\pieChart.js" />
     <Content Include="js\scripts.js" />
     <Content Include="js\signin.js" />
     <Content Include="js\_references.js" />
@@ -351,6 +352,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="js\img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

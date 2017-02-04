@@ -126,27 +126,114 @@ namespace PremptyWorkSpace.Controllers
         public ActionResult Visual([Bind(Include = "IdArea, IdMes, IdMotivo")]UsuarioLic usuLic)
         {
             PremptyDb dc = new PremptyDb();
+            var array_ausencias = new List<Ingresos>();
+            var user_area = new List<Usuarios>();
+            int cantDiasHabiles = 0;
+            int cantAusencias = 0;
+            int cantPresencias = 0;
+            DateTime fecha;
 
-            var user_linc = (from u in dc.Usuarios
-                             join l in dc.Licencias
-                             on u.IdUsuario equals l.IdUsuario
-                             join a in dc.Areas
-                             on u.IdArea equals a.IdArea
+
+            //Se obtienen los USUARIOS
+            if (usuLic.IdArea == 0) //Selecciono: Todas las Areas
+            {
+                user_area = (from u in dc.Usuarios
+                             select u).ToList();
+            }
+            else
+            {
+                user_area = (from u in dc.Usuarios
                              where u.IdArea.Equals(usuLic.IdArea)
-                             && (l.FechaInicio.Month.Equals(usuLic.IdMes)
-                             && l.FechaFin.Month.Equals(usuLic.IdMes))
+                             select u).ToList();
+            }
 
-                             select new
-                             {
-                                 Nombre = u.Nombre,
-                                 Apellido = u.Apellido,
-                                 NombreUsuario = u.NombreUsuario,
-                                 AreaDescripcion = a.Descripcion,
-                                 FechaInicio = l.FechaInicio,
-                                 FechaFin = l.FechaFin
-                             });
 
-            return View(user_linc);
+            //Agregar feriados
+            //Funcion de cantidad de feriados del mes seleccionado, sino retornar todo
+
+            //Obtener Cant de Dias Habiles
+            cantDiasHabiles = obtenerDiasHabiles(usuLic.IdMes, 2016);
+
+            //Cuento la cantidad de asistencias del mes por empleado
+            foreach (var item in user_area)
+            {
+                for (int j = 1; j < cantDiasHabiles; j++)
+                {
+                    //Fecha es variable de diaDelMes + usuLic.Mothn + añoActual == fecha habil del mes
+                    fecha = new DateTime(2016, usuLic.IdMes, j);
+                    var ingreso = (from u in dc.Usuarios
+                                   join i in dc.Ingresos
+                                   on u.IdUsuario equals i.IdUsuario
+                                   where u.IdUsuario.Equals(item.IdUsuario)
+                                         && i.FechaActual.Day.Equals(j)
+                                         && i.FechaActual.Month.Equals(usuLic.IdMes)
+                                         && i.FechaActual.Year.Equals(2016)
+                                   select u).ToList();
+                    if (ingreso.Count == 0)
+                    {
+                        cantAusencias++;
+                        array_ausencias.Add(new Ingresos()
+                        {
+                            IdUsuario = item.IdUsuario,
+                            FechaActual = fecha
+                        });
+                    }
+                    else
+                    {
+                        cantPresencias++;
+                    }
+
+                }
+
+            }
+
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add(new DataColumn("item"));
+            dt.Columns.Add(new DataColumn("cantidad"));
+
+
+            DataRow row1 = dt.NewRow();
+            row1[0] = "Asistencias";
+            row1[1] = cantPresencias;
+
+            DataRow row2 = dt.NewRow();
+            row2[0] = "Inasistencias";
+            row2[1] = cantAusencias;
+
+            dt.Rows.Add(row1);
+            dt.Rows.Add(row2);
+
+            ViewBag.data = dt;
+
+            return View();
+
+        }
+
+        private int obtenerDiasHabiles(int mes, int anio)
+        {
+            var days = DateTime.DaysInMonth(anio, mes);
+            int diaLaboral = 0;
+
+            for (var i = 0; i < days; i++)
+            {
+                //Si es dia Habil, incremento
+                if (diaHabil(anio, mes, i + 1))
+                    diaLaboral++;
+
+            }
+            return diaLaboral;
+        }
+
+        //Devuelve si el dia esta entre el Lunes y Viernes
+        private bool diaHabil(int year, int month, int day)
+        {
+            DateTime dt = new DateTime(year, month, day);
+            DayOfWeek dia = dt.DayOfWeek;
+            if (dia != DayOfWeek.Saturday && dia != DayOfWeek.Sunday)
+                return true;
+
+            return false;
         }
 
 
