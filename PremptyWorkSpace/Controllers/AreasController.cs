@@ -104,6 +104,7 @@ namespace PremptyWorkSpace.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Mensaje = ValidarUsuariosAsociados(id);
             return View(area);
         }
 
@@ -117,6 +118,18 @@ namespace PremptyWorkSpace.Controllers
             db.Areas.Remove(area);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private string ValidarUsuariosAsociados(int idArea)
+        {
+            var usuariosAsociados = db.Usuarios.Where(x => x.Areas.IdArea == idArea).ToList();
+
+            if (usuariosAsociados.Count() > 0)
+            {
+                return string.Format("El Area que desea eliminar está asociada a {0} usuarios", usuariosAsociados.Count());
+            }
+
+            return null;
         }
 
         protected override void Dispose(bool disposing)
