@@ -12,14 +12,10 @@ namespace PremptyWorkSpace.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ingresos
+    public partial class Feriados
     {
-        public int IdIngresos { get; set; }
-        public int IdUsuario { get; set; }
-        public System.DateTime FechaActual { get; set; }
-        public Nullable<System.DateTime> HoraIngreso { get; set; }
-        public Nullable<System.DateTime> HoraEgreso { get; set; }
-    
-        public virtual Usuarios Usuarios { get; set; }
+        public int IdFeriado { get; set; }
+        public System.DateTime Fecha { get; set; }
+        public string Descripcion { get; set; }
     }
 }

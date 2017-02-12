@@ -141,6 +141,9 @@
     <Compile Include="Models\Eventos.cs">
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Feriados.cs">
+      <DependentUpon>PremptyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Ingresos.cs">
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>

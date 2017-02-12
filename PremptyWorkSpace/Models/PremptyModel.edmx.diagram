@@ -27,6 +27,7 @@
         <AssociationConnector Association="Prempty.FK_Licencias_Usuarios" ManuallyRouted="false" />
         <AssociationConnector Association="Prempty.FK_Respuestas_Usuarios" ManuallyRouted="false" />
         <AssociationConnector Association="Prempty.FK__Usuarios__IdRol" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Prempty.Feriados" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

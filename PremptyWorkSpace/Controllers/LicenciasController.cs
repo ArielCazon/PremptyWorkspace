@@ -20,8 +20,6 @@ namespace PremptyWorkSpace.Controllers
         public ActionResult Index()
         {
             var licencias = db.Licencias.Include(l => l.MotivoLicencia).Include(l => l.Usuarios);
-
-            
             var licenciasList = new List<LicenciaViewModel>();
             foreach (var licencia in licencias)
             {
@@ -30,8 +28,7 @@ namespace PremptyWorkSpace.Controllers
                 {
                  Descripcion = licencia.Descripcion,
                  Estado = estado.ToString(),
-                 FechaFin = licencia.FechaFin.ToString("dd/MM/yyyy"),
-                 FechaInicio = licencia.FechaInicio.ToString("dd/MM/yyyy"),
+                 Fecha = licencia.Fecha.ToString("dd/MM/yyyy"),
                  IdLicencia = licencia.IdLicencia,
                  Motivo = licencia.MotivoLicencia.Descripcion,
                  Usuario = licencia.Usuarios.Nombre + ' ' + licencia.Usuarios.Apellido

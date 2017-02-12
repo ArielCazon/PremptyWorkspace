@@ -59,6 +59,7 @@
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>
+    <EntitySet Name="Feriados" EntityType="Prempty.Feriados" />
   </EntityContainer>
   <EntityType Name="Areas">
     <Key>
@@ -120,14 +121,12 @@
     </Key>
     <Property Name="IdLicencia" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-    <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="FechaFin" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Motivo" Type="Int32" />
     <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="MotivoLicencia" Relationship="Prempty.FK__Licencias__Motivos" FromRole="Licencias" ToRole="MotivoLicencia" />
     <NavigationProperty Name="Usuarios" Relationship="Prempty.FK_Licencias_Usuarios" FromRole="Licencias" ToRole="Usuarios" />
-    <Property Type="Boolean" Name="Justificacion" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="MotivoLicencia">
     <Key>
@@ -337,4 +336,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Feriados">
+    <Key>
+      <PropertyRef Name="IdFeriado" />
+      <PropertyRef Name="Fecha" />
+      <PropertyRef Name="Descripcion" />
+    </Key>
+    <Property Name="IdFeriado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

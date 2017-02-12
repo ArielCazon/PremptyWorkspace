@@ -123,7 +123,7 @@ namespace PremptyWorkSpace.Controllers
             return View();
         }
 
-        public ActionResult Visual([Bind(Include = "IdArea, IdMes, IdMotivo")]UsuarioLic usuLic)
+        public ActionResult Visual([Bind(Include = "IdArea, IdMes, IdMotivo")]UsuarioLicencia usuLic)
         {
             PremptyDb dc = new PremptyDb();
             var array_ausencias = new List<Ingresos>();
@@ -247,14 +247,13 @@ namespace PremptyWorkSpace.Controllers
                              on u.IdUsuario equals l.IdUsuario
                              join a in dc.Areas
                              on u.IdArea equals a.IdArea
-                             select new UsuarioLic
+                             select new UsuarioLicencia
                              {
                                  Nombre = u.Nombre,
                                  Apellido = u.Apellido,
                                  NombreUsuario = u.NombreUsuario,
                                  AreaDescripcion = a.Descripcion,
-                                 FechaInicio = l.FechaInicio,
-                                 FechaFin = l.FechaFin
+                                 Fecha = l.Fecha,
                              });
 
             //foreach (var item in gv)

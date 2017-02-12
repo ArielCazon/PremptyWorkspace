@@ -51,11 +51,9 @@
     <EntitySetMapping Name="Licencias">
       <EntityTypeMapping TypeName="Prempty.Licencias">
         <MappingFragment StoreEntitySet="Licencias">
-          <ScalarProperty Name="Justificacion" ColumnName="Justificacion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
           <ScalarProperty Name="IdLicencia" ColumnName="IdLicencia" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
-          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
-          <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
           <ScalarProperty Name="Motivo" ColumnName="Motivo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
@@ -117,6 +115,15 @@
           <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
           <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feriados">
+      <EntityTypeMapping TypeName="Prempty.Feriados">
+        <MappingFragment StoreEntitySet="Feriados">
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="IdFeriado" ColumnName="IdFeriado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

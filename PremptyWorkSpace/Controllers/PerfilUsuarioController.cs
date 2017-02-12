@@ -57,8 +57,7 @@ namespace PremptyWorkSpace.Controllers
                 {
                     Estado = estado.ToString(),
                     Descripcion = licencia.Descripcion,
-                    FechaFin = licencia.FechaFin.ToString("dd/MM/yyyy"),
-                    FechaInicio = licencia.FechaInicio.ToString("dd/MM/yyyy"),
+                    Fecha = licencia.Fecha.ToString("dd/MM/yyyy"),
                     IdLicencia = licencia.IdLicencia,
                     Motivo = licencia.MotivoLicencia.Descripcion,
                     Usuario = licencia.Usuarios.Nombre + ' ' + licencia.Usuarios.Apellido

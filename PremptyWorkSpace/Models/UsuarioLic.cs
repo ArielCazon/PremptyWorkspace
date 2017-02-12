@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PremptyWorkSpace.Models
 {
-    public class UsuarioLic
+    public class UsuarioLicencia
     {
         public string Nombre;
         public string Apellido;
@@ -14,7 +14,6 @@ namespace PremptyWorkSpace.Models
         public int IdArea { get; set; }
         public int IdMes { get; set; }
         public int IdMotivo { get; set; }
-        public DateTime FechaInicio;
-        public DateTime FechaFin;
+        public DateTime Fecha;
     }
 }
