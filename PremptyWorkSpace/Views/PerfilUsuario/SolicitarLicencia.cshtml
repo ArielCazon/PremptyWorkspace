@@ -19,16 +19,10 @@
                 <h2>Solicitar licencia</h2>
 
                 <div class="field">
-                    @Html.LabelFor(model => model.FechaInicio)
-                    @Html.TextBoxFor(model => model.FechaInicio, new { @placeholder = "Ingrese fecha de inicio" })
-                    @Html.ValidationMessageFor(model => model.FechaInicio)
-                </div>
+                    @Html.LabelFor(model => model.Fecha)
 
-                <div class="field">
-                    @Html.LabelFor(model => model.FechaFin)
-
-                    @Html.TextBoxFor(model => model.FechaFin, new { @placeholder = "Ingrese fecha de fin" })
-                    @Html.ValidationMessageFor(model => model.FechaFin)
+                    @Html.TextBoxFor(model => model.Fecha, new { @placeholder = "Ingrese fecha de la licencia" })
+                    @Html.ValidationMessageFor(model => model.Fecha)
                 </div>
 
                 <div class="field">
@@ -79,16 +73,12 @@
         };
         $.datepicker.setDefaults($.datepicker.regional['es']);
 
-        $('#FechaInicio').datepicker({
+        $('#Fecha').datepicker({
             minDate: 1
         }).on('changeDate', function (e) {
             $('#FechaInicio').datepicker('hide');
         });
 
-        $('#FechaFin').datepicker({
-            format: 'dd/mm/yyyy'
-        }).on('changeDate', function (e) {
-            $('#FechaFin').datepicker('hide');
-        });
+
     });
 </script>

@@ -17,14 +17,14 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Descripcion)
 
-                    @Html.EditorFor(model => model.Descripcion)
-                    @Html.ValidationMessageFor(model => model.Descripcion)
+                    @Html.TextBoxFor(model => model.Descripcion, new {@required = "true", maxlength = "50", type = "text"})
+    
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.IdEntidad, "Entidades")
 
-                    @Html.DropDownList("IdEntidad", "Seleccione entidad")
+                    @Html.DropDownList("IdEntidad", null, "Seleccione entidad", new {@required="true"})
                     @Html.ValidationMessageFor(model => model.IdEntidad)
                 </div>
             </div> 

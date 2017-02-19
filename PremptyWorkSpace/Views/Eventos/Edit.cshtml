@@ -19,28 +19,27 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Titulo)
 
-                    @Html.EditorFor(model => model.Titulo)
-                    @Html.ValidationMessageFor(model => model.Titulo)
+                    @Html.TextBoxFor(model => model.Titulo,new {@required = "true", maxlength = "30", type = "text"})
+   
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Descripcion)
 
-                    @Html.EditorFor(model => model.Descripcion)
-                    @Html.ValidationMessageFor(model => model.Descripcion)
+                    @Html.TextBoxFor(model => model.Descripcion, new { @required = "true", maxlength = "50", type = "text" })
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Fecha)
 
-                    @Html.EditorFor(model => model.Fecha)
-                    @Html.ValidationMessageFor(model => model.Fecha)
+                    @Html.TextBoxFor(model => model.Fecha, new { @required = "true", type = "datetime"})
+     
                 </div>
                 <div class="field">
                     @Html.LabelFor(model => model.IdArea, "Areas")
 
-                    @Html.DropDownList("IdArea", String.Empty)
-                    @Html.ValidationMessageFor(model => model.IdArea)
+                    @Html.DropDownList("IdArea", null, "Seleccione area", new { @required="true"})
+                 
                 </div>
             </div> 
           <div class="form-actions">

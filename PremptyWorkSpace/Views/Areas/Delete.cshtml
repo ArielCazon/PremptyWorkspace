@@ -10,9 +10,13 @@
 
             @if (!String.IsNullOrEmpty(ViewBag.Mensaje))
             { 
-                <h3>
+                
+                <div class="alert">
+                    <h3>
                     @ViewBag.Mensaje
                 </h3>
+                    </div>
+
                 <div class="form-actions">
                     <a href="~/Areas/Index">
                         <input type="button" value="Volver" class="btn btn-danger ingresar" />
@@ -21,9 +25,8 @@
             }
             else
             {
-                <h3>Detalles del area</h3>
-                <h4>Esta seguro en eliminar esta area?</h4>
-                <h5>Esta accion eliminará </h5>
+               
+                <h4>Esta accion eliminará la siguiente area</h4>
                 <div class="control-group">
                     @Html.DisplayNameFor(model => model.Descripcion)
                     <div class="alert alert-info">
@@ -49,3 +52,4 @@
             }
         </div>
     </div>
+      </div>

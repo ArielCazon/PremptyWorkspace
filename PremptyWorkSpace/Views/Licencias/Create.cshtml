@@ -22,28 +22,28 @@
                 <div class="field">
                     @Html.LabelFor(model => model.IdUsuario, "Usuarios")
 
-                    @Html.DropDownList("IdUsuario", "Seleccione un usuario")
-                    @Html.ValidationMessageFor(model => model.IdUsuario)
+                    @Html.DropDownList("IdUsuario",null,"Seleccione un usuario", new {@required="true"})
+                   
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Fecha)
-                    @Html.TextBoxFor(model => model.Fecha, new {@placeholder = "Ingrese fecha de la licencia" })
-                    @Html.ValidationMessageFor(model => model.Fecha)
+                    @Html.TextBoxFor(model => model.Fecha, new {@placeholder = "Ingrese fecha de la licencia", @required = "true", maxlength = "20", type = "datetime" })
+ 
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Motivo, "MotivoLicencia")
 
-                    @Html.DropDownList("Motivo", "Motivo de licencia")
-                    @Html.ValidationMessageFor(model => model.Motivo)
+                    @Html.DropDownList("Motivo", null, "Motivo de licencia", new { @required="true"})
+              
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Descripcion)
 
-                    @Html.TextBoxFor(model => model.Descripcion, new { @placeholder = "Ingrese Descripcion" })
-                    @Html.ValidationMessageFor(model => model.Descripcion)
+                    @Html.TextBoxFor(model => model.Descripcion, new { @placeholder = "Ingrese Descripcion",@required = "true", maxlength = "30", type = "datetime"})
+      
                 </div>
 
       

@@ -87,9 +87,9 @@ namespace PremptyWorkSpace.Controllers
         }
 
 
-        public ActionResult Registrar(Registrar l, string ReturnUrl = "")
+        public ActionResult Nosotros()
         {
-            return RedirectToAction("Login");
+            return View();
         }
 
 
