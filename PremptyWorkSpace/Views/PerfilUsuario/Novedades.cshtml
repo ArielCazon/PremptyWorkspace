@@ -10,7 +10,7 @@
     <div class="subnavbar-inner">
         <div class="container">
             <ul class="mainnav">
-                 <li><a href="~/PerfilUsuario/Horas"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
+                <li><a href="~/PerfilUsuario/Horas"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
                 <li><a href="~/PerfilUsuario/Perfil"><i class="shortcut-icon icon-pencil"></i><span>Perfil</span> </a></li>
                 <li><a href="~/PerfilUsuario/Licencia"><i class="shortcut-icon   icon-list-alt"></i><span>Solicitar Licencia</span> </a></li>
                 <li><a href="~/PerfilUsuario/Novedades"><i class="shortcut-icon icon-bookmark"></i><span>Novedades</span> </a></li>
@@ -36,7 +36,7 @@
                         <div class="widget-content">
                             <ul class="news-items">
 
-                                 @foreach (var itemss in Model)
+                                @foreach (var itemss in Model)
                                 {
                                     <li>
 
@@ -73,9 +73,17 @@
                                         <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => item.Fecha)</span> </div>
                                         <div class="news-item-detail">
                                             <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => item.Titulo)</a>
-                                            <p class="news-item-preview">@Html.DisplayFor(modelItem => item.Areas) </p>
+                                            <p class="news-item-preview">@Html.DisplayFor(modelItem => item.Descripcion) </p>
                                         </div>
-
+                                        <div>
+                                            <div class="rating-star-block" id= @item.IdEventos >
+                                                <a class="star outline" href="#" rating="1" title="No me interesa">No me interesa</a>
+                                                <a class="star outline" href="#" rating="2" title="Me interesa poco">Me interesa poco</a>
+                                                <a class="star outline" href="#" rating="3" title="Me da igual">Me da igual</a>
+                                                <a class="star outline" href="#" rating="4" title="Me interesa">Me interesa</a>
+                                                <a class="star outline" href="#" rating="5" title="Me interesa mucho">Me interesa mucho</a>
+                                            </div>
+                                        </div>
 
                                     </li>
                                 }
@@ -118,5 +126,58 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".rating-star-block .star").mouseleave(function () {
+            $("#" + $(this).parent().attr('id') + " .star").each(function () {
+                $(this).addClass("outline");
+                $(this).removeClass("filled");
+            });
+        });
+        $(".rating-star-block .star").mouseenter(function () {
+            var hoverVal = $(this).attr('rating');
+            $(this).prevUntil().addClass("filled");
+            $(this).addClass("filled");
+            $("#RAT").html(hoverVal);
+        });
+        $(".rating-star-block .star").click(function () {
+
+            var valor = $(this).attr('rating');
+            var newScore = 0;
+            var updateP = "#" + $(this).parent().attr('id') + ' .CurrentScore';
+            var artID = $("#" + $(this).parent().attr('id') + ' .articleID').val();
+           // $("#" + $(this).parent().attr('id') + " .star").hide();
+        });
+    });
+    function setNewScore(container, data) {
+        $(container).html(data);
+        $("#myElem").show('1000').delay(2000).queue(function (n) {
+            $(this).hide(); n();
+        });
+    }
+</script>
+<style type="text/css">
+    .rating-star-block .star.outline {
+        background: url("../../img/star-empty-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    }
+
+    .rating-star-block .star.filled {
+        background: url("../../img/star-fill-lg.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    }
+
+    .rating-star-block .star {
+        color: rgba(0,0,0,0);
+        display: inline-block;
+        height: 24px;
+        overflow: hidden;
+        text-indent: -999em;
+        width: 24px;
+    }
+
+    a.star {
+        color: #005782;
+        text-decoration: none;
+    }
+</style>
 
 
