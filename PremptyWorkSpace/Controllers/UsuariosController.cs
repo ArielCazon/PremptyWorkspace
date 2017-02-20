@@ -222,7 +222,12 @@ namespace PremptyWorkSpace.Controllers
         {
 
             Usuarios usuarios = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuarios);
+            if (usuarios != null)
+            {
+                EliminarRelaciones(id);
+            }
+
+            db.Usuarios.Remove(usuarios);           
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -233,6 +238,30 @@ namespace PremptyWorkSpace.Controllers
             base.Dispose(disposing);
         }
 
+        private void EliminarRelaciones(int idUsuario)
+        {
+            var licenciasVinculadas = db.Licencias.Where(x => x.IdUsuario == idUsuario);
+            foreach (var licencia in licenciasVinculadas)
+            {
+                db.Licencias.Remove(licencia);
+            }
+
+            var ingresos = db.Ingresos.Where(x => x.IdUsuario == idUsuario);
+
+            foreach (var ingreso in ingresos)
+            { 
+                db.Ingresos.Remove(ingreso);
+            }
+
+            var respuestasAsociadas = db.Respuestas.Where(x => x.IdUsuario == idUsuario);
+
+            foreach (var respuesta in respuestasAsociadas)
+            {
+                db.Respuestas.Remove(respuesta);
+            }
+
+            db.SaveChanges();
+        }
 
     }
 }

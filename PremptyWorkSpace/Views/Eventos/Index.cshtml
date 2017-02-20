@@ -110,7 +110,7 @@
    })
 
         @Html.Raw("&nbsp;"); 
-        @Html.ActionLink("< Prev", "Index", new
+        @Html.ActionLink("< Anterior", "Index", new
    {
        page = Model.PageNumber - 1,
        sortOrder = ViewBag.CurrentSort,
@@ -127,7 +127,7 @@
                             &nbsp; 
     @if (Model.HasNextPage)
     { 
-        @Html.ActionLink("Next >", "Index", new
+        @Html.ActionLink("Próximo >", "Index", new
    {
        page = Model.PageNumber + 1,
        sortOrder = ViewBag.CurrentSort,
