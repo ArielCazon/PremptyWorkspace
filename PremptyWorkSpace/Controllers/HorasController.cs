@@ -33,7 +33,7 @@ namespace PremptyWorkSpace.Controllers
             return View();
         }
 
-        public ActionResult MarcarEntrada()
+        public ActionResult MarcarEntradas()
         {
             var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
             var usuario = db.Usuarios.First(x => x.IdUsuario == idUsuario);
@@ -59,7 +59,7 @@ namespace PremptyWorkSpace.Controllers
             return RedirectToAction("Index", "Horas");
         }
 
-        public ActionResult MarcarSalida()
+        public ActionResult MarcarSalidas()
         {
             var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
             var usuario = db.Usuarios.First(x => x.IdUsuario == idUsuario);
