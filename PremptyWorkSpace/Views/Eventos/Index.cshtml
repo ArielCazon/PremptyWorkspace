@@ -72,8 +72,9 @@
 
                             @foreach (var item in Model)
                             {
+                                var descripcionArea = item.Areas == null ? "Todas" : item.Areas.Descripcion;
+                                
                                 <tr>
-
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Titulo)
                                     </td>
@@ -84,7 +85,7 @@
                                         @Html.DisplayFor(modelItem => item.Fecha)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Areas.Descripcion)
+                                        @Html.DisplayFor(modelItem => descripcionArea)
                                     </td>
                                     <td>
                                         @Html.ActionLink(" ", "Edit", new { id = item.IdEventos }, new { @class = "btn-icon-only  icon-edit" }) |
