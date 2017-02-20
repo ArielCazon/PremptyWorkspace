@@ -1,21 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Prempty.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="PremptyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PremptyModelStoreContainer">
+    <EntitySet Name="Areas" EntityType="PremptyModel.Store.Areas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Entidades" EntityType="PremptyModel.Store.Entidades" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Eventos" EntityType="PremptyModel.Store.Eventos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Feriados" EntityType="PremptyModel.Store.Feriados" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ingresos" EntityType="PremptyModel.Store.Ingresos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Licencias" EntityType="PremptyModel.Store.Licencias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MotivoLicencia" EntityType="PremptyModel.Store.MotivoLicencia" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Respuestas" EntityType="PremptyModel.Store.Respuestas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="PremptyModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="PremptyModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios" EntityType="PremptyModel.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Licencias__Motivos" Association="PremptyModel.Store.FK__Licencias__Motivos">
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__Area" Association="PremptyModel.Store.FK__Usuarios__Area">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__IdRol" Association="PremptyModel.Store.FK__Usuarios__IdRol">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Areas_Entidades" Association="PremptyModel.Store.FK_Areas_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Areas" EntitySet="Areas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Eventos_Areas" Association="PremptyModel.Store.FK_Eventos_Areas">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Eventos_Entidades" Association="PremptyModel.Store.FK_Eventos_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Eventos" EntitySet="Eventos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ingresos_Usuarios" Association="PremptyModel.Store.FK_Ingresos_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Ingresos" EntitySet="Ingresos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licencias_Licencias" Association="PremptyModel.Store.FK_Licencias_Licencias">
+      <End Role="Licencias" EntitySet="Licencias" />
+      <End Role="Licencias1" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Licencias_Usuarios" Association="PremptyModel.Store.FK_Licencias_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Licencias" EntitySet="Licencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MotivoLicencia_Entidades" Association="PremptyModel.Store.FK_MotivoLicencia_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Eventos" Association="PremptyModel.Store.FK_Respuestas_Eventos">
+      <End Role="Eventos" EntitySet="Eventos" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Respuestas_Usuarios" Association="PremptyModel.Store.FK_Respuestas_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Respuestas" EntitySet="Respuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Entidades" Association="PremptyModel.Store.FK_Usuarios_Entidades">
+      <End Role="Entidades" EntitySet="Entidades" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Areas">
     <Key>
       <PropertyRef Name="IdArea" />
     </Key>
-    <Property Name="IdArea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdArea" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="IdEntidad" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Entidades">
     <Key>
       <PropertyRef Name="IdEntidad" />
     </Key>
-    <Property Name="IdEntidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RazonSocial" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Cuit" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Domicilio" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="IdEntidad" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RazonSocial" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Cuit" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Domicilio" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="Telefono" Type="nvarchar" MaxLength="50" />
     <Property Name="Categoria" Type="nvarchar" MaxLength="1" />
     <Property Name="FechaAlta" Type="datetime" Nullable="false" />
@@ -25,31 +90,27 @@
     <Key>
       <PropertyRef Name="IdEventos" />
     </Key>
-    <Property Name="IdEventos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Titulo" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdEventos" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Titulo" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="IdArea" Type="int" />
     <Property Name="Tipo" Type="char" MaxLength="1" />
     <Property Name="IdEntidad" Type="int" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Feriados">
     <Key>
       <PropertyRef Name="IdFeriado" />
-      <PropertyRef Name="Fecha" />
-      <PropertyRef Name="Descripcion" />
     </Key>
-    <Property Name="IdFeriado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdFeriado" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Fecha" Type="date" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <EntityType Name="Ingresos">
     <Key>
       <PropertyRef Name="IdIngresos" />
     </Key>
-    <Property Name="IdIngresos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdIngresos" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdUsuario" Type="int" Nullable="false" />
     <Property Name="FechaActual" Type="datetime" Nullable="false" />
     <Property Name="HoraIngreso" Type="datetime" />
@@ -59,26 +120,26 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     <Key>
       <PropertyRef Name="IdLicencia" />
     </Key>
-    <Property Name="IdLicencia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdLicencia" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdUsuario" Type="int" Nullable="false" />
     <Property Name="Fecha" Type="date" Nullable="false" />
     <Property Name="Motivo" Type="int" />
-    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="MotivoLicencia">
     <Key>
       <PropertyRef Name="IdMotivo" />
     </Key>
-    <Property Name="IdMotivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdMotivo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="IdEntidad" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Respuestas">
     <Key>
       <PropertyRef Name="IdRespuesta" />
     </Key>
-    <Property Name="IdRespuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdRespuesta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdEvento" Type="int" Nullable="false" />
     <Property Name="IdUsuario" Type="int" Nullable="false" />
     <Property Name="Respuesta" Type="int" />
@@ -88,16 +149,16 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     <Key>
       <PropertyRef Name="IdRol" />
     </Key>
-    <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Rol" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdRol" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Rol" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
     <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
@@ -105,23 +166,23 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     <Key>
       <PropertyRef Name="IdUsuario" />
     </Key>
-    <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUsuario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdRol" Type="int" Nullable="false" />
     <Property Name="Legajo" Type="int" />
-    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Apellido" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="FechaNac" Type="datetime" Nullable="false" />
     <Property Name="FechaIngreso" Type="datetime" Nullable="false" />
     <Property Name="IdArea" Type="int" Nullable="false" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Domicilio" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="NombreUsuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Domicilio" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="NombreUsuario" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="IdEntidad" Type="int" Nullable="false" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <Association Name="FK__Licencias__Motivos">
-    <End Role="MotivoLicencia" Type="Self.MotivoLicencia" Multiplicity="0..1" />
-    <End Role="Licencias" Type="Self.Licencias" Multiplicity="*" />
+    <End Role="MotivoLicencia" Type="PremptyModel.Store.MotivoLicencia" Multiplicity="0..1" />
+    <End Role="Licencias" Type="PremptyModel.Store.Licencias" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="MotivoLicencia">
         <PropertyRef Name="IdMotivo" />
@@ -132,8 +193,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Usuarios__Area">
-    <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
-    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <End Role="Areas" Type="PremptyModel.Store.Areas" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Areas">
         <PropertyRef Name="IdArea" />
@@ -144,8 +205,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Usuarios__IdRol">
-    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
-    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <End Role="Roles" Type="PremptyModel.Store.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Roles">
         <PropertyRef Name="IdRol" />
@@ -156,8 +217,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Areas_Entidades">
-    <End Role="Entidades" Type="Self.Entidades" Multiplicity="1" />
-    <End Role="Areas" Type="Self.Areas" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
+    <End Role="Areas" Type="PremptyModel.Store.Areas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />
@@ -168,8 +229,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Eventos_Areas">
-    <End Role="Areas" Type="Self.Areas" Multiplicity="0..1" />
-    <End Role="Eventos" Type="Self.Eventos" Multiplicity="*" />
+    <End Role="Areas" Type="PremptyModel.Store.Areas" Multiplicity="0..1" />
+    <End Role="Eventos" Type="PremptyModel.Store.Eventos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Areas">
         <PropertyRef Name="IdArea" />
@@ -180,8 +241,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Eventos_Entidades">
-    <End Role="Entidades" Type="Self.Entidades" Multiplicity="1" />
-    <End Role="Eventos" Type="Self.Eventos" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
+    <End Role="Eventos" Type="PremptyModel.Store.Eventos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />
@@ -192,8 +253,10 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Ingresos_Usuarios">
-    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-    <End Role="Ingresos" Type="Self.Ingresos" Multiplicity="*" />
+    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Ingresos" Type="PremptyModel.Store.Ingresos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Usuarios">
         <PropertyRef Name="IdUsuario" />
@@ -203,9 +266,23 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Licencias_Licencias">
+    <End Role="Licencias" Type="PremptyModel.Store.Licencias" Multiplicity="1" />
+    <End Role="Licencias1" Type="PremptyModel.Store.Licencias" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Licencias">
+        <PropertyRef Name="IdLicencia" />
+      </Principal>
+      <Dependent Role="Licencias1">
+        <PropertyRef Name="IdLicencia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Licencias_Usuarios">
-    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-    <End Role="Licencias" Type="Self.Licencias" Multiplicity="*" />
+    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Licencias" Type="PremptyModel.Store.Licencias" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Usuarios">
         <PropertyRef Name="IdUsuario" />
@@ -216,8 +293,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_MotivoLicencia_Entidades">
-    <End Role="Entidades" Type="Self.Entidades" Multiplicity="1" />
-    <End Role="MotivoLicencia" Type="Self.MotivoLicencia" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
+    <End Role="MotivoLicencia" Type="PremptyModel.Store.MotivoLicencia" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />
@@ -228,8 +305,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Respuestas_Eventos">
-    <End Role="Eventos" Type="Self.Eventos" Multiplicity="1" />
-    <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
+    <End Role="Eventos" Type="PremptyModel.Store.Eventos" Multiplicity="1" />
+    <End Role="Respuestas" Type="PremptyModel.Store.Respuestas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Eventos">
         <PropertyRef Name="IdEventos" />
@@ -240,8 +317,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Respuestas_Usuarios">
-    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-    <End Role="Respuestas" Type="Self.Respuestas" Multiplicity="*" />
+    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="1" />
+    <End Role="Respuestas" Type="PremptyModel.Store.Respuestas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Usuarios">
         <PropertyRef Name="IdUsuario" />
@@ -252,8 +329,8 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Usuarios_Entidades">
-    <End Role="Entidades" Type="Self.Entidades" Multiplicity="1" />
-    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />
@@ -263,71 +340,4 @@ warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key 
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="PremptyStoreContainer">
-    <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Entidades" EntityType="Self.Entidades" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Ingresos" EntityType="Self.Ingresos" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Licencias" EntityType="Self.Licencias" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MotivoLicencia" EntityType="Self.MotivoLicencia" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Respuestas" EntityType="Self.Respuestas" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Feriados" EntityType="Self.Feriados" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-[Feriados].[IdFeriado] AS [IdFeriado], 
-[Feriados].[Fecha] AS [Fecha], 
-[Feriados].[Descripcion] AS [Descripcion]
-FROM [dbo].[Feriados] AS [Feriados]</DefiningQuery>
-    </EntitySet>
-    <AssociationSet Name="FK__Licencias__Motivos" Association="Self.FK__Licencias__Motivos">
-      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
-      <End Role="Licencias" EntitySet="Licencias" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Usuarios__Area" Association="Self.FK__Usuarios__Area">
-      <End Role="Areas" EntitySet="Areas" />
-      <End Role="Usuarios" EntitySet="Usuarios" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Usuarios__IdRol" Association="Self.FK__Usuarios__IdRol">
-      <End Role="Roles" EntitySet="Roles" />
-      <End Role="Usuarios" EntitySet="Usuarios" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Areas_Entidades" Association="Self.FK_Areas_Entidades">
-      <End Role="Entidades" EntitySet="Entidades" />
-      <End Role="Areas" EntitySet="Areas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Eventos_Areas" Association="Self.FK_Eventos_Areas">
-      <End Role="Areas" EntitySet="Areas" />
-      <End Role="Eventos" EntitySet="Eventos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Eventos_Entidades" Association="Self.FK_Eventos_Entidades">
-      <End Role="Entidades" EntitySet="Entidades" />
-      <End Role="Eventos" EntitySet="Eventos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Ingresos_Usuarios" Association="Self.FK_Ingresos_Usuarios">
-      <End Role="Usuarios" EntitySet="Usuarios" />
-      <End Role="Ingresos" EntitySet="Ingresos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Licencias_Usuarios" Association="Self.FK_Licencias_Usuarios">
-      <End Role="Usuarios" EntitySet="Usuarios" />
-      <End Role="Licencias" EntitySet="Licencias" />
-    </AssociationSet>
-    <AssociationSet Name="FK_MotivoLicencia_Entidades" Association="Self.FK_MotivoLicencia_Entidades">
-      <End Role="Entidades" EntitySet="Entidades" />
-      <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Respuestas_Eventos" Association="Self.FK_Respuestas_Eventos">
-      <End Role="Eventos" EntitySet="Eventos" />
-      <End Role="Respuestas" EntitySet="Respuestas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Respuestas_Usuarios" Association="Self.FK_Respuestas_Usuarios">
-      <End Role="Usuarios" EntitySet="Usuarios" />
-      <End Role="Respuestas" EntitySet="Respuestas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Usuarios_Entidades" Association="Self.FK_Usuarios_Entidades">
-      <End Role="Entidades" EntitySet="Entidades" />
-      <End Role="Usuarios" EntitySet="Usuarios" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

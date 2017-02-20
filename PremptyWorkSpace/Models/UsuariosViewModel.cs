@@ -30,6 +30,11 @@ namespace PremptyWorkSpace.Models
         public string Domicilio { get; set; }
         [Required]
         public string NombreUsuario { get; set; }
+        [Required]
+        public string Nombre { get; set; }
+        [Required]
+        public string Apellido { get; set; }
+        
         public int IdEntidad { get; set; }
 
     }

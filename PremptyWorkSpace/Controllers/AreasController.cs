@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PremptyWorkSpace.Models;
+using PagedList;
 
 namespace PremptyWorkSpace.Controllers
 {
@@ -13,13 +14,43 @@ namespace PremptyWorkSpace.Controllers
     {
         private PremptyDb db = new PremptyDb();
 
-        //
-        // GET: /Areas/
-
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string searchString,string currentFilter,int? page)
         {
+            ViewBag.DecripcionSortParm = String.IsNullOrEmpty(sortOrder) ? "decripcion_desc" : "";
+            ViewBag.SearchString = searchString;
+
+            if (Request.HttpMethod == "GET")
+            {
+                searchString = currentFilter;
+            }
+            else
+            {
+                page = 1;
+            }
+            ViewBag.CurrentFilter = searchString; 
+
             var areas = db.Areas.Include(a => a.Entidades);
-            return View(areas.ToList());
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                areas = areas.Where(x => x.Descripcion.Contains(searchString));
+                                     
+                                      
+            }
+            switch (sortOrder)
+            {
+                case "descripcion_desc":
+                    areas = areas.OrderByDescending(s => s.Descripcion);
+                    break;
+                default:
+                    areas = areas.OrderBy(s => s.Descripcion);
+                    break;
+            }
+           
+            int pageSize = 10;
+            int pageIndex = (page ?? 1);
+            return View(areas.ToPagedList(pageIndex, pageSize)); 
+
         }
 
         //

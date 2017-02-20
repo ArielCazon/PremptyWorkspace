@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<PremptyWorkSpace.Models.UsuariosViewModel>
+@using PremptyWorkSpace.Models;
+@{
     ViewBag.Title = "Administrador";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
@@ -10,7 +12,7 @@
 <div class="widget">
     <div class="widget-header">
         <i class="icon-bookmark"></i>
-        <h3>Administrador @Session["sesNombCompleto"]</h3>
+        <h3>Administrador: @Session["sesNombCompleto"]</h3>
     </div>
     <!-- /widget-header -->
     <div class="widget-content">

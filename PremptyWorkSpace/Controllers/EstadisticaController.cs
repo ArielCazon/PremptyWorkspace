@@ -123,7 +123,7 @@ namespace PremptyWorkSpace.Controllers
             return View();
         }
 
-        public ActionResult Visual([Bind(Include = "IdArea, IdMes, IdMotivo")]UsuarioLicencia usuLic)
+        public ActionResult Visual([Bind(Include = "IdArea, IdMes, IdMotivo")] UsuarioLicencia usuLic)
         {
             PremptyDb dc = new PremptyDb();
             var array_ausencias = new List<Ingresos>();
@@ -253,7 +253,7 @@ namespace PremptyWorkSpace.Controllers
                                  Apellido = u.Apellido,
                                  NombreUsuario = u.NombreUsuario,
                                  AreaDescripcion = a.Descripcion,
-                                 Fecha = l.Fecha,
+                             Fecha= l.Fecha
                              });
 
             //foreach (var item in gv)
