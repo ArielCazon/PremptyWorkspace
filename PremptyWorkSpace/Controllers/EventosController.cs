@@ -54,7 +54,7 @@ namespace PremptyWorkSpace.Controllers
         {
             if (ModelState.IsValid)
             {
-                eventos.IdEventos = (Int32)Session["IdEvent"];            
+                eventos.IdEventos = (Int32)Session["IdEvent"];
                 eventos.Titulo = eventos.Titulo;
                 eventos.Descripcion = eventos.Descripcion;
                 eventos.Fecha = eventos.Fecha;

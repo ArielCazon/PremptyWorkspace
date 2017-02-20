@@ -1,11 +1,11 @@
-﻿@model PremptyWorkSpace.Models.ControlHsViewModel
+﻿@using PremptyWorkSpace.Models;
+@using System.Data;
+@model IEnumerable<PremptyWorkSpace.Models.ControlHsViewModel>
 
 @{
     ViewBag.Title = "Gerente";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
-
-
 <div class="subnavbar">
     <div class="subnavbar-inner">
         <div class="container">
@@ -27,7 +27,7 @@
         <div class="span12">
             <div id="target-1" class="widget">
                 <div class="widget-content">
-                    @using (Html.BeginForm("Visual", "Control"))
+                    @using (Html.BeginForm("Index", "Control"))
                     {
                         <div class="shortcuts">
                             <div class="display-label">
@@ -35,12 +35,9 @@
                                     <h3>Información de control de horas</h3>
                                 </ul>
                             </div>
-                            @Html.DropDownList("IdArea", null, "Seleccione Area..", null)
-                            @Html.DropDownList("IdMes", null, "Seleccione Mes..", null)
+                                @Html.DropDownList("IdArea", null, "Seleccione Area..", null)
+                                @Html.DropDownList("IdMes", null, "Seleccione Mes..", null)
                             <ul>
-
-                                <!-- Invoca a la action para visualizar el grafico -->
-
 
                             </ul>
                             <div>
@@ -54,5 +51,108 @@
             </div>
         </div>
     </div>
+
+    <body>
+
+        @if (Model != null)
+        {   
+            <div class="container">
+                    <div class="row">
+                        <div class="span12">
+                            <div id="target-1" class="widget">
+                                <div class="widget widget-table action-table">
+                                    <div class="widget-header">
+                                        <i class="icon-th-list"></i>
+                                        <h3>Listado de Asistencia de Empleados</h3>
+                                    </div>
+ 
+                                        <div class="widget-content">
+
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <div class="display-label">
+                                                                @Html.DisplayNameFor(model => model.Nombre)
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="display-label">
+                                                                @Html.DisplayNameFor(model => model.Apellido)
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="display-label">
+                                                                @Html.DisplayNameFor(model => model.FechaIngreso)
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="display-label">
+                                                                @Html.DisplayNameFor(model => model.HoraIngreso)
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="display-label">
+                                                                @Html.DisplayNameFor(model => model.HoraEgreso)
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Nombre)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.Apellido)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.FechaIngreso)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.HoraIngreso)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.HoraEgreso)
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+
+                                                 </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /widget-content -->
+                                </div>
+                                <!-- /shortcuts -->
+                    
+                            </div>
+                            <div class="nav pull-right">
+                                    @Html.ActionLink(" Descargar ", "Download", "Control", null, new { @class = "btn btn-danger ingresar" })
+                                </div>
+                            <!-- /widget-content -->
+                        </div>
+                    </div>
+                </div>
+            
+        }
+     </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 

@@ -13,7 +13,7 @@ namespace PremptyWorkSpace.Models
         {
             var result = from c in db.Usuarios
                          where
-                             c.Legajo.ToString().Contains(text)                                                   
+                         c.Legajo.ToString().Contains(text)                                                   
                          select c;
             return result.ToList();
         }
