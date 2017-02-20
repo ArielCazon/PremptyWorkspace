@@ -1239,3 +1239,46 @@ INSERT INTO [Prempty].[dbo].[Feriados]([Fecha] ,[Descripcion])
 INSERT INTO [Prempty].[dbo].[Feriados]([Fecha] ,[Descripcion])
      VALUES ('20171225','Navidad.');
 
+INSERT INTO [Prempty].[dbo].[Eventos]
+           ([Titulo],[Descripcion],[Fecha],[IdArea],[Tipo],[IdEntidad])
+     VALUES('Simulacro','Se capacitara en simulacro de incendio','23/02/2017',null,'E',1)
+
+INSERT INTO [Prempty].[dbo].[Eventos]
+           ([Titulo],[Descripcion],[Fecha],[IdArea],[Tipo],[IdEntidad])
+     VALUES('Auditoria','Auditoria externa','28/02/2017',1,'E',1)
+
+INSERT INTO [Prempty].[dbo].[Eventos]
+           ([Titulo],[Descripcion],[Fecha],[IdArea],[Tipo],[IdEntidad])
+     VALUES('Paro','Paro de transporte','08/03/2017',null,'E',1)
+
+INSERT INTO [Prempty].[dbo].[Eventos]
+           ([Titulo],[Descripcion],[Fecha],[IdArea],[Tipo],[IdEntidad])
+     VALUES('Final de UEFA','Final de la Champions','30/03/2017',null,'E',1)
+
+
+
+/**RESPUESTAS**/
+INSERT INTO [Prempty].[dbo].[Respuestas]
+           ([IdEvento],[IdUsuario],[Respuesta],[Comentario])
+     VALUES 
+			(1,1,3,null)
+
+INSERT INTO [Prempty].[dbo].[Respuestas]
+           ([IdEvento],[IdUsuario],[Respuesta],[Comentario])
+     VALUES 
+			(1,1,4,null)
+
+INSERT INTO [Prempty].[dbo].[Respuestas]
+           ([IdEvento],[IdUsuario],[Respuesta],[Comentario])
+     VALUES 
+			(1,1,5,null)
+
+INSERT INTO [Prempty].[dbo].[Respuestas]
+           ([IdEvento],[IdUsuario],[Respuesta],[Comentario])
+     VALUES 
+			(1,1,4,null)
+
+INSERT INTO [Prempty].[dbo].[Respuestas]
+           ([IdEvento],[IdUsuario],[Respuesta],[Comentario])
+     VALUES 
+			(1,1,2,null)
