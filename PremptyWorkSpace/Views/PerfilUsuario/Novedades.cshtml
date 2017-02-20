@@ -39,14 +39,11 @@
                                 @foreach (var itemss in Model)
                                 {
                                     <li>
-
                                         <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => itemss.Fecha)</span> </div>
                                         <div class="news-item-detail">
                                             <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => itemss.Titulo)</a>
                                             <p class="news-item-preview">@Html.DisplayFor(modelItem => itemss.Areas) </p>
                                         </div>
-
-
                                     </li>
                                 }
 
