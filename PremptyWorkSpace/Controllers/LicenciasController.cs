@@ -60,8 +60,8 @@ namespace PremptyWorkSpace.Controllers
             List<LicenciaViewModel> listaViewModel = ListFromLicencia(licencias.ToList());
             int pageSize = 10;
             int pageIndex = (page ?? 1);
-            return View(listaViewModel.ToPagedList(pageIndex, pageSize)); 
-           
+            return View(listaViewModel.ToPagedList(pageIndex, pageSize));
+
         }
 
         //
@@ -105,8 +105,24 @@ namespace PremptyWorkSpace.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Motivo = new SelectList(db.MotivoLicencia, "IdMotivo", "Descripcion");
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nombre");
+            var idEntidad = int.Parse(Session["IdEntidad"].ToString());
+            var motivos = db.MotivoLicencia.Where(x => x.IdEntidad == idEntidad);
+
+            var usuarios = db.Usuarios.Where(x => x.IdEntidad == idEntidad);
+            var comboUsuarios = new List<SelectListItem>();
+            foreach (var usuario in usuarios)
+            {
+                var item = new SelectListItem()
+                {
+                    Value = usuario.IdUsuario.ToString(),
+                    Text = usuario.Apellido + " ," + usuario.Nombre + "(" + usuario.Legajo + ")"
+                };
+                comboUsuarios.Add(item);
+            }
+
+
+            ViewBag.Motivo = new SelectList(motivos, "IdMotivo", "Descripcion");
+            ViewBag.IdUsuario = comboUsuarios;
             return View();
         }
 

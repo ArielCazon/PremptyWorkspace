@@ -23,16 +23,16 @@
         <div class="login-fields">
             <h2>Control de Horas</h2>
         <div class="alert alert-info">
-               Hora y fecha actual: @DateTime.Now
+              <i> Hora y fecha actual:</i> <b> @DateTime.Now </b>
             </div>
             <div class="alert alert-info">
-                <p>Hora de ingreso: </p>
+                <p> <strong>Fecha y Hora de ingreso: </strong></p>
                 <p>@ViewBag.HoraIngreso</p>
                 <a href="~/PerfilUsuario/MarcarEntrada">
                     <button class="btn btn-danger ingresar">Marcar Entrada</button></a>
             </div>
             <div class="alert alert-info">
-                <p>Hora de salida: </p>
+                <p> <strong>Fecha y Hora de salida: </strong></p>
                 <p>@ViewBag.HoraSalida</p>
                 <a href="~/PerfilUsuario/MarcarSalida">
                     <button class="btn btn-danger ingresar">Marcar Salida</button></a>
