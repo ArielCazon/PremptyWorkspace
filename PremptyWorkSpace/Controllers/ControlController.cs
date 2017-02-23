@@ -23,7 +23,18 @@ namespace PremptyWorkSpace.Controllers
 
         public ActionResult Index()
         {
+            //Metodos para completar el DropDown List
+            ObtenerListaDeMeses();
 
+            ObtenerListaDeAreas();
+
+            return View();
+        }
+
+
+
+        private void ObtenerListaDeMeses()
+        {
             var mes = new List<Mes>();
 
             mes.Add(new Mes()
@@ -87,79 +98,89 @@ namespace PremptyWorkSpace.Controllers
                 Nombre = "Diciembre"
             });
 
-            // var list = new SelectList(mes, "Id", "Nombre");
-            // ViewData["mes"] = list;
-            //var areaList = new SelectList(area, "IdArea", "Descripcion");
-            //ViewData["area"] = areaList;
-            //ControlHsViewModel ctrlHs = new ControlHsViewModel();
+            ViewBag.IdMes = new SelectList(mes, "Id", "Nombre");
 
+        }
+
+        private void ObtenerListaDeAreas()
+        {
             //Conexion a la base de datos
             PremptyDb dc = new PremptyDb();
 
             //Lista de Areas
-            var areas = dc.Areas.ToList();
+            var areasDb = (from a in dc.Areas
+                           join e in dc.Entidades
+                           on a.IdEntidad equals e.IdEntidad
+                           where e.IdEntidad.Equals(1)               // CEL3 obtener de session
+                           select a).ToList();
+
             var area = new List<Areas>();
 
-            for (int i = 0; i < areas.Count; i++)
+            for (int i = 0; i < areasDb.Count; i++)
             {
                 area.Add(new Areas()
                 {
-                    IdArea = areas[i].IdArea,
-                    Descripcion = areas[i].Descripcion
+                    IdArea = areasDb[i].IdArea,
+                    Descripcion = areasDb[i].Descripcion
                 });
 
             }
 
             ViewBag.IdArea = new SelectList(area, "IdArea", "Descripcion");
-
-            ViewBag.IdMes = new SelectList(mes, "Id", "Nombre");
-
-            return View();
         }
 
 
-        public ActionResult Visual([Bind(Include = "IdArea, IdMes")]ControlHsViewModel ctrlHs)
+
+
+        [HttpPost]
+        public ActionResult Index([Bind(Include = "IdArea, FechaInicio, FechaFinal")]ControlHsViewModel ctrlHs)
         {
             PremptyDb dc = new PremptyDb();
 
-            var idAreaI = ctrlHs.IdArea;
-            var idMesI = ctrlHs.IdMes;
+            ObtenerListaDeAreas();
 
+            var idAreaI = ctrlHs.IdArea;
             Session["s_idAreaI"] = ctrlHs.IdArea;
-            Session["s_idMesI"] = ctrlHs.IdMes;
+            Session["s_fechaIni"] = ctrlHs.FechaInicio;
+            Session["s_fechaFin"] = ctrlHs.FechaFin;
 
             var resultado = new List<ControlHsViewModel>();
 
-            if (idAreaI > 0 && idMesI > 0)
+            if (idAreaI > 0 )
             {
-                var user_ingreso = from u in dc.Usuarios
-                                   join i in dc.Ingresos
-                                   on u.IdUsuario equals i.IdUsuario
-                                   where u.IdArea.Equals(idAreaI)
-                                   && i.FechaActual.Month.Equals(idMesI)
-                                   select new
-                                   {
-                                       Nombre = u.Nombre,
-                                       Apellido = u.Apellido,
-                                       HoraIngreso = i.HoraIngreso,
-                                       HoraEgreso = i.HoraEgreso
-                                   };
 
+                var usuariosPorArea = (from u in dc.Usuarios
+                                where u.IdArea.Equals(idAreaI)
+                                && u.Entidades.IdEntidad.Equals(1)
+                                select u).ToList();
 
-                foreach (var item in user_ingreso)
+                foreach (var item in usuariosPorArea)
                 {
+                    DateTime fechaInicial_aux = Convert.ToDateTime(ctrlHs.FechaInicio);
+                    DateTime fechaFinal_aux = Convert.ToDateTime(ctrlHs.FechaFin);
+
+                    int cantidad_ingreso = (from u in dc.Usuarios
+                                            join i in dc.Ingresos
+                                            on u.IdUsuario equals i.IdUsuario
+                                            where u.IdArea.Equals(idAreaI)
+                                            && i.FechaActual >= fechaInicial_aux
+                                            && i.FechaActual <= fechaFinal_aux
+                                            && i.IdUsuario.Equals(item.IdUsuario)
+                                            && u.Entidades.IdEntidad.Equals(1)
+                                            select u).Count();
 
                     resultado.Add(new ControlHsViewModel()
                     {
                         Nombre = item.Nombre,
                         Apellido = item.Apellido,
-                        HoraIngreso = item.HoraIngreso.ToString(),
-                        HoraEgreso = item.HoraEgreso.ToString()
+                        CantIngresos = cantidad_ingreso
                     });
+
                 }
             }
 
-            return View(resultado);
+            ViewBag.tablaResultado = new SelectList(resultado, "Nombre", "Apellido", "CantIngresos");
+            return View("Index", resultado);
         }
 
 
@@ -170,36 +191,43 @@ namespace PremptyWorkSpace.Controllers
             var resultado = new List<ControlHsViewModel>();
             var gv = new GridView();
 
-            Int32 idAreaI = (Int32)Session["s_idAreaI"];
-            Int32 idMesI = (Int32)Session["s_idMesI"];
+            //Int32 idAreaI = (Int32)Session["s_idAreaI"];
+            //Int32 idMesI = (Int32)Session["s_idMesI"];
+            //DateTime fechaInicio = (DateTime)Session["s_fechaIni"];
+            //DateTime fechaFinal = (DateTime)Session["s_fechaFin"];
 
-            var user_ingreso = from u in dc.Usuarios
-                               join i in dc.Ingresos
-                               on u.IdUsuario equals i.IdUsuario
-                               where u.IdArea.Equals(idAreaI)
-                               && i.FechaActual.Month.Equals(idMesI)
-                               select new
-                               {
-                                   Nombre = u.Nombre,
-                                   Apellido = u.Apellido,
-                                   HoraIngreso = i.HoraIngreso,
-                                   HoraEgreso = i.HoraEgreso
-                               };
 
-            foreach (var item in user_ingreso)
-            {
+            //var user_ingreso = from u in dc.Usuarios
+            //                   join i in dc.Ingresos
+            //                   on u.IdUsuario equals i.IdUsuario
+            //                   where u.IdArea.Equals(idAreaI)
+            //                   && i.FechaActual.Month.Equals(idMesI)
+            //                   && u.Entidades.IdEntidad.Equals(1) //"CEL3 colocar entidad
+            //                   select new
+            //                   {
+            //                       Nombre = u.Nombre,
+            //                       Apellido = u.Apellido,
+            //                       HoraDeIngreso = i.FechaActual,
+            //                       HoraIngreso = i.HoraIngreso,
+            //                       HoraEgreso = i.HoraEgreso
+            //                   };
 
-                resultado.Add(new ControlHsViewModel()
-                {
-                    Nombre = item.Nombre,
-                    Apellido = item.Apellido,
-                    HoraIngreso = item.HoraIngreso.ToString(),
-                    HoraEgreso = item.HoraEgreso.ToString()
-                });
-            }
+            //foreach (var item in user_ingreso)
+            //{
 
-            gv.DataSource = resultado;
+            //    resultado.Add(new ControlHsViewModel()
+            //    {
+            //        Nombre = item.Nombre,
+            //        Apellido = item.Apellido
+            //        //FechaIngreso = item.HoraDeIngreso.ToString("dd/MM/yyyy"),  //Fecha de ingreso
+            //        //HoraIngreso = item.HoraIngreso.Value.ToString("HH:mm:ss"),
+            //        //HoraEgreso = item.HoraEgreso.Value.ToString("HH:mm:ss")
+            //    });
+            //}
 
+            
+            //gv.DataSource = resultado;
+            gv.DataSource = ViewBag.tablaResultado;
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;

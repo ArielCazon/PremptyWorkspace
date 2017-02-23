@@ -1,10 +1,10 @@
 ﻿@using PremptyWorkSpace.Models;
 @using System.Data;
 @model IEnumerable<PremptyWorkSpace.Models.UsuarioListado>
-@{
+@*@{
     ViewBag.Title = "Gerente";
     Layout = "~/Views/_LayoutPage1.cshtml";
-}
+}*@
 @{
     ViewBag.Title = "Gerente";
     Layout = "~/Views/Layout.cshtml";
@@ -41,7 +41,7 @@
                             <ul>
                                 @Html.DropDownList("IdArea", null, "Todos", null)
                                 @Html.DropDownList("IdMes", null, "Seleccione Mes", null)
-                                @Html.DropDownList("IdMotivo", null, "Todos", null) <!--Se dejara para lo ultimo-->
+                                @Html.DropDownList("IdMotivo", null, "Todos", null)
 
                                 <!-- Invoca a la action para visualizar el grafico -->
                                 <div>
@@ -60,26 +60,27 @@
 
 @section JavaScript
 {
-
-    <script src="~/js/pieChart.js" type="text/javascript"></script>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="~/js/pieChart.js")></script>
     <script type="text/javascript">
 
-        // Load the Visualization API and the piechart package.
-        google.load('visualization', '1.0', { 'packages': ['corechart'] });
+
+            // Load the Visualization API and the piechart package.
+            google.load('visualization', '1.0', { 'packages': ['corechart'] });
 
 
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.setOnLoadCallback(drawChart);
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.setOnLoadCallback(drawChart);
 
-        // Callback that creates and populates a data table,
-        // instantiates the pie chart, passes in the data and
-        // draws it.
-        function drawChart() {
-            // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+            function drawChart() {
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                data.addRows([
                 @{int count = 0;}
 
                 @if (ViewBag.data != null)
@@ -125,35 +126,54 @@
 
 
             // Set chart options
-            var options = {
-                'title': 'Grafico de Estadisticas',
-                'width': 400,
-                'height': 300
+            var options1 = {
+                'title': 'Estadisticas Reales ',
+                'width': 600,
+                'height': 600
             };
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            chart.draw(data, options1);
 
+
+                // Set chart options
+            var options2 = {
+                'title': 'Estadisticas Futuras',
+                'width': 600,
+                'height': 600
+            };
             var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
-            chart2.draw(data2, options);
+            chart2.draw(data2, options2);
+
 
         }
+
     </script>
 
 }
     </head>
 
     <body>
-        <div id="chart_div"></div>
-        @Html.ActionLink("Ver detalle", "VerDetalleReal", new { IdArea = 1, IdMes = 1 })
 
-        <div id="chart_div2"></div>
+        @if (ViewBag.mes != null)
+        {
+            <div id="chart_div"> </div>
+             @Html.ActionLink("Ver detalle Inasistencia Real", "VerDetalleReal", new { IdArea = ViewBag.area, IdMes = ViewBag.mes })
+           
 
+            <div id="chart_div2"> </div>
+             @Html.ActionLink("Ver detalle Inasistencia Futura", "VerDetalleFut", new { IdArea = ViewBag.area, IdMes = ViewBag.mes })
+        
+            
+        }
+         
+       
 
         @if (Model != null)
-        {   
-            <div class="container">
+        {    
+            
+                <div class="container">
                     <div class="row">
                         <div class="span12">
                             <div id="target-1" class="widget">

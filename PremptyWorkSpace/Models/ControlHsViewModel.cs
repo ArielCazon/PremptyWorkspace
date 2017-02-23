@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace PremptyWorkSpace.Models
 {
@@ -20,15 +21,28 @@ namespace PremptyWorkSpace.Models
         public string Nombre { get; set; }
 
         public string Apellido { get; set; }
-        
-        [DisplayName ("Hora Ingreso")]
-        public string HoraIngreso { get; set; }
 
-        [DisplayName("Hora Egreso")]
-        public string HoraEgreso { get; set; }
+        //[DisplayName("Fecha de Ingreso")]
+        //public string FechaIngreso { get; set; }
+
+        //[DisplayName ("Hora Ingreso")]
+        //public string HoraIngreso { get; set; }
+
+        //[DisplayName("Hora Egreso")]
+        //public string HoraEgreso { get; set; }
 
         public int IdArea { get; set; }
 
         public int IdMes { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public string FechaInicio { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public string FechaFin { get; set; }
+
+        public int CantIngresos { get; set; }
     }
 }
