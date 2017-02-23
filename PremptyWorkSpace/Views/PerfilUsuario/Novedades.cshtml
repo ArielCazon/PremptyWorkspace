@@ -81,8 +81,7 @@
                                 foreach (var item in Model)
                                 {
                                 <li>
-                                   
-                                    <div style="float:right">
+                                    <div>
                                         <div class="rating-star-block" id= @item.IdEventos >
                                             <a class="star outline" href="#" rating="1" title="No me interesa">No me interesa</a>
                                             <a class="star outline" href="#" rating="2" title="Me interesa poco">Me interesa poco</a>
@@ -160,11 +159,15 @@
         });
         $(".rating-star-block .star").click(function () {
 
-            var valor = $(this).attr('rating');
-            var newScore = 0;
-            var updateP = "#" + $(this).parent().attr('id') + ' .CurrentScore';
-            var artID = $("#" + $(this).parent().attr('id') + ' .articleID').val();
-            // $("#" + $(this).parent().attr('id') + " .star").hide();
+            var respuesta = $(this).attr('rating');
+            var novedad = $(this).parent().attr('id');
+            var divContenedor = $("#" + $(this).parent().attr('id') + " .star");
+            $.post(
+                '@Url.Action("OpinarNovedad","PerfilUsuario")', { idNovedad: novedad, respuesta: respuesta }, function (data) {
+                    if (data) {
+                        divContenedor.css("visibility", "hidden");
+                    }
+                }, 'json');
         });
     });
     function setNewScore(container, data) {
