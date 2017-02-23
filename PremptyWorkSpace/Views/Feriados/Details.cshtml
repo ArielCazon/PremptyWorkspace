@@ -1,0 +1,31 @@
+﻿@model PremptyWorkSpace.Models.Feriados
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<div class="account-container register">
+    <div class="content clearfix">
+        <div class="login-fields">
+            <h2>Detalles del feriado</h2>
+
+
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Fecha):
+
+                @Html.DisplayFor(model => model.Fecha)
+            </div>
+            <div class="alert alert-info">
+                @Html.DisplayNameFor(model => model.Descripcion):
+
+                @Html.DisplayFor(model => model.Descripcion)
+            </div>
+        </div>
+        <div class="form-actions">
+            <a href="~/Feriados/Index">
+                <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
+            @Html.ActionLink("Editar", "Edit", new { id = Model.IdFeriado }, new { @class = "btn btn-danger ingresar" })
+        </div>
+    </div>
+</div>

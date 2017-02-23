@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PremptyWorkSpace.Models.Areas>
+﻿@model PagedList.IPagedList<PremptyWorkSpace.Models.Areas>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -8,11 +9,11 @@
     <div class="subnavbar-inner">
         <div class="container">
             <ul class="mainnav">
-                  <li><a href="~/Horas/Index"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
+                <li><a href="~/Horas/Index"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
                 <li><a href="~/Usuarios/Index"><i class="shortcut-icon icon-group"></i><span>Usuarios</span> </a></li>
                 <li><a href="~/Eventos/Index"><i class="shortcut-icon  icon-calendar"></i><span>Eventos</span> </a></li>
                 <li><a href="~/Licencias/Index"><i class="shortcut-icon   icon-list-alt"></i><span>Licencias</span> </a></li>
-                <li><a href="~/Areas/Index"><i class="shortcut-icon icon-th"></i><span>Areas</span> </a></li>
+                <li class="active"><a href="~/Areas/Index"><i class="shortcut-icon icon-th"></i><span>Areas</span> </a></li>
             </ul>
         </div>
     </div>
@@ -31,6 +32,14 @@
                     <div class="widget-header">
                         <i class="icon-th-list"></i>
                         <h3>Areas</h3>
+                        <div class="dbuscar">
+                            @using (Html.BeginForm())
+                            {                                    
+                                @Html.TextBox("SearchString")
+                                <input type="submit" value="Buscar" class="btn-danger ingresar" />
+                                    
+                            }
+                        </div>
                     </div>
                     <div class="widget-content">
 
@@ -39,10 +48,12 @@
                                 <tr>
 
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Descripcion)
+                                        <div class="display-label">
+                                            @Html.ActionLink("Descripción", "Index", new { sortOrder = ViewBag.DescripcionSortParam, SearchString = ViewBag.SearchString })
+                                        </div>
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Entidades.RazonSocial)
+                                       Entidad
                                     </th>
                                     <th>Operaciones</th>
                                 </tr>
@@ -67,7 +78,62 @@
                             }
 
                         </table>
+                        <div class="dbuscar">
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                            of @Model.PageCount
+                            &nbsp; 
+    @if (Model.HasPreviousPage)
+    { 
+        @Html.ActionLink("<<", "Index", new
+   {
+       page = 1,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
 
+        @Html.Raw("&nbsp;"); 
+        @Html.ActionLink("< Anterior", "Index", new
+   {
+       page = Model.PageNumber - 1,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
+    }
+    else
+    { 
+        @:<< 
+        @Html.Raw("&nbsp;"); 
+        @:< Prev 
+    }
+                            &nbsp; 
+    @if (Model.HasNextPage)
+    { 
+        @Html.ActionLink("Próximo >", "Index", new
+   {
+       page = Model.PageNumber + 1,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
+
+        @Html.Raw("&nbsp;"); 
+        @Html.ActionLink(">>", "Index", new
+   {
+       page = Model.PageCount,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
+    }
+    else
+    { 
+        @:Next > 
+        @Html.Raw("&nbsp;") 
+        @:>> 
+    }
+                        </div>
                     </div>
                 </div>
             </div>

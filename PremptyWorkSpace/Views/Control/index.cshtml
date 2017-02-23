@@ -11,7 +11,7 @@
         <div class="container">
             <ul class="mainnav">
                 <li><a href="~/Menu/Select"><i class="shortcut-icon icon-user"></i><span>Empleado</span> </a></li>
-                <li><a href="~/Control/Index"><i class="shortcut-icon icon-dashboard"></i><span>Control de asistencias</span> </a></li>
+                <li class="active"><a href="~/Control/Index"><i class="shortcut-icon icon-dashboard"></i><span>Control de asistencias</span> </a></li>
                 <li><a href="~/Estadistica/Index"><i class="shortcut-icon  icon-signal"></i><span>Estadisticas</span> </a></li>
 
 
@@ -36,7 +36,8 @@
                                 </ul>
                             </div>
                                 @Html.DropDownList("IdArea", null, "Seleccione Area..", null)
-                                @Html.DropDownList("IdMes", null, "Seleccione Mes..", null)
+                                @Html.TextBox("FechaInicio",null,new { @placeholder = "Fecha de inicial", type = "datetime", @required = "true" })
+                                @Html.TextBox("FechaFin",null,new { @placeholder = "Fecha de fin", type = "datetime", @required = "true" })
                             <ul>
 
                             </ul>
@@ -83,6 +84,14 @@
                                                         </th>
                                                         <th>
                                                             <div class="display-label">
+                                                                @Html.DisplayNameFor(model => model.CantIngresos)
+                                                            </div>
+                                                        </th>
+
+
+
+                                                   @*     <th>
+                                                            <div class="display-label">
                                                                 @Html.DisplayNameFor(model => model.FechaIngreso)
                                                             </div>
                                                         </th>
@@ -95,20 +104,24 @@
                                                             <div class="display-label">
                                                                 @Html.DisplayNameFor(model => model.HoraEgreso)
                                                             </div>
-                                                        </th>
+                                                        </th>*@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach (var item in Model)
                                                     {
                                                         <tr>
+
                                                             <td>
                                                                 @Html.DisplayFor(modelItem => item.Nombre)
                                                             </td>
                                                             <td>
                                                                 @Html.DisplayFor(modelItem => item.Apellido)
                                                             </td>
-                                                            <td>
+                                                             <td>
+                                                                @Html.DisplayFor(modelItem => item.CantIngresos)
+                                                            </td>
+                                                            @*<td>
                                                                 @Html.DisplayFor(modelItem => item.FechaIngreso)
                                                             </td>
                                                             <td>
@@ -116,7 +129,7 @@
                                                             </td>
                                                             <td>
                                                                 @Html.DisplayFor(modelItem => item.HoraEgreso)
-                                                            </td>
+                                                            </td>*@
 
                                                         </tr>
                                                     }
@@ -156,3 +169,36 @@
 
 </div>
 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+        $(document).ready(function () {
+            $('#FechaInicio').datepicker({
+            });
+        });
+
+        $(document).ready(function () {
+            $('#FechaFin').datepicker({
+            });
+        });
+    });
+</script>

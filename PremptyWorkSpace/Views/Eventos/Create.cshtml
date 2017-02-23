@@ -19,29 +19,28 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Titulo)
 
-                    @Html.TextBoxFor(model => model.Titulo, new { @placeholder = "Ingrese un titulo", @class = "login" })
+                    @Html.TextBoxFor(model => model.Titulo, new { @placeholder = "Ingrese un titulo", @required = "true", maxlength = "30", type = "text"})
                     @Html.ValidationMessageFor(model => model.Titulo)
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Descripcion)
 
-                    @Html.TextBoxFor(model => model.Descripcion, new { @placeholder = "Ingrese una descripcion", @class = "login" })
+                    @Html.TextBoxFor(model => model.Descripcion, new { @placeholder = "Ingrese una descripcion", @required = "true", maxlength = "50", type = "text"})
                     @Html.ValidationMessageFor(model => model.Descripcion)
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Fecha)
 
-                    @Html.TextBoxFor(model => model.Fecha, new { @placeholder = "Ingrese una fecha", @class = "login" })
+                    @Html.TextBoxFor(model => model.Fecha, new { @placeholder = "Ingrese una fecha", @required = "true", maxlength = "20", type = "datetime"})
                     @Html.ValidationMessageFor(model => model.Fecha)
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.IdArea, "Areas")
 
-                    @Html.DropDownList("IdArea", "Selecciones una area")
-                    @Html.ValidationMessageFor(model => model.IdArea)
+                    @Html.DropDownList("IdArea", null, "Todas")
                 </div>
             </div>
             <div class="form-actions">

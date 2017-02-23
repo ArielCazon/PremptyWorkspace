@@ -9,40 +9,74 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 namespace PremptyWorkSpace.Controllers
 {
     public class UsuariosController : Controller
     {
         private PremptyDb db = new PremptyDb();
 
-
-
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.LegajoSortParm = sortOrder == "legajo" ? "legajo_desc" : "legajo";
+            ViewBag.LastNameSortParm = sortOrder == "lastname" ? "lastname_desc" : "lastname";
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
+            ViewBag.SearchString = searchString;
+
+            if (Request.HttpMethod == "GET")
+            {
+                searchString = currentFilter;
+            }
+            else
+            {
+                page = 1;
+            }
+            ViewBag.CurrentFilter = searchString; 
 
             var usuarios = db.Usuarios.Include(u => u.Areas).Include(u => u.Roles);
 
-            var usuariosList = new List<UsuariosViewModel>();
-            foreach (var usuario in usuarios)
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var item = new UsuariosViewModel()
-                {
-                    IdUsuario = usuario.IdUsuario,
-                    Legajo = usuario.Legajo.ToString(),
-                    Usuario = usuario.Nombre + ' ' + usuario.Apellido,
-                    FechaIngreso = usuario.FechaIngreso.ToString("dd/MM/yyyy"),
-                    Area = usuario.Areas.Descripcion,
-                    IdEntidad = usuario.IdEntidad
-
-                };
-                usuariosList.Add(item);
-
+                usuarios = usuarios.Where(x => x.NombreUsuario.Contains(searchString)
+                                      || x.Apellido.Contains(searchString)
+                                      || x.Nombre.Contains(searchString));
+                            
             }
-
-            return View(usuariosList);
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    usuarios = usuarios.OrderByDescending(s => s.Nombre);
+                    break;
+                case "legajo":
+                    usuarios = usuarios.OrderBy(s => s.Legajo);
+                    break;
+                case "legajo_desc":
+                    usuarios = usuarios.OrderByDescending(s => s.Legajo);
+                    break;
+                case "lastname":
+                    usuarios = usuarios.OrderBy(s => s.Apellido);
+                    break;
+                case "lastname_desc":
+                    usuarios = usuarios.OrderByDescending(x => x.Apellido);
+                    break;
+                case "date":
+                    usuarios = usuarios.OrderBy(s => s.FechaIngreso);
+                    break;
+                case "date_desc":
+                    usuarios = usuarios.OrderByDescending(s => s.FechaIngreso);
+                    break;
+                default:
+                    usuarios = usuarios.OrderBy(s => s.Nombre);
+                    break;
+            }
+            int pageSize = 10;
+            int pageIndex = (page ?? 1);
+            return View(usuarios.ToPagedList(pageIndex, pageSize)); 
+           
 
         }
-
 
         public ActionResult Details(int id = 0)
         {
@@ -186,8 +220,14 @@ namespace PremptyWorkSpace.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Usuarios usuarios = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuarios);
+            if (usuarios != null)
+            {
+                EliminarRelaciones(id);
+            }
+
+            db.Usuarios.Remove(usuarios);           
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -198,6 +238,30 @@ namespace PremptyWorkSpace.Controllers
             base.Dispose(disposing);
         }
 
+        private void EliminarRelaciones(int idUsuario)
+        {
+            var licenciasVinculadas = db.Licencias.Where(x => x.IdUsuario == idUsuario);
+            foreach (var licencia in licenciasVinculadas)
+            {
+                db.Licencias.Remove(licencia);
+            }
+
+            var ingresos = db.Ingresos.Where(x => x.IdUsuario == idUsuario);
+
+            foreach (var ingreso in ingresos)
+            { 
+                db.Ingresos.Remove(ingreso);
+            }
+
+            var respuestasAsociadas = db.Respuestas.Where(x => x.IdUsuario == idUsuario);
+
+            foreach (var respuesta in respuestasAsociadas)
+            {
+                db.Respuestas.Remove(respuesta);
+            }
+
+            db.SaveChanges();
+        }
 
     }
 }

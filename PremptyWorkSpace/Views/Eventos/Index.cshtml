@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PremptyWorkSpace.Models.Eventos>
+﻿@model PagedList.IPagedList<PremptyWorkSpace.Models.Eventos>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -10,7 +11,7 @@
             <ul class="mainnav">
                 <li><a href="~/Horas/Index"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
                 <li><a href="~/Usuarios/Index"><i class="shortcut-icon icon-group"></i><span>Usuarios</span> </a></li>
-                <li><a href="~/Eventos/Index"><i class="shortcut-icon  icon-calendar"></i><span>Eventos</span> </a></li>
+                <li class="active"><a href="~/Eventos/Index"><i class="shortcut-icon  icon-calendar"></i><span>Eventos</span> </a></li>
                 <li><a href="~/Licencias/Index"><i class="shortcut-icon   icon-list-alt"></i><span>Licencias</span> </a></li>
                 <li><a href="~/Areas/Index"><i class="shortcut-icon icon-th"></i><span>Areas</span> </a></li>
             </ul>
@@ -21,39 +22,59 @@
 <div class="container">
     <div class="row">
         <div class="span12">
-            <div class="nav pull-left">
-                <a href="~/Eventos/Create">
-                    <input type="button" value="Crear evento" class="btn btn-danger ingresar" /></a>
+            <a href="~/Eventos/Create">
+                <input type="button" value="Crear evento" class="btn btn-danger ingresar" />
+            </a>
+            <div class="nav pull-right">
+                <a href="~/Feriados/Index">
+                    <input type="button" value="Feriados" class="btn btn-danger ingresar" /></a>
             </div>
+
 
             <div id="target-1" class="widget">
                 <div class="widget widget-table action-table">
                     <div class="widget-header">
                         <i class="icon-th-list"></i>
                         <h3>Eventos</h3>
+                        <div class="dbuscar">
+                            @using (Html.BeginForm())
+                            {                                    
+                                @Html.TextBox("SearchString")
+                                <input type="submit" value="Buscar" class="btn-danger ingresar" />
+                                    
+                            }
+                        </div>
                     </div>
-                    <div class="widget-content">
-                        <table class="table table-striped table-bordered">
-                            <tr>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Titulo)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Descripcion)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Fecha)
-                                </th>
-                                <th>Area
-                                </th>
-                                <th>Operaciones</th>
-                            </tr>
+                    <div class="widget-content">
+
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="display-label">
+                                            @Html.ActionLink("Titulo", "Index", new { sortOrder = ViewBag.TituloSortParam, SearchString = ViewBag.SearchString })
+                                        </div>
+                                    </th>
+                                    <th>
+                                       Descripción
+                                    </th>
+                                    <th>
+                                        <div class="display-label">
+                                            @Html.ActionLink("Fecha", "Index", new { sortOrder = ViewBag.DateSortParam, SearchString = ViewBag.SearchString })
+                                        </div>
+                                    </th>
+                                    <th>Area
+                                    </th>
+                                    <th>Operaciones</th>
+                                </tr>
+                            </thead>
 
                             @foreach (var item in Model)
                             {
+                                var descripcionArea = item.Areas == null ? "Todas" : item.Areas.Descripcion;
+                                
                                 <tr>
-
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Titulo)
                                     </td>
@@ -64,7 +85,7 @@
                                         @Html.DisplayFor(modelItem => item.Fecha)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Areas.Descripcion)
+                                        @Html.DisplayFor(modelItem => descripcionArea)
                                     </td>
                                     <td>
                                         @Html.ActionLink(" ", "Edit", new { id = item.IdEventos }, new { @class = "btn-icon-only  icon-edit" }) |
@@ -75,4 +96,66 @@
                             }
 
                         </table>
+                        <div class="dbuscar">
+                            Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                            de @Model.PageCount
+                            &nbsp; 
+    @if (Model.HasPreviousPage)
+    { 
+        @Html.ActionLink("<<", "Index", new
+   {
+       page = 1,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
+
+        @Html.Raw("&nbsp;"); 
+        @Html.ActionLink("< Anterior", "Index", new
+   {
+       page = Model.PageNumber - 1,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
+    }
+    else
+    { 
+        @:<< 
+        @Html.Raw("&nbsp;"); 
+        @:< Prev 
+    }
+                            &nbsp; 
+    @if (Model.HasNextPage)
+    { 
+        @Html.ActionLink("Próximo >", "Index", new
+   {
+       page = Model.PageNumber + 1,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
+
+        @Html.Raw("&nbsp;"); 
+        @Html.ActionLink(">>", "Index", new
+   {
+       page = Model.PageCount,
+       sortOrder = ViewBag.CurrentSort,
+       currentFilter = ViewBag.CurrentFilter,
+       SearchString = ViewBag.SearchString
+   })
+    }
+    else
+    { 
+        @:Next > 
+        @Html.Raw("&nbsp;") 
+        @:>> 
+    }
+                        </div>
+
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

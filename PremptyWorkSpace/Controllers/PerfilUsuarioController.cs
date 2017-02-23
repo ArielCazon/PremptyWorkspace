@@ -21,25 +21,40 @@ namespace PremptyWorkSpace.Controllers
 
         public ActionResult Novedades()
         {
-            var fecha = DateTime.Today.AddDays(1);
-            var entities = new PremptyDb();
-            var proximoE = entities.Eventos.Where(x => x.Fecha > fecha);
+            var db = new PremptyDb();
+            var idEntidad = int.Parse(Session["IdEntidad"].ToString());
+            var proximosEventos = db.Eventos.Where(x => x.Fecha > DateTime.Today).Where(x=>x.Entidades.IdEntidad == idEntidad);
             var NovedadesList = new List<NovedadesViewModel>();
-            foreach (var evento in proximoE)
+            foreach (var evento in proximosEventos)
             {
-
                 var item = new NovedadesViewModel()
                 {
                     Fecha = evento.Fecha.ToString("dd/MM/yy"),
                     Descripcion = evento.Descripcion,
                     Titulo = evento.Titulo,
                     IdEventos = evento.IdEventos,
-                    Areas = evento.Areas.Descripcion
+                    Areas = evento.Areas == null ? "Todas" : evento.Areas.Descripcion
                 };
                 NovedadesList.Add(item);
-
             }
 
+            var eventosDeHoy = db.Eventos.Where(x => x.Fecha == DateTime.Today).Where(x => x.Entidades.IdEntidad == idEntidad);
+            var novedadesDelDia = new List<NovedadesViewModel>();
+
+            foreach (var evento in eventosDeHoy)
+            {
+                var item = new NovedadesViewModel()
+                {
+                    Fecha = evento.Fecha.ToString("dd/MM/yy"),
+                    Descripcion = evento.Descripcion,
+                    Titulo = evento.Titulo,
+                    IdEventos = evento.IdEventos,
+                    Areas = evento.Areas == null ? "Todas" : evento.Areas.Descripcion
+                };
+                novedadesDelDia.Add(item);
+            }
+
+            ViewBag.EventosDelDia = novedadesDelDia;
             return View(NovedadesList);
         }
 

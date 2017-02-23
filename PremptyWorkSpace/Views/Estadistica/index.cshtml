@@ -1,10 +1,10 @@
 ﻿@using PremptyWorkSpace.Models;
 @using System.Data;
 @model IEnumerable<PremptyWorkSpace.Models.UsuarioListado>
-@{
+@*@{
     ViewBag.Title = "Gerente";
     Layout = "~/Views/_LayoutPage1.cshtml";
-}
+}*@
 @{
     ViewBag.Title = "Gerente";
     Layout = "~/Views/Layout.cshtml";
@@ -41,7 +41,7 @@
                             <ul>
                                 @Html.DropDownList("IdArea", null, "Todos", null)
                                 @Html.DropDownList("IdMes", null, "Seleccione Mes", null)
-                                @Html.DropDownList("IdMotivo", null, "Todos", null) <!--Se dejara para lo ultimo-->
+                                @Html.DropDownList("IdMotivo", null, "Todos", null)
 
                                 <!-- Invoca a la action para visualizar el grafico -->
                                 <div>
@@ -126,18 +126,25 @@
 
 
             // Set chart options
-            var options = {
-                'title': 'Grafico de Estadisticas',
-                'width': 400,
-                'height': 300
+            var options1 = {
+                'title': 'Estadisticas Reales ',
+                'width': 600,
+                'height': 600
             };
 
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
+            chart.draw(data, options1);
 
+
+                // Set chart options
+            var options2 = {
+                'title': 'Estadisticas Futuras',
+                'width': 600,
+                'height': 600
+            };
             var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
-            chart2.draw(data2, options);
+            chart2.draw(data2, options2);
 
 
         }
@@ -151,10 +158,14 @@
 
         @if (ViewBag.mes != null)
         {
-            <div id="chart_div"></div>
-            @Html.ActionLink("Ver detalle", "VerDetalleReal", new { IdArea = ViewBag.area, IdMes = ViewBag.mes })
-          <div id="chart_div2"></div> 
+            <div id="chart_div"> </div>
+             @Html.ActionLink("Ver detalle Inasistencia Real", "VerDetalleReal", new { IdArea = ViewBag.area, IdMes = ViewBag.mes })
+           
 
+            <div id="chart_div2"> </div>
+             @Html.ActionLink("Ver detalle Inasistencia Futura", "VerDetalleFut", new { IdArea = ViewBag.area, IdMes = ViewBag.mes })
+        
+            
         }
          
        

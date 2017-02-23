@@ -37,16 +37,15 @@ namespace PremptyWorkSpace.Controllers
         public ActionResult Index(string selectedBookId, [Bind(Include = "IdArea, IdMes, IdMotivo")]UsuarioLicencia usuLic)
         {
             PremptyDb dc = new PremptyDb();
-            //Por cas usuario que se loguea se obtiene LAS CANTIDADES
+
             string usuarioLogueado = HttpContext.User.Identity.Name;
             var array_ausencias = new List<Ingresos>();
             var user_area = new List<Usuarios>();
+            var ingresoUsu = new List<Usuarios>();
+
             int cantDiasHabiles = 0;
             int cantAusencias = 0;
             int cantPresencias = 0;
-            int anio = DateTime.Now.Year;
-            int dia = DateTime.Now.Day;
-            int mes = DateTime.Now.Month;
             int cantAusenciasF = 0;
             int cantPresenciasF = 0;
             int cantEventosPre = 0;
@@ -55,301 +54,321 @@ namespace PremptyWorkSpace.Controllers
             int feriadosPos = 0;
             int cantDiasHabilesPre = 0;
             int cantDiasHabilesPos = 0;
-            var ingresoUsu = new List<Usuarios>();
+
+            int anioActual = DateTime.Now.Year;
+            int diaActual = DateTime.Now.Day;
+            int mesActual = DateTime.Now.Month;
+            int IdEntidad = (Int32)Session["IdEntidad"];
 
             ObtenerListaDeMeses();
             ObtenerListaDeAreas();
             ObtenerListaDeMotivos();
 
-            //Si no selecciono MES VALIDO; mensaje popup: INGRESE UN MES
-            if (usuLic.IdMes == 0)
+
+            //Se VALIDA el ingreso del AREA y MES
+            if (usuLic.IdArea == 0 || usuLic.IdMes == 0)
             {
                 return View();
             }
 
-            //Cantidad TOTAL DEL MES del MES
-            int diasDelMes = DateTime.DaysInMonth(anio, usuLic.IdMes);
+            //Cantidad TOTAL DEL MES SELECCIONAR
+            int diasTotalDelMes = DateTime.DaysInMonth(anioActual, usuLic.IdMes);
 
             //Cantidad HABIL DEL MES
-            cantDiasHabiles = obtenerDiasHabiles(usuLic.IdMes, anio);
+            cantDiasHabiles = obtenerDiasHabiles(usuLic.IdMes, anioActual);
 
             //USUARIOS por AREA para esa Entidad
             user_area = (from u in dc.Usuarios
                          where u.IdArea.Equals(usuLic.IdArea)
-                         && u.Entidades.IdEntidad.Equals(1)              // CEL3 obtener de session
+                         && u.Entidades.IdEntidad.Equals(IdEntidad)              // CEL3 obtener de session
                          select u).ToList();
 
-
-            /************   PRE  ***************/
-
+            /*************** SE OBTIENEN DATOS PARA INASISTENCIAS REALES ********************/
             //Si es del mismo MES
-            if (usuLic.IdMes == mes)
+            if (usuLic.IdMes == mesActual)
             {
-                //OBTENER CANTIDAD DIA HABIL PRE
-                for (int i = 1; i <= dia; i++)
-                {
-                    if (diaHabil(anio, usuLic.IdMes, i) == true)
-                    {
-                        cantDiasHabilesPre = cantDiasHabilesPre + 1;
-                    }
+                //Dias Habiles del MES ACTUAL hasta HOY
+                cantDiasHabilesPre = CantidadHabillesMensualPre(usuLic, anioActual, diaActual, cantDiasHabilesPre);
 
-                }
-
-                //Obtener FERIADOS DEL MES SELECCIONADO
-                var tablaferiadosPre = (from f in dc.Feriados
-                                        where f.Fecha.Day >= 1
-                                        && f.Fecha.Day < dia
-                                        && f.Fecha.Month.Equals(usuLic.IdMes)
-                                        && f.Fecha.Year.Equals(anio)
-                                        select f).ToList();
-
-                //Cantida de feriados de lun a vier
-                foreach (var item in tablaferiadosPre)
-                {
-                    if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
-                    {
-                        feriadosPre = feriadosPre + 1;
-                    }
-
-                }
-
-                //Obtener EVENTOS DEL MES SELECCIONADO 
-                var tablaEventos = (from e in dc.Eventos
-                                   where e.Fecha.Month.Equals(usuLic.IdMes)
-                                   && e.Fecha.Day >= 1
-                                   && e.Fecha.Day < dia 
-                                   && e.Fecha.Year.Equals(anio)
-                                   && e.Entidades.IdEntidad.Equals(1)    // CEL3 Obtener ENTIDAD DE LA SESSION 
-                                   select e).ToList();
-                //Cantida de eventos de lun a vier
-                foreach (var item in tablaEventos)
-                {
-                    if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
-                    {
-                        cantEventosPre = cantEventosPre + 1;
-                    }
-
-                }
+                //Obtener FERIADOS DEL MES SELECCIONADO HASTA HOY
+                feriadosPre = FeriadosHabilesMensualPre(usuLic, dc, anioActual, diaActual, feriadosPre);
 
             }
             else
             {   //Si el mes seleccionado es MENOR al MES actual
-                if (usuLic.IdMes < mes)
+                if (usuLic.IdMes < mesActual)
                 {
+                    //Dias Habiles del MES SELECCIONADO
                     cantDiasHabilesPre = cantDiasHabiles;
-                    
-                    //Obtener FERIADOS DEL MES SELECCIONADO 
-                    var tablaferiadosPre = (from f in dc.Feriados
-                                          where  f.Fecha.Month.Equals(usuLic.IdMes)
-                                          && f.Fecha.Year.Equals(anio)
-                                          select f).ToList();
 
-
-                    //Cantida de feriados de lun a vier
-                    foreach (var item in tablaferiadosPre)
-                    {
-                        if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
-                        {
-                            feriadosPre = feriadosPre + 1;
-                        }
-
-                    }
-
-                    //Obtener EVENTOS DEL MES SELECCIONADO para la Entidad
-                    var tablaEventosPre = (from e in dc.Eventos
-                                      where e.Fecha.Month.Equals(usuLic.IdMes)
-                                      && e.Fecha.Year.Equals(anio)
-                                      && e.Entidades.IdEntidad.Equals(1)    // CEL3 Obtener ENTIDAD DE LA SESSION 
-                                      select e).ToList();
-
-                    foreach (var item in tablaEventosPre)
-                    {
-                        if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
-                        {
-                            cantEventosPre = cantEventosPre + 1;
-                        }
-
-                    }
+                    //Obtener FERIADOS DEL MES SELECCIONADO
+                    feriadosPre = FeriadosHabilMesAnterior(usuLic.IdMes, dc, anioActual, feriadosPre);
                 }
             }
 
-
-            //DIAS PRE HABILES
-            cantDiasHabilesPre = cantDiasHabilesPre - feriadosPre - cantEventosPre;
-
+            //Total de DIAS que el EMPLEADO debio TRABAJAR ese MES(pasado)
+            cantDiasHabilesPre = cantDiasHabilesPre - feriadosPre;
 
 
-            /************   POS ***************/
+
+            /*************** SE OBTIENEN DATOS PARA INASISTENCIAS FUTURAS ********************/
             //Si es el mismo MES
-            if (usuLic.IdMes == mes)
+            if (usuLic.IdMes == mesActual)
             {
-                int diaPos = dia + 1;
-                //Cantidad de dias Habiles desde 1 hasta dia actual ==> CANTIDAD DIA HABIL PRE
-                for (int i = diaPos; i <= diasDelMes; i++)
-                {
-                    if (diaHabil(anio, usuLic.IdMes, i) == true)
-                    {
-                        cantDiasHabilesPos = cantDiasHabilesPos + 1;
-                    }
+                //Dias Habiles del MES de HOY hasta el Final del MES ACTUAL
+                cantDiasHabilesPos = CantidadHabilMensualPos(usuLic, anioActual, diaActual, cantDiasHabilesPos, diasTotalDelMes);
 
-                }
-
-                //Feriados POS 
-                var tablaferiadosPos = (from f in dc.Feriados
-                                        where f.Fecha.Day > dia
-                                        && f.Fecha.Day <= diasDelMes
-                                        && f.Fecha.Month.Equals(usuLic.IdMes)
-                                        && f.Fecha.Year.Equals(anio)
-                                        select f).ToList();
-
-                foreach (var item in tablaferiadosPos)
-                {
-                    if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
-                    {
-                        feriadosPos = feriadosPos + 1;
-                    }
-                }
-
-
-                //Obtener POS EVENTOS DEL MES SELECCIONADO 
-                var tablaEventos = (from e in dc.Eventos
-                                    where e.Fecha.Month.Equals(usuLic.IdMes)
-                                    && e.Fecha.Day > dia
-                                    && e.Fecha.Day <= diasDelMes
-                                    && e.Fecha.Year.Equals(anio)
-                                    && e.Entidades.IdEntidad.Equals(1)    // CEL3 Obtener ENTIDAD DE LA SESSION 
-                                    select e).ToList();
-                //Cantida de eventos de lun a vier
-                foreach (var item in tablaEventos)
-                {
-                    if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
-                    {
-                        cantEventosPos = cantEventosPos + 1;
-                    }
-                }
+                //Obtener FERIADOS DEL MES SELECCIONADO
+                feriadosPos = FeriadosHabilMensualPos(usuLic, dc, anioActual, diaActual, feriadosPos, diasTotalDelMes);
             }
             else
             {
-                if (usuLic.IdMes > mes)
+                if (usuLic.IdMes > mesActual)
                 {
                     //CANTIDAD DE DIAS HABILES POS
                     cantDiasHabilesPos = cantDiasHabiles;
 
-                    //CANTIDAD DE FERIADOS POS
-                    feriadosPos = (from f in dc.Feriados
-                                   where f.Fecha.Month.Equals(usuLic.IdMes)
-                                   && f.Fecha.Year.Equals(anio)
-                                   select f).Count();
-
-                    //CANTIDAD DE EVENTOS POS
-                    cantEventosPos = (from e in dc.Eventos
-                                      where e.Fecha.Month.Equals(usuLic.IdMes)
-                                      && e.Fecha.Year.Equals(anio)
-                                      && e.Entidades.IdEntidad.Equals(1)    // CEL3 Obtener ENTIDAD DE LA SESSION 
-                                      select e).Count();
-
+                    //Obtener FERIADOS DEL MES SIGUIENTE
+                    feriadosPos = FeriadosHabilMesPosterior(usuLic, dc, anioActual, feriadosPos);
                 }
             }
 
-            cantDiasHabilesPos = cantDiasHabilesPos - cantEventosPos - feriadosPos;
+            //Total de DIAS que el EMPLEADO debe TRABAJAR ese MES(futuro)
+            cantDiasHabilesPos = cantDiasHabilesPos - feriadosPos;
 
-           
 
-            //Logica de Presentismo REAL
+            //PRESENCIA REAL
             int cantidadFaltas = 0;
             int cantidadPresente = 0;
+            List<UsuarioListado> usuarioInasReal = new List<UsuarioListado>();
+            List<UsuarioListado> usuarioAsisReal = new List<UsuarioListado>();
 
+            //var item = new Usuarios();
 
-            //AUSENCIAS Y ASISTENCIA DEL MES ANTERIOR
-            if (usuLic.IdMes < mes)
+            //AUSENCIAS Y ASISTENCIA DEL MES ANTERIOR SOLO PARA EL GRAFICO, Y PARA MOSTRAR LISTADO DE INASISTENCIAS REALES 
+            if (usuLic.IdMes <= mesActual)
             {
                 //Cuento la cantidad de asistencias del mes por empleado
-                foreach (var item in user_area)
+                foreach (var wa_user in user_area)
                 {
-                    //Sin selecccion de MOTIVO
-                    if (usuLic.IdMotivo == 0)
+                    cantidadFaltas = 0;
+                    cantidadPresente = 0;
+                    cantEventosPre = 0;
+
+                    switch (usuLic.IdMotivo)
                     {
-                        ingresoUsu = (from u in dc.Usuarios
-                                      join i in dc.Ingresos
-                                      on u.IdUsuario equals i.IdUsuario
-                                      where u.IdUsuario.Equals(item.IdUsuario)
-                                      && i.FechaActual.Month.Equals(usuLic.IdMes)
-                                      && i.FechaActual.Year.Equals(anio)
-                                      && u.Entidades.IdEntidad.Equals(1)
-                                      select u).ToList();
+                        case 0: //Motivos en un rango de Fecha para ese usuario
+                            if (usuLic.IdMes == mesActual)
+                            {
+                                cantEventosPre = EventosHabilesMensualPre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user.IdUsuario, wa_user.FechaNac.Month, IdEntidad);
+                                cantEventosPre = cantEventosPre + AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
+                           
+                            }
+                            else
+                            {
+                                cantEventosPre = EventosHabilesMensualPre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user.IdUsuario, wa_user.FechaNac.Month, IdEntidad);
+                            }
+                            break;
+
+                        case 1: //Motivo por DEPORTE
+                            if (usuLic.IdMes == mesActual)
+                            {
+                                cantEventosPre = EventosHabilMensualXDeportePre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user, IdEntidad);
+                            }
+                            else
+                            {
+                                cantEventosPre = EventosHabilMensualXDeportePre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
+                            }
+                            break;
+
+                        case 2: //Motivo por CUMPLEAÑOS
+                            cantEventosPre = EventoCumpleaniosPre(usuLic, cantEventosPre, diaActual, mesActual, wa_user);
+
+                            break;
+
+                        case 3: //Gremio
+
+                            if (usuLic.IdMes == mesActual)  // Mes Seleccionado == Mes Actual
+                            {
+                                cantEventosPre = EventosHabilMensualXGremioPre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user, IdEntidad);
+                            }
+                            else
+                            {
+                                cantEventosPre = EventosHabilMensualXGremioPre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
+                            }
+                            break;
+
+                        case 4: //faltas injustificadas
+                            cantEventosPre = AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
+                            break;
 
                     }
-                    //Filtro de motivo
+
+                    if (usuLic.IdMes < mesActual)
+                    {
+                        diaActual = diasTotalDelMes;
+                    }
+
+                    //Cantidad de asistencias por IDUSUARIO
+                    int cantIngreso = (from u in dc.Usuarios
+                                       join i in dc.Ingresos
+                                       on u.IdUsuario equals i.IdUsuario
+                                       where i.FechaActual.Day >= 1
+                                        && i.FechaActual.Day <= diaActual
+                                        && i.FechaActual.Month == usuLic.IdMes
+                                        && i.FechaActual.Year == anioActual
+                                        && u.IdArea == wa_user.IdArea
+                                        && u.IdUsuario == wa_user.IdUsuario
+                                        && u.IdEntidad == IdEntidad
+                                       select u).Count();
+
+                    int cantLicencias = (from u in dc.Usuarios
+                                         join l in dc.Licencias
+                                         on u.IdUsuario equals l.IdUsuario
+                                         where l.Fecha.Day >= 1
+                                          && l.Fecha.Day <= diaActual
+                                          && l.Fecha.Month == usuLic.IdMes
+                                          && l.Fecha.Year == anioActual
+                                          && l.Estado == 1              //Estado aprobado
+                                          && u.IdArea == wa_user.IdArea
+                                          && u.IdUsuario == wa_user.IdUsuario
+                                          && u.IdEntidad == IdEntidad
+                                         select u).Count();
+
+                    cantidadPresente = cantIngreso + cantLicencias;
+
+                    if (cantidadPresente == cantDiasHabilesPre)
+                    {
+                        cantidadFaltas = 0;
+                    }
                     else
                     {
-
-                     //Se modifica tabla Licencia == Campo== FECHA; falta indicar filtro de fecha!! "CEL3
-                     //   ingresoUsu = dc.Licencias.Include(x => x.MotivoLicencia).Include(x => x.Usuarios)
-                     //       .Where(x => x.MotivoLicencia.IdMotivo == usuLic.IdMotivo).Where(x => x.FechaInicio.Month == usuLic.IdMes).Select(x => x.Usuarios).ToList();
+                        int diferencia = cantDiasHabilesPre - cantidadPresente;
+                        if (diferencia < cantEventosPre)
+                        {
+                            cantidadFaltas = diferencia;
+                        }
+                        else
+                        {
+                            cantidadFaltas = cantEventosPre;
+                        }
                     }
 
-                    cantidadFaltas = cantDiasHabilesPre - ingresoUsu.Count;
-                    cantidadPresente = ingresoUsu.Count;
-                }
-
-                //Se acumula la cantidad de Ausencia y Presentismo de cada Empleado
-                cantAusencias = cantAusencias + cantidadFaltas;
-
-                cantPresencias = cantPresencias + cantidadPresente;
-            }
-
-
-
-            //AUSENCIAS Y ASISTENCIA DEL MES FUTURO
-            if (usuLic.IdMes > mes)
-            {
-
-                foreach (var item in user_area)
-                {
-                    //Sin selecccion de MOTIVO
-                    if (usuLic.IdMotivo == 0)
+                    //SE GUARDAN LAS INASISTENCIAS REALES DEL USUARIO
+                    usuarioInasReal.Add(new UsuarioListado()
                     {
-                        //var licenciasMesPasado = dc.Licencias.Include(x => x.MotivoLicencia).Include(x => x.Usuarios)
-                        //                          .Where(x => x.MotivoLicencia.IdMotivo == usuLic.IdMotivo)
-                        //                          .Where(x => x.FechaInicio.Month == usuLic.IdMes)
-                        //                          .Select(x => x.Usuarios);
+                        Legajo = (Int32)wa_user.Legajo,
+                        Nombre = wa_user.Nombre,
+                        Apellido = wa_user.Apellido,
+                        DescrArea = wa_user.Areas.Descripcion,
+                        CantInas = cantidadFaltas
+                    });
 
 
-                        //ingresoUsu = dc.Usuarios.Include(x => x.Areas).Include(x => x.Respuestas).ToList();
-
-                        // ingresoUsu = dc.Respuestas.Include(x => x.Usuarios).Include(x => x.Eventos).Where(x => x.Usuarios.IdUsuario == item.IdUsuario).ToList();
-
-                    }
-
+                    //SUMA DE ASISTENCIAS E INASISTENCIAS REALES DE LOS EMPLEADOS  ==> GRAFICO REAL
+                    cantAusencias = cantAusencias + cantidadFaltas;
+                    cantPresencias = cantPresencias + cantidadPresente;
                 }
-
-                ////Cuento la cantidad de asistencias del mes FUTURO
-                //foreach (var item in user_area)
-                //{
-                //    ingresoUsu = (from u in dc.Usuarios
-                //                  join r in dc.Respuestas
-                //                  on u.IdUsuario equals r.IdUsuario
-                //                  where u.IdUsuario.Equals(item.IdUsuario)
-                //                  //&& i.FechaActual.Month.Equals(usuLic.IdMes)
-                //                  select u).ToList();
-
-                //    if (usuLic.IdMes < DateTime.Now.Month)
-                //    {
-                //        cantidadFaltas = cantDiasHabilesPre - ingresoUsu.Count;
-                //    }
-                //    else
-                //    {
-                //        cantidadFaltas = cantDiasHabilesPos - ingresoUsu.Count;
-                //    }
-
-
-                //    cantidadPresente = ingresoUsu.Count;
-                //}
 
             }
 
 
-            //logica de Presentismo Futuro
+            //SE GUARDAN LOS REGISTROS DE USUARIO PARA MOSTRAR INASISTENCIAS REALES
+            Session["InasReal"] = new List<UsuarioListado>(usuarioInasReal);
+
+            List<UsuarioListado> usuarioInasF = new List<UsuarioListado>();
+            List<UsuarioListado> usuarioAsisF = new List<UsuarioListado>();
+
+
+            //AUSENCIAS Y ASISTENCIA DEL MES A FUTURO SOLO PARA EL GRAFICO, Y PARA MOSTRAR LISTADO DE INASISTENCIAS FUTURAS 
+            int diaInicial = 1;
+            if (usuLic.IdMes >= mesActual)
+            {
+                foreach (var wa_user in user_area)
+                {
+                    cantidadFaltas = 0;
+                    cantidadPresente = 0;
+                    cantEventosPos = 0;
+
+                    switch (usuLic.IdMotivo)
+                    {
+
+                        case 0://Todos los eventos
+                            if (usuLic.IdMes == mesActual)
+                            {
+                                cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, diaActual, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                                cantEventosPos = cantEventosPos + AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+                            
+                            
+                            }
+                            else
+                            {
+                                cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, diaInicial, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                            }
+
+                            break;
+
+                        case 1://Deporte
+                            if (usuLic.IdMes == mesActual)
+                            {
+                                cantEventosPos = EventosHabilMensulXDeportePos(usuLic, dc, anioActual, diaActual, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                            }
+                            else
+                            {
+                                cantEventosPos = EventosHabilMensulXDeportePos(usuLic, dc, anioActual, diaInicial, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                            }
+                            break;
+
+                        case 2:  //Cumpleaños
+                            cantEventosPos = EventosMensualXCumplePos(usuLic, cantEventosPos, diaActual, mesActual, wa_user);
+                            break;
+
+                        case 3: //Gremio
+                            if (usuLic.IdMes == mesActual)
+                            {
+                                cantEventosPos = EventosHabilMensualXGremioPos(usuLic, dc, anioActual, diaActual, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                            }
+                            else
+                            {
+                                cantEventosPos = EventosHabilMensualXGremioPos(usuLic, dc, anioActual, diaInicial, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+
+                            }
+                            break;
+                        case 4://faltas injustificadas
+                            cantEventosPos = AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+                            break;
+
+                    }
+
+                    if (usuLic.IdMes > mesActual)
+                    {
+                        diaActual = diasTotalDelMes;
+                    }
+
+                    //Cantidad de INGRESOS para de un USUARIO par
+                    cantidadFaltas = cantEventosPos;
+                    cantidadPresente = cantDiasHabilesPos - cantEventosPos;
+
+                    //SE GUARDAN LAS INASISTENCIAS REALES DEL USUARIO
+                    usuarioInasF.Add(new UsuarioListado()
+                    {
+                        Legajo = (Int32)wa_user.Legajo,
+                        Nombre = wa_user.Nombre,
+                        Apellido = wa_user.Apellido,
+                        DescrArea = wa_user.Areas.Descripcion,
+                        CantInas = cantidadFaltas
+                    });
+
+
+                    //SUMA DE ASISTENCIAS E INASISTENCIAS REALES DE LOS EMPLEADOS  ==> GRAFICO REAL
+                    cantAusenciasF = cantAusenciasF + cantidadFaltas;
+                    cantPresenciasF = cantPresenciasF + cantidadPresente;
+                }
+
+            }
+
+            //SE GUARDAN LOS REGISTROS DE USUARIO PARA MOSTRAR INASISTENCIAS REALES
+            Session["InasFut"] = new List<UsuarioListado>(usuarioInasF);
 
 
             //Session[keySession] = new { CantidadAusencias = cantAusencias, CantidadPresencias = cantPresencias };
@@ -359,11 +378,6 @@ namespace PremptyWorkSpace.Controllers
             var keyAusenciasF = usuarioLogueado + "-AusenciasF";
             var keyPresenciasF = usuarioLogueado + "-PresenciasF";
 
-
-            cantAusencias = 10;
-            cantPresencias = 15;
-            cantAusenciasF = 0;
-            cantPresenciasF = 0;
 
             Session[keyAusencias] = cantAusencias;
             Session[keyPresencias] = cantPresencias;
@@ -378,6 +392,395 @@ namespace PremptyWorkSpace.Controllers
             return View();
         }
 
+        private int AusenciaInjustificada(UsuarioLicencia usuLic, PremptyDb dc, int cantEventosPre, int anioActual, int mesActual, int IdEntidad, Usuarios wa_user)
+        {
+            int totalCantMes = 0;
+            int cantIngresoXMes = 0;
+            int cantDiasHabilesXMes = 0;
+            int faltasXMes = 0;
+            int feriadosXMes = 0;
+            int cantEventosXMes = 0;
+            //Lectura de MESES anteriores
+            for (int j = 1; j < mesActual; j++)
+            {
+                totalCantMes = DateTime.DaysInMonth(anioActual, j);
+
+                cantDiasHabilesXMes = obtenerDiasHabiles(usuLic.IdMes, anioActual);
+
+                cantIngresoXMes = (from u in dc.Usuarios
+                                   join i in dc.Ingresos
+                                   on u.IdUsuario equals i.IdUsuario
+                                   where i.FechaActual.Day >= 1
+                                    && i.FechaActual.Day <= totalCantMes
+                                    && i.FechaActual.Month == j
+                                    && i.FechaActual.Year == anioActual
+                                    && u.IdArea == wa_user.IdArea
+                                    && u.IdUsuario == wa_user.IdUsuario
+                                    && u.IdEntidad == IdEntidad
+                                   select u).Count();
+
+                var tablaEventos = (from e in dc.Eventos
+                                    join r in dc.Respuestas
+                                    on e.IdEventos equals r.IdEvento
+                                    where e.Fecha.Day >= 1
+                                       && e.Fecha.Day <= totalCantMes
+                                       && e.Fecha.Month.Equals(usuLic.IdMes)
+                                       && e.Fecha.Year.Equals(anioActual)
+                                       && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                       && r.Respuesta > 3
+                                       && r.Usuarios.IdUsuario == wa_user.IdUsuario
+                                       && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                    select e).ToList();
+
+                foreach (var item in tablaEventos)
+                {
+                    if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                    {
+                        cantEventosXMes = cantEventosXMes + 1;
+                    }
+
+                }
+
+                feriadosXMes = FeriadosHabilMesAnterior(j, dc, anioActual, feriadosXMes);
+
+                //Falta injustificada = Asistencias
+                faltasXMes = faltasXMes + cantDiasHabilesXMes - cantIngresoXMes - feriadosXMes - cantEventosXMes;
+
+            }
+
+            cantEventosPre = (int)faltasXMes / mesActual;
+            return cantEventosPre;
+        }
+
+        private int EventosMensualXCumplePos(UsuarioLicencia usuLic, int cantEventosPos, int diaActual, int mesActual, Usuarios wa_user)
+        {
+            if (usuLic.IdMes == mesActual)  // Mes Seleccionado == Mes Actual
+            {
+                if (wa_user.FechaNac.Month == usuLic.IdMes && wa_user.FechaNac.Day > diaActual)
+                {
+                    cantEventosPos = cantEventosPos + 1;
+                }
+            }
+            else if (usuLic.IdMes == wa_user.FechaNac.Month)   // Mes Seleccionado > Mes Actual 
+            {
+                cantEventosPos = cantEventosPos + 1;
+            }
+            return cantEventosPos;
+        }
+
+        private int EventoCumpleaniosPre(UsuarioLicencia usuLic, int cantEventosPre, int diaActual, int mesActual, Usuarios wa_user)
+        {
+            if (usuLic.IdMes == mesActual)  // Mes Seleccionado == Mes Actual
+            {
+                if (wa_user.FechaNac.Month == usuLic.IdMes && wa_user.FechaNac.Day < diaActual)
+                {
+                    cantEventosPre = cantEventosPre + 1;
+                }
+            }
+            else if (usuLic.IdMes == wa_user.FechaNac.Month)   // Mes Seleccionado < Mes Actual 
+            {
+                cantEventosPre = cantEventosPre + 1;
+            }
+            return cantEventosPre;
+        }
+
+        private int EventosHabilMensualXGremioPos(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaInicial, int cantEventosPos, int diasTotalDelMes, Usuarios wa_user, int IdEntidad)
+        {
+
+            var tablaEventos = (from e in dc.Eventos
+                                join r in dc.Respuestas
+                                on e.IdEventos equals r.IdEvento
+                                where e.Fecha.Day > diaInicial
+                                   && e.Fecha.Day < diasTotalDelMes
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
+                                   && e.Fecha.Year.Equals(anioActual)
+                                   && (e.Titulo.Contains("Paro") || e.Titulo.Contains("Colectivo") || e.Titulo.Contains("Gremio"))
+                                   && r.Respuesta > 3
+                                   && r.Usuarios.IdUsuario == wa_user.IdUsuario
+                                   && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                   && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                select e).ToList();
+
+            //Cantida de eventos de lun a vier
+            foreach (var item in tablaEventos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    cantEventosPos = cantEventosPos + 1;
+                }
+
+            }
+            return cantEventosPos;
+        }
+
+
+
+        private int EventosHabilMensulXDeportePos(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaInicial, int cantEventosPos, int diasTotalDelMes, Usuarios wa_user, int IdEntidad)
+        {
+            var tablaEventos = (from e in dc.Eventos
+                                join r in dc.Respuestas
+                                on e.IdEventos equals r.IdEvento
+                                where e.Fecha.Day > diaInicial
+                                   && e.Fecha.Day <= diasTotalDelMes
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
+                                   && e.Fecha.Year.Equals(anioActual)
+                                   && (e.Titulo.Contains("Deporte") || e.Titulo.Contains("Tenis") || e.Titulo.Contains("Futbol"))
+                                   && r.Respuesta > 3
+                                   && r.Usuarios.IdUsuario == wa_user.IdUsuario
+                                   && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                   && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                select e).ToList();
+
+            //Cantida de eventos de lun a vier
+            foreach (var item in tablaEventos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    cantEventosPos = cantEventosPos + 1;
+                }
+
+            }
+            return cantEventosPos;
+        }
+        private int EventosHabilMensualPos(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaInicial, int cantEventosPos, int diasTotalDelMes, Usuarios wa_user, int IdEntidad)
+        {
+            var tablaEventos = (from e in dc.Eventos
+                                join r in dc.Respuestas
+                                on e.IdEventos equals r.IdEvento
+                                where e.Fecha.Day > diaInicial
+                                   && e.Fecha.Day <= diasTotalDelMes
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
+                                   && e.Fecha.Year.Equals(anioActual)
+                                   && r.Respuesta > 3
+                                   && r.Usuarios.IdUsuario == wa_user.IdUsuario
+                                   && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                   && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                select e).ToList();
+
+            //Cantida de eventos de lun a vier
+            foreach (var item in tablaEventos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    cantEventosPos = cantEventosPos + 1;
+                }
+
+            }
+
+            //Su cumpleaños es EL mes
+            var usu_cumple = (from u in dc.Usuarios
+                              where u.IdUsuario == wa_user.IdUsuario
+                              select u.FechaNac).First();
+
+            if (usu_cumple.Month == usuLic.IdMes)
+            {
+                cantEventosPos = cantEventosPos + 1;
+            }
+            return cantEventosPos;
+
+        }
+        private int EventosHabilMensualXGremioPre(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaFinal, int cantEventosPre, Usuarios wa_user, int IdEntidad)
+        {
+            var tablaEventos = (from e in dc.Eventos
+                                join r in dc.Respuestas
+                                on e.IdEventos equals r.IdEvento
+                                where e.Fecha.Day >= 1
+                                   && e.Fecha.Day <= diaFinal
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
+                                   && e.Fecha.Year.Equals(anioActual)
+                                   && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                   && (e.Titulo.Contains("Paro") || e.Titulo.Contains("Colectivo") || e.Titulo.Contains("Gremio"))
+                                   && r.Respuesta > 3
+                                   && r.Usuarios.IdUsuario == wa_user.IdUsuario
+                                   && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                select e).ToList();
+
+            foreach (var item in tablaEventos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    cantEventosPre = cantEventosPre + 1;
+                }
+
+            }
+            return cantEventosPre;
+        }
+
+        private int EventosHabilMensualXDeportePre(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaFinal, int cantEventosPre, Usuarios wa_user, int IdEntidad)
+        {
+            var tablaEventos = (from e in dc.Eventos
+                                join r in dc.Respuestas
+                                on e.IdEventos equals r.IdEvento
+                                where e.Fecha.Day >= 1
+                                   && e.Fecha.Day <= diaFinal
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
+                                   && e.Fecha.Year.Equals(anioActual)
+                                   && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                   && (e.Titulo.Contains("Deporte") || e.Titulo.Contains("Futbol") || e.Titulo.Contains("Tenis"))
+                                   && r.Respuesta > 3
+                                   && r.Usuarios.IdUsuario == wa_user.IdUsuario
+                                   && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                select e).ToList();
+
+            foreach (var item in tablaEventos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    cantEventosPre = cantEventosPre + 1;
+                }
+
+            }
+            return cantEventosPre;
+        }
+
+
+
+
+        private int FeriadosHabilMesPosterior(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int feriadosPos)
+        {
+            var tablaferiadosPos = (from f in dc.Feriados
+                                    where f.Fecha.Month.Equals(usuLic.IdMes)
+                                    && f.Fecha.Year.Equals(anioActual)
+                                    select f).ToList();
+
+            //Cantida de feriados de lun a vier
+            foreach (var item in tablaferiadosPos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    feriadosPos = feriadosPos + 1;
+                }
+
+            }
+            return feriadosPos;
+        }
+
+
+        private int FeriadosHabilMensualPos(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaActual, int feriadosPos, int diasTotalDelMes)
+        {
+            var tablaferiadosPos = (from f in dc.Feriados
+                                    where f.Fecha.Day > diaActual
+                                    && f.Fecha.Day <= diasTotalDelMes
+                                    && f.Fecha.Month.Equals(usuLic.IdMes)
+                                    && f.Fecha.Year.Equals(anioActual)
+                                    select f).ToList();
+
+            foreach (var item in tablaferiadosPos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    feriadosPos = feriadosPos + 1;
+                }
+            }
+            return feriadosPos;
+        }
+
+        private int CantidadHabilMensualPos(UsuarioLicencia usuLic, int anioActual, int diaActual, int cantDiasHabilesPos, int diasTotalDelMes)
+        {
+            int diaPos = diaActual + 1;
+
+            for (int i = diaPos; i <= diasTotalDelMes; i++)
+            {
+                if (diaHabil(anioActual, usuLic.IdMes, i) == true)
+                {
+                    cantDiasHabilesPos = cantDiasHabilesPos + 1;
+                }
+
+            }
+            return cantDiasHabilesPos;
+        }
+
+        private int FeriadosHabilMesAnterior(int mesSelect, PremptyDb dc, int anioActual, int feriadosPre)
+        {
+
+            var tablaferiadosPre = (from f in dc.Feriados
+                                    where f.Fecha.Month.Equals(mesSelect)
+                                    && f.Fecha.Year.Equals(anioActual)
+                                    select f).ToList();
+
+
+            //Cantida de feriados de lun a vier
+            foreach (var item in tablaferiadosPre)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    feriadosPre = feriadosPre + 1;
+                }
+
+            }
+            return feriadosPre;
+        }
+
+        private int CantidadHabillesMensualPre(UsuarioLicencia usuLic, int anioActual, int diaActual, int cantDiasHabilesPre)
+        {
+            for (int i = 1; i <= diaActual; i++)
+            {
+                if (diaHabil(anioActual, usuLic.IdMes, i) == true)
+                {
+                    cantDiasHabilesPre = cantDiasHabilesPre + 1;
+                }
+
+            }
+            return cantDiasHabilesPre;
+        }
+
+
+        private int EventosHabilesMensualPre(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaFinal, int cantEventosPre, int idUsuario, int mesNac, int IdEntidad)
+        {
+            //Todos los eventos
+            var tablaEventos = (from e in dc.Eventos
+                                join r in dc.Respuestas
+                                on e.IdEventos equals r.IdEvento
+                                where e.Fecha.Day >= 1
+                                   && e.Fecha.Day <= diaFinal
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
+                                   && e.Fecha.Year.Equals(anioActual)
+                                   && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                   && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                   && r.Respuesta > 3
+                                   && r.Usuarios.IdUsuario == idUsuario
+                                select e).ToList();
+
+            //Cantida de eventos de lun a vier
+            foreach (var item in tablaEventos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    cantEventosPre = cantEventosPre + 1;
+                }
+
+            }
+
+            //Su cumpleaños es este mes
+            if (mesNac == usuLic.IdMes)
+            {
+                cantEventosPre = cantEventosPre + 1;
+            }
+
+            return cantEventosPre;
+        }
+
+        private int FeriadosHabilesMensualPre(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int diaActual, int feriadosPre)
+        {
+            var tablaferiadosPre = (from f in dc.Feriados
+                                    where f.Fecha.Day >= 1
+                                    && f.Fecha.Day < diaActual
+                                    && f.Fecha.Month.Equals(usuLic.IdMes)
+                                    && f.Fecha.Year.Equals(anioActual)
+                                    select f).ToList();
+
+            //Cantidad de feriados de lun a vier
+            foreach (var item in tablaferiadosPre)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    feriadosPre = feriadosPre + 1;
+                }
+
+            }
+            return feriadosPre;
+        }
+
 
         private void Graficar(int cantAusencias, int cantPresencias, int cantAusFutura, int cantPreFutura)
         {
@@ -387,12 +790,12 @@ namespace PremptyWorkSpace.Controllers
             dt.Columns.Add(new DataColumn("cantidad"));
 
             DataRow row1 = dt.NewRow();
-            row1[0] = "Asistencias";
-            row1[1] = cantPresencias;
+            row1[0] = "Inasistencias Reales";
+            row1[1] = cantAusencias;
 
             DataRow row2 = dt.NewRow();
-            row2[0] = "Inasistencias";
-            row2[1] = cantAusencias;
+            row2[0] = "Asistencias Reales";
+            row2[1] = cantPresencias;
 
             dt.Rows.Add(row1);
             dt.Rows.Add(row2);
@@ -405,12 +808,12 @@ namespace PremptyWorkSpace.Controllers
             dt2.Columns.Add(new DataColumn("cantidad"));
 
             DataRow row3 = dt2.NewRow();
-            row3[0] = "Asistencias Futuras";
-            row3[1] = cantPresencias;
+            row3[0] = "Inasistencia Futura";
+            row3[1] = cantAusFutura;
 
             DataRow row4 = dt2.NewRow();
-            row4[0] = "Inasistencias Futuras";
-            row4[1] = cantAusencias;
+            row4[0] = "Asistencias Futuras";
+            row4[1] = cantPreFutura;
 
             dt2.Rows.Add(row3);
             dt2.Rows.Add(row4);
@@ -466,20 +869,6 @@ namespace PremptyWorkSpace.Controllers
                                  FechaInicio = l.Fecha
                              });
 
-            //foreach (var item in gv)
-            //{
-
-            //    resultado.Add(new ControlHsViewModel()
-            //    {
-            //        Nombre = item.Nombre,
-            //        Apellido = item.Apellido,
-            //        HoraIngreso = item.HoraIngreso,
-            //        HoraEgreso = item.HoraEgreso
-            //    });
-            //}
-
-            //ViewData["AreaDescr"] = gv.;
-
             gv.DataBind();  //error
             Response.ClearContent();
             Response.Buffer = true;
@@ -496,106 +885,30 @@ namespace PremptyWorkSpace.Controllers
         }
 
 
-        public ActionResult VerDetalleReal([Bind(Include = "IdArea, IdMes")] UsuarioLicencia usuLic)
+        public ActionResult VerDetalleReal()
         {
-
-            PremptyDb dc = new PremptyDb();
-            //Por cas usuario que se loguea se obtiene LAS CANTIDADES
-            string usuarioLogueado = HttpContext.User.Identity.Name;
-            List<UsuarioListado> usuarioList = new List<UsuarioListado>();
-            var array_ausencias = new List<Ingresos>();
-            var user_area = new List<Usuarios>();
-            int cantDiasHabiles = 0;
-            int cantAusenciasEmpl = 0;
-            DateTime fecha;
-            int anio = DateTime.Now.Year;
-
-            anio = anio - 1;
+            List<UsuarioListado> usuarioListReal = (List<UsuarioListado>)Session["InasReal"];
 
             //Se comple el dropdown
             ObtenerListaDeMeses();
             ObtenerListaDeAreas();
             ObtenerListaDeMotivos();
 
+            return View("Index", usuarioListReal);
 
-            //Session[keySession] = new { CantidadAusencias = cantAusencias, CantidadPresencias = cantPresencias };
-            var keyAusencias = usuarioLogueado + "-Ausencias";
-            var keyPresencias = usuarioLogueado + "-Presencias";
-            var cantAusencias = int.Parse(Session[keyAusencias].ToString());
-            var cantPresencias = int.Parse(Session[keyPresencias].ToString());
-            var cantidadAusFutura = 1;          //Cel3
-            var cantidadPreFutura = 99;         //Cel3
+        }// fin de la rutina
 
-            Graficar(cantAusencias, cantPresencias, cantidadAusFutura, cantidadPreFutura);
+        public ActionResult VerDetalleFut()
+        {
+            List<UsuarioListado> usuarioListFut = (List<UsuarioListado>)Session["InasFut"];
 
-            //Si no selecciono MES VALIDO
-            if (usuLic.IdMes == 0)
-            {
-                return View();
-            }
+            //Se comple el dropdown
+            ObtenerListaDeMeses();
+            ObtenerListaDeAreas();
+            ObtenerListaDeMotivos();
 
-            //Se obtienen los USUARIOS
-            user_area = (from u in dc.Usuarios
-                         where u.IdArea.Equals(usuLic.IdArea)
-                         select u).ToList();
+            return View("Index", usuarioListFut);
 
-            //Se obtiene los feriados para ese mes
-            int feriados = (from e in dc.Eventos
-                            where e.Fecha.Month.Equals(usuLic.IdMes)
-                            && e.Fecha.Year.Equals(anio)
-                            select e).Count();
-
-            //Obtener Cant de Dias Habiles
-            cantDiasHabiles = obtenerDiasHabiles(usuLic.IdMes, anio);
-            cantDiasHabiles = cantDiasHabiles - feriados;
-
-            foreach (var item in user_area)
-            {
-                cantAusenciasEmpl = 0;
-
-                for (int j = 1; j < cantDiasHabiles; j++)
-                {
-
-                    //Se valida por usuario si ingreso los dias del mes seleccionado
-                    fecha = new DateTime(anio, usuLic.IdMes, j);
-
-                    var ingreso = (from u in dc.Usuarios
-                                   join i in dc.Ingresos
-                                   on u.IdUsuario equals i.IdUsuario
-                                   where u.IdUsuario.Equals(item.IdUsuario)
-                                         && i.FechaActual.Day.Equals(j)
-                                         && i.FechaActual.Month.Equals(usuLic.IdMes)
-                                         && i.FechaActual.Year.Equals(anio)
-                                   select u).ToList();
-
-                    if (ingreso.Count == 0)
-                    {
-                        cantAusenciasEmpl++;
-
-                    }
-                }
-
-                if (cantAusenciasEmpl > 0)
-                {
-                    var descrArea = (from a in dc.Areas
-                                     where a.IdArea.Equals(usuLic.IdArea)
-                                     select a).First();
-
-                    usuarioList.Add(new UsuarioListado()
-                    {
-                        Legajo = (int)item.Legajo,
-                        Nombre = item.Nombre,
-                        Apellido = item.Apellido,
-                        DescrArea = descrArea.Descripcion,
-                        CantInas = cantAusenciasEmpl
-                    }
-
-                     );// fin de agregar registro de usuario
-                }
-
-            }
-
-            return View("Index", usuarioList);
         }// fin de la rutina
 
 
@@ -675,10 +988,10 @@ namespace PremptyWorkSpace.Controllers
 
             //Lista de Areas
             var areasDb = (from a in dc.Areas
-                          join e in dc.Entidades
-                          on a.IdEntidad equals e.IdEntidad
-                          where e.IdEntidad.Equals(1)               // CEL3 obtener de session
-                          select a).ToList();
+                           join e in dc.Entidades
+                           on a.IdEntidad equals e.IdEntidad
+                           where e.IdEntidad.Equals(1)               // CEL3 obtener de session
+                           select a).ToList();
 
             var area = new List<Areas>();
 
@@ -697,29 +1010,16 @@ namespace PremptyWorkSpace.Controllers
 
         private void ObtenerListaDeMotivos()
         {
-            //Conexion a la base de datos
-            PremptyDb dc = new PremptyDb();
+            List<MotivoLicencia> motivo = new List<MotivoLicencia>();
 
-            var ausencias2 = dc.MotivoLicencia.ToList();
 
-            var ausencias = (from m in dc.MotivoLicencia
-                             join e in dc.Entidades
-                             on m.IdEntidad equals e.IdEntidad
-                             where e.IdEntidad.Equals(1)               // CEL3 obtener de session
-                             select m).ToList();
+            motivo.Add(new MotivoLicencia() { IdMotivo = 1, Descripcion = "Deportes" });
+            motivo.Add(new MotivoLicencia() { IdMotivo = 2, Descripcion = "Cumpleaños" });
+            motivo.Add(new MotivoLicencia() { IdMotivo = 3, Descripcion = "Cuestiones Gremiales" });
+            motivo.Add(new MotivoLicencia() { IdMotivo = 3, Descripcion = "Faltas injustificadas" }); //Ausencia sin motivo
 
-            var motivo = new List<MotivoLicencia>();
-
-            for (int i = 0; i < ausencias.Count; i++)
-            {
-                motivo.Add(new MotivoLicencia()
-                {
-                    IdMotivo = ausencias[i].IdMotivo,
-                    Descripcion = ausencias[i].Descripcion
-                });
-            }
-            //Retorno a la Vista el listado de Motivos
             ViewBag.IdMotivo = new SelectList(motivo, "IdMotivo", "Descripcion");
+
         }
     }
 
