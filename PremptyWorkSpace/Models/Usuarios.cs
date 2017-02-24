@@ -12,6 +12,7 @@ namespace PremptyWorkSpace.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class Usuarios
     {
@@ -36,6 +37,7 @@ namespace PremptyWorkSpace.Models
         public int IdArea { get; set; }
         public string Password { get; set; }
         public string Domicilio { get; set; }
+
         public string NombreUsuario { get; set; }
         public int IdEntidad { get; set; }
         public string Email { get; set; }

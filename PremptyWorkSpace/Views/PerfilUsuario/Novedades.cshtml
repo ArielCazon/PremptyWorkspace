@@ -75,7 +75,7 @@
                                             <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => item.Titulo)</a>
                                             <p class="news-item-preview">@Html.DisplayFor(modelItem => item.Descripcion) </p>
                                         </div>
-                                        <div>
+                                        <div class="estrellas">
                                             <div class="rating-star-block" id= @item.IdEventos >
                                                 <a class="star outline" href="#" rating="1" title="No me interesa">No me interesa</a>
                                                 <a class="star outline" href="#" rating="2" title="Me interesa poco">Me interesa poco</a>
@@ -172,6 +172,7 @@
         overflow: hidden;
         text-indent: -999em;
         width: 24px;
+
     }
 
     a.star {
