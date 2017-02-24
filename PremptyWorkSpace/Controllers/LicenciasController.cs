@@ -31,12 +31,13 @@ namespace PremptyWorkSpace.Controllers
             }
             ViewBag.CurrentFilter = searchString;
 
-            var licencias = db.Licencias.Include(l => l.MotivoLicencia).Include(l => l.Usuarios);
-
+            var idEntidad = int.Parse(Session["IdEntidad"].ToString());
+            var licencias = db.Licencias.Include(l => l.MotivoLicencia).Include(l => l.Usuarios).Where(x => x.MotivoLicencia.IdEntidad == idEntidad);
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 licencias = licencias.Where(x => x.Usuarios.Nombre.Contains(searchString)
+                            || x.Usuarios.Apellido.Contains(searchString)
                            || x.MotivoLicencia.Descripcion.Contains(searchString));
             }
             switch (sortOrder)
@@ -54,8 +55,11 @@ namespace PremptyWorkSpace.Controllers
                     licencias = licencias.OrderBy(s => s.Usuarios.Nombre);
                     break;
             }
-            ViewBag.Motivo = new SelectList(db.MotivoLicencia, "IdMotivo", "Descripcion");
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nombre");
+
+            var motivos = db.MotivoLicencia.Where(x => x.IdEntidad == idEntidad);
+            var usuarios = db.Usuarios.Where(x => x.IdEntidad == idEntidad);
+            ViewBag.Motivo = new SelectList(motivos, "IdMotivo", "Descripcion");
+            ViewBag.IdUsuario = new SelectList(usuarios, "IdUsuario", "Nombre");
 
             List<LicenciaViewModel> listaViewModel = ListFromLicencia(licencias.ToList());
             int pageSize = 10;
@@ -132,6 +136,7 @@ namespace PremptyWorkSpace.Controllers
         [HttpPost]
         public ActionResult Create(Licencias licencias)
         {
+            var idEntidad = int.Parse(Session["IdEntidad"].ToString());
             licencias.Estado = (int)EstadoLicenciaEnum.Pendiente;
             if (ModelState.IsValid)
             {
@@ -140,44 +145,14 @@ namespace PremptyWorkSpace.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Motivo = new SelectList(db.MotivoLicencia, "IdMotivo", "Descripcion", licencias.Motivo);
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nombre", licencias.IdUsuario);
+            var motivos = db.MotivoLicencia.Where(x => x.IdEntidad == idEntidad);
+            var usuarios = db.Usuarios.Where(x => x.IdEntidad == idEntidad);
+
+            ViewBag.Motivo = new SelectList(motivos, "IdMotivo", "Descripcion", licencias.Motivo);
+            ViewBag.IdUsuario = new SelectList(usuarios, "IdUsuario", "Nombre", licencias.IdUsuario);
             return View(licencias);
         }
 
-        //
-        // GET: /Licencias/Edit/5
-
-        //public ActionResult Edit(int id = 0)
-        //{
-        //    Licencias licencias = db.Licencias.Find(id);
-        //    if (licencias == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.Motivo = new SelectList(db.MotivoLicencia, "IdMotivo", "Descripcion", licencias.Motivo);
-        //    ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nombre", licencias.IdUsuario);
-        //    return View(licencias);
-        //}
-
-        //
-        // POST: /Licencias/Edit/5
-
-        //[HttpPost]
-        //public ActionResult Edit(Licencias licencias)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(licencias).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.Motivo = new SelectList(db.MotivoLicencia, "IdMotivo", "Descripcion", licencias.Motivo);
-        //    ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nombre", licencias.IdUsuario);
-        //    return View(licencias);
-        //}
-
-        //
         // GET: /Licencias/Delete/5
 
         public ActionResult Delete(int id = 0)
@@ -213,6 +188,7 @@ namespace PremptyWorkSpace.Controllers
         {
             var estado = (EstadoLicenciaEnum)licencia.Estado;
 
+            string legajo = licencia.Usuarios.Legajo.Value.ToString();
             var viewmodel = new LicenciaViewModel()
             {
                 Descripcion = licencia.Descripcion,
@@ -220,7 +196,8 @@ namespace PremptyWorkSpace.Controllers
                 Fecha = licencia.Fecha.ToString("dd/MM/yyyy"),
                 IdLicencia = licencia.IdLicencia,
                 Motivo = licencia.MotivoLicencia.Descripcion,
-                Usuario = licencia.Usuarios.Nombre + ' ' + licencia.Usuarios.Apellido
+                Usuario = licencia.Usuarios.Apellido + " ," + licencia.Usuarios.Nombre + " (" + legajo + ")"
+                
             };
             return viewmodel;
         }

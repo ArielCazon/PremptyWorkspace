@@ -17,55 +17,55 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Nombre)
 
-                    @Html.TextBoxFor(model => model.Nombre, new {@required = "true", maxlength = "20", type = "text"})
-                   
+                    @Html.TextBoxFor(model => model.Nombre, new { @required = "true", maxlength = "20", type = "text" })
+
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Apellido)
 
-                    @Html.TextBoxFor(model => model.Apellido, new {@required = "true", maxlength = "20", type = "text"})
-                   
+                    @Html.TextBoxFor(model => model.Apellido, new { @required = "true", maxlength = "20", type = "text" })
+
                 </div>
                 <div class="field">
                     @Html.LabelFor(model => model.NombreUsuario)
 
-                    @Html.TextBoxFor(model => model.NombreUsuario, new {@required = "true", maxlength = "20", type = "text"})
-                    
+                    @Html.TextBoxFor(model => model.NombreUsuario, new { @required = "true", maxlength = "20", type = "text" })
+
                 </div>
                 <div class="field">
                     @Html.LabelFor(model => model.FechaNac)
 
-                    @Html.TextBoxFor(model => model.FechaNac, new {@required = "true", maxlength = "20", type = "datetime"})
-                    
+                    @Html.TextBoxFor(model => model.FechaNac, new { @required = "true", maxlength = "20", type = "datetime" })
+
                 </div>
 
                 <div class="field">
                     @Html.LabelFor(model => model.Areas, "Areas")
 
-                    @Html.DropDownList("IdArea", null, "Seleccione un area", new { @required="true"})
-                   
+                    @Html.DropDownList("IdArea", null, "Seleccione un area", new { @required = "true" })
+
                 </div>
-                
+
                 <div class="field">
                     @Html.LabelFor(model => model.Email)
 
-                    @Html.TextBoxFor(model => model.Email, new {@required = "true", type = "email"})
-                    
+                    @Html.TextBoxFor(model => model.Email, new { @required = "true", type = "email" })
+
                 </div>
-                        
+
                 <div class="field">
                     @Html.LabelFor(model => model.Domicilio)
 
-                    @Html.TextBoxFor(model => model.Domicilio, new {@required = "true", type = "text"})
-                    
+                    @Html.TextBoxFor(model => model.Domicilio, new { @required = "true", type = "text" })
+
                 </div>
-                
+
             </div> 
             <div class="form-actions">
                 <a href="~/Usuarios/Index">
                     <input type="button" value="Volver" class="btn btn-danger ingresar" /></a>
-                <input id="Ingresar" type="submit" value="Editar" class=" btn btn-danger ingresar" />
+                <input id="Ingresar" type="submit" value="Guardar" class=" btn btn-danger ingresar" />
 
             </div>
         }
@@ -94,12 +94,27 @@
         $.datepicker.setDefaults($.datepicker.regional['es']);
         $(document).ready(function () {
             $('#FechaNac').datepicker({
+                yearRange: "-100:+0",
+                changeMonth: true,
+                changeYear: true
             });
-            if ($('#FechaNac').val().length > 10)
-            {
-                var fecha = $('#FechaNac').val().substring(0, 10);
-                $('#FechaNac').val(fecha);
-            }            
+            if ($('#FechaNac').val().length > 10) {
+                var fecha = $('#FechaNac').val().split(" ")[0];
+                var fechaFormateada = convertDate(fecha);
+                $('#FechaNac').val(fechaFormateada);
+            }
+
+
+            function convertDate(inputFormat) {
+                day = inputFormat.split("/")[0];
+                month = inputFormat.split("/")[1];
+                year = inputFormat.split("/")[2];
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [day, month, year].join('/');
+            }
         });
     });
 
