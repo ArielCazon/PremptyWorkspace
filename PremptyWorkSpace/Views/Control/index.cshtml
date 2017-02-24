@@ -35,11 +35,10 @@
                                     <h3>Información de control de horas</h3>
                                 </ul>
                             </div>
-                                @Html.DropDownList("IdArea", null, "Seleccione Area..", null)
-                                @Html.TextBox("FechaInicio",null,new { @placeholder = "Fecha de inicial", type = "datetime", @required = "true" })
-                                @Html.TextBox("FechaFin",null,new { @placeholder = "Fecha de fin", type = "datetime", @required = "true" })
+                            @Html.DropDownList("IdArea", null, "Seleccione Area..", null)
+                            @Html.TextBox("FechaInicio", null, new { @placeholder = "Fecha de inicial", type = "datetime", @required = "true" })
+                            @Html.TextBox("FechaFin", null, new { @placeholder = "Fecha de fin", type = "datetime", @required = "true" })
                             <ul>
-
                             </ul>
                             <div>
                                 <input type="submit" name="Visualizar" value="Filtrar" class="btn btn-danger ingresar" />
@@ -58,113 +57,70 @@
         @if (Model != null)
         {   
             <div class="container">
-                    <div class="row">
-                        <div class="span12">
-                            <div id="target-1" class="widget">
-                                <div class="widget widget-table action-table">
-                                    <div class="widget-header">
-                                        <i class="icon-th-list"></i>
-                                        <h3>Listado de Asistencia de Empleados</h3>
-                                    </div>
- 
-                                        <div class="widget-content">
-
-                                            <table class="table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <div class="display-label">
-                                                                @Html.DisplayNameFor(model => model.Nombre)
-                                                            </div>
-                                                        </th>
-                                                        <th>
-                                                            <div class="display-label">
-                                                                @Html.DisplayNameFor(model => model.Apellido)
-                                                            </div>
-                                                        </th>
-                                                        <th>
-                                                            <div class="display-label">
-                                                                @Html.DisplayNameFor(model => model.CantIngresos)
-                                                            </div>
-                                                        </th>
-
-
-
-                                                   @*     <th>
-                                                            <div class="display-label">
-                                                                @Html.DisplayNameFor(model => model.FechaIngreso)
-                                                            </div>
-                                                        </th>
-                                                        <th>
-                                                            <div class="display-label">
-                                                                @Html.DisplayNameFor(model => model.HoraIngreso)
-                                                            </div>
-                                                        </th>
-                                                        <th>
-                                                            <div class="display-label">
-                                                                @Html.DisplayNameFor(model => model.HoraEgreso)
-                                                            </div>
-                                                        </th>*@
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        <tr>
-
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Nombre)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Apellido)
-                                                            </td>
-                                                             <td>
-                                                                @Html.DisplayFor(modelItem => item.CantIngresos)
-                                                            </td>
-                                                            @*<td>
-                                                                @Html.DisplayFor(modelItem => item.FechaIngreso)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.HoraIngreso)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.HoraEgreso)
-                                                            </td>*@
-
-                                                        </tr>
-                                                    }
-
-                                                 </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /widget-content -->
+                <div class="row">
+                    <div class="span12">
+                        <div id="target-1" class="widget">
+                            <div class="widget widget-table action-table">
+                                <div class="widget-header">
+                                    <i class="icon-th-list"></i>
+                                    <h3>Listado de Asistencia de Empleados</h3>
                                 </div>
-                                <!-- /shortcuts -->
-                    
+
+                                <div class="widget-content">
+
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div class="display-label">
+                                                        @Html.DisplayNameFor(model => model.Nombre)
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="display-label">
+                                                        @Html.DisplayNameFor(model => model.Apellido)
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="display-label">
+                                                        @Html.DisplayNameFor(model => model.CantIngresos)
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Apellido)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.CantIngresos)
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /widget-content -->
                             </div>
-                            <div class="nav pull-right">
-                                    @Html.ActionLink(" Descargar ", "Download", "Control", null, new { @class = "btn btn-danger ingresar" })
-                                </div>
-                            <!-- /widget-content -->
+                            <!-- /shortcuts -->
+
                         </div>
+                        <div class="nav pull-right">
+                            @Html.ActionLink(" Descargar ", "Download", "Control", null, new { @class = "btn btn-danger ingresar" })
+                        </div>
+                        <!-- /widget-content -->
                     </div>
                 </div>
-            
+            </div>
         }
-     </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </body>
 
 
 </div>
@@ -191,14 +147,62 @@
         };
         $.datepicker.setDefaults($.datepicker.regional['es']);
 
-        $(document).ready(function () {
-            $('#FechaInicio').datepicker({
+        //$(document).ready(function () {
+        //    $('#FechaInicio').datepicker({
+        //        changeMonth: true
+        //    }).on("change", function () {
+        //        $('#FechaFin').datepicker("option", "minDate", getDate(this));
+        //    });
+
+        //    $("#FechaFin").datepicker({
+        //        changeMonth: true
+        //    })
+        //      .on("change", function () {
+        //          $('#FechaInicio').datepicker("option", "maxDate", getDate(this));
+        //      });
+
+        //    function getDate(element) {
+        //        var date;
+        //        try {
+        //            date = $.datepicker.parseDate(dateFormat, element.value);
+        //        } catch (error) {
+        //            date = null;
+        //        }
+
+        //        return date;
+        //    }
+
+        //});//fin
+
+
+        $(function () {
+            $("#FechaInicio").datepicker({
+                //minDate: "dateToday",
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy',
+                onClose: function (selectedDate, instance) {
+                    if (selectedDate != '') { //added this to fix the issue
+                        $("#FechaFin").datepicker("option", "minDate", selectedDate);
+                        var date = $.datepicker.parseDate(instance.settings.dateFormat, selectedDate, instance.settings);
+                        date.setMonth(date.getMonth() + 3);
+                        console.log(selectedDate, date);
+                        $("#FechaFin").datepicker("option", "minDate", selectedDate);
+                        //$("#FechaFin").datepicker("option", "maxDate", date);
+                    }
+                }
+            });
+            $("#FechaFin").datepicker({
+                minDate: "dateToday",
+                changeMonth: true,
+                dateFormat: 'dd/mm/yy',
+                onClose: function (selectedDate) {
+                    $("#FechaInicio").datepicker("option", "maxDate", selectedDate);
+                }
             });
         });
 
-        $(document).ready(function () {
-            $('#FechaFin').datepicker({
-            });
-        });
+
     });
+
 </script>

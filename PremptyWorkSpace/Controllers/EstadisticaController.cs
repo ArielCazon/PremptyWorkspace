@@ -161,8 +161,8 @@ namespace PremptyWorkSpace.Controllers
                             if (usuLic.IdMes == mesActual)
                             {
                                 cantEventosPre = EventosHabilesMensualPre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user.IdUsuario, wa_user.FechaNac.Month, IdEntidad);
-                                cantEventosPre = AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
-                            
+                                cantEventosPre = cantEventosPre + AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
+
                             }
                             else
                             {
@@ -273,7 +273,7 @@ namespace PremptyWorkSpace.Controllers
             }
 
 
-            //SE GUARDAN LOS REGISTROS DE USUARIO PARA MOSTRAR INASISTENCIAS REALES
+            //SE GUARDAN LOS REGISTROS DE USUARIO PARA MOSTRAR INASISTENCIAS REALES, viewbag solo guarda 4 datos
             Session["InasReal"] = new List<UsuarioListado>(usuarioInasReal);
 
             List<UsuarioListado> usuarioInasF = new List<UsuarioListado>();
@@ -281,7 +281,7 @@ namespace PremptyWorkSpace.Controllers
 
 
             //AUSENCIAS Y ASISTENCIA DEL MES A FUTURO SOLO PARA EL GRAFICO, Y PARA MOSTRAR LISTADO DE INASISTENCIAS FUTURAS 
-            int diaInicial = 1;
+            //int diaInicial = 1;
             if (usuLic.IdMes >= mesActual)
             {
                 foreach (var wa_user in user_area)
@@ -298,12 +298,13 @@ namespace PremptyWorkSpace.Controllers
                             {
                                 cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, diaActual, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
                                 cantEventosPos = cantEventosPos + AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
-        
+
                             }
                             else
                             {
                                 cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, 1, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
-                            
+                                cantEventosPos = cantEventosPos + AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+
                             }
 
                             break;
@@ -337,16 +338,12 @@ namespace PremptyWorkSpace.Controllers
                         case 4://faltas injustificadas
 
                             cantEventosPos = AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
-        
-                           break;
+
+                            break;
 
 
                     }
 
-                    if (usuLic.IdMes > mesActual)
-                    {
-                        diaActual = diasTotalDelMes;
-                    }
 
                     //Cantidad de INGRESOS para de un USUARIO par
                     cantidadFaltas = cantEventosPos;
@@ -457,17 +454,17 @@ namespace PremptyWorkSpace.Controllers
 
 
                 cantLicencias = (from u in dc.Usuarios
-                                     join l in dc.Licencias
-                                     on u.IdUsuario equals l.IdUsuario
-                                     where l.Fecha.Day >= 1
-                                      && l.Fecha.Day <= totalCantMes
-                                      && l.Fecha.Month == j
-                                      && l.Fecha.Year == anioActual
-                                      && l.Estado == 1              //Estado aprobado
-                                      && u.IdArea == wa_user.IdArea
-                                      && u.IdUsuario == wa_user.IdUsuario
-                                      && u.IdEntidad == IdEntidad
-                                     select u).Count();
+                                 join l in dc.Licencias
+                                 on u.IdUsuario equals l.IdUsuario
+                                 where l.Fecha.Day >= 1
+                                  && l.Fecha.Day <= totalCantMes
+                                  && l.Fecha.Month == j
+                                  && l.Fecha.Year == anioActual
+                                  && l.Estado == 1              //Estado aprobado
+                                  && u.IdArea == wa_user.IdArea
+                                  && u.IdUsuario == wa_user.IdUsuario
+                                  && u.IdEntidad == IdEntidad
+                                 select u).Count();
 
 
                 //Cumple
