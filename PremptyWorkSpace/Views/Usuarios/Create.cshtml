@@ -15,13 +15,7 @@
                 <div class="field">
                     @Html.LabelFor(model => model.IdRol, "Roles")
 
-<<<<<<< HEAD
-                    @Html.DropDownList("IdRol", null, "Seleccione un rol", new { @required = "true" })
-
-
-=======
                     @Html.DropDownList("IdRol", null, "Seleccione un rol", new {@required="true"})
->>>>>>> b5c9b5161bb22a826c681074292d36f3e486bba8
                 </div>
 
 
@@ -48,11 +42,7 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Legajo)
 
-<<<<<<< HEAD
                     @Html.TextBoxFor(model => model.Legajo, new { @placeholder = "Ingrese un Nro. de legajo", @required = "true", type = "number" })
-=======
-                    @Html.TextBoxFor(model => model.Legajo, new { @placeholder = "Ingrese un Nro. de legajo", @required = "true", min="1", max = "999999", type = "number"})
->>>>>>> b5c9b5161bb22a826c681074292d36f3e486bba8
 
                 </div>
 
@@ -139,10 +129,7 @@
 
         $(document).ready(function () {
             $('#FechaNac').datepicker({
-<<<<<<< HEAD
-=======
                 yearRange: "-100:+0",
->>>>>>> b5c9b5161bb22a826c681074292d36f3e486bba8
                 changeMonth: true,
                 changeYear: true
             });
