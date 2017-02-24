@@ -9,7 +9,7 @@
     <div class="subnavbar-inner">
         <div class="container">
             <ul class="mainnav">
-                  <li><a href="~/Horas/Index"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
+                <li class="active"><a href="~/Horas/Index"><i class="shortcut-icon icon-time"></i><span>Control de Horas</span> </a></li>
                 <li><a href="~/Usuarios/Index"><i class="shortcut-icon icon-group"></i><span>Usuarios</span> </a></li>
                 <li><a href="~/Eventos/Index"><i class="shortcut-icon  icon-calendar"></i><span>Eventos</span> </a></li>
                 <li><a href="~/Licencias/Index"><i class="shortcut-icon   icon-list-alt"></i><span>Licencias</span> </a></li>
@@ -23,17 +23,17 @@
     <div class="content clearfix">
         <div class="login-fields">
             <h2>Control de Horas</h2>
-        <div class="alert alert-info">
-               Fecha y hora actual: @DateTime.Now
+            <div class="alert alert-info">
+                <i>Fecha y Hora actual:</i> <b>@DateTime.Now </b>
             </div>
             <div class="alert alert-info">
-                <p>Hora de ingreso: </p>
+                <p><strong>Fecha y Hora de ingreso: </strong></p>
                 <p>@ViewBag.HoraIngreso</p>
                 <a href="~/Horas/MarcarEntradas">
                     <button class="btn btn-danger ingresar">Marcar Entrada</button></a>
             </div>
             <div class="alert alert-info">
-                <p>Hora de salida: </p>
+                <p><strong>Fecha y Hora de salida: </strong></p>
                 <p>@ViewBag.HoraSalida</p>
                 <a href="~/Horas/MarcarSalidas">
                     <button class="btn btn-danger ingresar">Marcar Salida</button></a>

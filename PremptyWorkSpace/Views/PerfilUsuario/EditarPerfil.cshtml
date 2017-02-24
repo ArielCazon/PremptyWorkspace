@@ -36,7 +36,7 @@
                 <div class="field">
                     @Html.LabelFor(model => model.FechaNac)
 
-                    @Html.EditorFor(model => model.FechaNac)
+                    @Html.TextBoxFor(model => model.FechaNac, new {@required = "true", maxlength = "20", type = "datetime"})
                     @Html.ValidationMessageFor(model => model.FechaNac)
                 </div>
                 
@@ -87,7 +87,14 @@
         $.datepicker.setDefaults($.datepicker.regional['es']);
         $(document).ready(function () {
             $('#FechaNac').datepicker({
+                changeMonth: true,
+                changeYear: true
             });
+
+            if ($('#FechaNac').val().length > 10) {
+                var fecha = $('#FechaNac').val().substring(0, 10);
+                $('#FechaNac').val(fecha);
+            }
         });
     });
 

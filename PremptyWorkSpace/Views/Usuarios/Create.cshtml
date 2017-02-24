@@ -42,7 +42,7 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Legajo)
 
-                    @Html.TextBoxFor(model => model.Legajo, new { @placeholder = "Ingrese un Nro. de legajo", @required = "true", type = "number"})
+                    @Html.TextBoxFor(model => model.Legajo, new { @placeholder = "Ingrese un Nro. de legajo", @required = "true", type = "number" })
 
                 </div>
 
@@ -71,8 +71,8 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Areas, "Areas")
 
-                    @Html.DropDownList("IdArea", null, "Seleccione un area", new { @required="true"})
-                 
+                    @Html.DropDownList("IdArea", null, "Seleccione un area", new { @required = "true" })
+
 
                 </div>
 
@@ -87,7 +87,7 @@
                 <div class="field">
                     @Html.LabelFor(model => model.Email)
 
-                    @Html.TextBoxFor(model => model.Email, new { @placeholder = "Ingrese el email", @required = "true", type = "email", @pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" })
+                    @Html.TextBoxFor(model => model.Email, new { @placeholder = "Ingrese el email", @required = "true", type = "email", @pattern = "[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" })
 
                 </div>
 
@@ -129,13 +129,19 @@
 
         $(document).ready(function () {
             $('#FechaNac').datepicker({
+                yearRange: "-100:+0",
+                changeMonth: true,
+                changeYear: true
             });
+
+            $('#FechaIngreso').datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+
         });
 
-        $(document).ready(function () {
-            $('#FechaIngreso').datepicker({
-            });
-        });
+
     });
 </script>
 

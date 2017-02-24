@@ -142,7 +142,6 @@
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ControlHsViewModel.cs" />
-    <Compile Include="Models\UsuarioListado.cs" />
     <Compile Include="Models\Entidades.cs">
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>
@@ -193,6 +192,7 @@
     </Compile>
     <Compile Include="Models\UsuarioBuscar.cs" />
     <Compile Include="Models\UsuarioLic.cs" />
+    <Compile Include="Models\UsuarioListado.cs" />
     <Compile Include="Models\Usuarios.cs">
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>
