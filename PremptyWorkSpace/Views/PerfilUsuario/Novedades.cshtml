@@ -21,53 +21,66 @@
 
 
 
-<div class="main">
-    <div class="main-inner">
-        <div class="container">
-            <div class="row">
 
-                <div class="span6">
-                    <div class="widget widget-nopad">
-                        <div class="widget-header">
-                            <i class="icon-list-alt"></i>
-                            <h3>Eventos del dia</h3>
-                        </div>
-                        <!-- /widget-header -->
-                        <div class="widget-content">
-                            <ul class="news-items">
+<div class="main-inner">
+    <div class="container">
+        <div class="row">
 
-                                @foreach (var itemss in Model)
-                                {
-                                    <li>
-
-                                        <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => itemss.Fecha)</span> </div>
-                                        <div class="news-item-detail">
-                                            <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => itemss.Titulo)</a>
-                                            <p class="news-item-preview">@Html.DisplayFor(modelItem => itemss.Areas) </p>
-                                        </div>
-
-
-                                    </li>
-                                }
-
-                            </ul>
-                        </div>
-                        <!-- /widget-content -->
+            <div class="span6">
+                <div class="widget widget-nopad">
+                    <div class="widget-header">
+                        <i class="icon-list-alt"></i>
+                        <h3>Eventos del dia</h3>
                     </div>
-                </div>
+                    <!-- /widget-header -->
+                    <div class="widget-content">
+                        <ul class="news-items">
+                            @if (ViewBag.EventosDelDia == null)
+                            {
+                                <li>
+                                    <div class="news-item-detail"><span class="news-item-title">No hay novedades para el dia de hoy</span> </div>
+                                </li>
+                            }
+                            else
+                            {
 
-                <div class="span6">
-                    <div class="widget widget-nopad">
-                        <div class="widget-header">
-                            <i class="icon-list-alt"></i>
-                            <h3>Proximos eventos</h3>
-                        </div>
-                        <!-- /widget-header -->
-                        <div class="widget-content">
-                            <ul class="news-items">
-
-                                @foreach (var item in Model)
+                                foreach (var items in ViewBag.EventosDelDia)
                                 {
+
+                                    var fecha = items.Fecha;
+                                    var titulo = items.Titulo;
+                                    var descripcion = items.Descripcion;
+                                <li>
+                                    <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => fecha)</span> </div>
+                                    <div class="news-item-detail">
+                                        <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => titulo)</a>
+                                        <p class="news-item-preview">@Html.DisplayFor(modelItem => descripcion) </p>
+                                    </div>
+                                </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                    <!-- /widget-content -->
+                </div>
+            </div>
+
+            <div class="span6">
+                <div class="widget widget-nopad">
+                    <div class="widget-header">
+                        <i class="icon-list-alt"></i>
+                        <h3>Proximos eventos</h3>
+                    </div>
+                    <!-- /widget-header -->
+                    <div class="widget-content">
+                        <ul class="news-items">
+
+                            @if (Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+<<<<<<< HEAD
                                     <li>
 
                                         <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => item.Fecha)</span> </div>
@@ -83,17 +96,40 @@
                                                 <a class="star outline" href="#" rating="4" title="Me interesa">Me interesa</a>
                                                 <a class="star outline" href="#" rating="5" title="Me interesa mucho">Me interesa mucho</a>
                                             </div>
+=======
+                                <li>
+                                    <div>
+                                        <div class="rating-star-block" id= @item.IdEventos >
+                                            <a class="star outline" href="#" rating="1" title="No me interesa">No me interesa</a>
+                                            <a class="star outline" href="#" rating="2" title="Me interesa poco">Me interesa poco</a>
+                                            <a class="star outline" href="#" rating="3" title="Me da igual">Me da igual</a>
+                                            <a class="star outline" href="#" rating="4" title="Me interesa">Me interesa</a>
+                                            <a class="star outline" href="#" rating="5" title="Me interesa mucho">Me interesa mucho</a>
+>>>>>>> b5c9b5161bb22a826c681074292d36f3e486bba8
                                         </div>
-
-                                    </li>
+                                    </div>
+                                    <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => item.Fecha)</span> </div>
+                                     <div class="news-item-detail">
+                                        <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => item.Titulo)</a>
+                                        <p class="news-item-preview">@Html.DisplayFor(modelItem => item.Descripcion) </p>
+                                    </div>
+                                </li> 
                                 }
-                            </ul>
-                        </div>
-                        <!-- /widget-content -->
-                    </div>
-                </div>
 
-                <div class="span6">
+                            }
+                            else
+                            {
+                                 <li>
+                                    <div class="news-item-detail"><span class="news-item-title">No hay novedades a futuro.</span> </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- /widget-content -->
+                </div>
+            </div>
+
+            @*                <div class="span6">
                     <div class="widget widget-nopad">
                         <div class="widget-header">
                             <i class="icon-list-alt"></i>
@@ -116,13 +152,12 @@
                         </div>
                         <!-- /widget-content -->
                     </div>
-                </div>
+                </div>*@
 
 
 
 
 
-            </div>
         </div>
     </div>
 </div>
@@ -142,11 +177,15 @@
         });
         $(".rating-star-block .star").click(function () {
 
-            var valor = $(this).attr('rating');
-            var newScore = 0;
-            var updateP = "#" + $(this).parent().attr('id') + ' .CurrentScore';
-            var artID = $("#" + $(this).parent().attr('id') + ' .articleID').val();
-           // $("#" + $(this).parent().attr('id') + " .star").hide();
+            var respuesta = $(this).attr('rating');
+            var novedad = $(this).parent().attr('id');
+            var divContenedor = $("#" + $(this).parent().attr('id') + " .star");
+            $.post(
+                '@Url.Action("OpinarNovedad","PerfilUsuario")', { idNovedad: novedad, respuesta: respuesta }, function (data) {
+                    if (data) {
+                        divContenedor.css("visibility", "hidden");
+                    }
+                }, 'json');
         });
     });
     function setNewScore(container, data) {

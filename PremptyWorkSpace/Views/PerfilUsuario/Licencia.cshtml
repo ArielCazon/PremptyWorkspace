@@ -31,7 +31,7 @@
                 <div class="widget widget-table action-table">
                     <div class="widget-header">
                         <i class="icon-th-list"></i>
-                        <h3>Solicitudes Pendientes</h3>
+                        <h3>Mis Licencias</h3>
                     </div>
                     <div class="widget-content">
 
@@ -48,7 +48,9 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Descripcion)
                             </th>
-
+                            <th>
+                                @Html.DisplayNameFor(model => model.Estado)
+                            </th>
                         </tr>
 
                         @foreach (var item in Model)
@@ -63,7 +65,9 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Descripcion)
                                 </td>
-
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Estado)
+                                </td>
                             </tr>
                         }
 

@@ -14,6 +14,7 @@ namespace PremptyWorkSpace.Models
         public int IdArea { get; set; }
         public int IdMes { get; set; }
         public int IdMotivo { get; set; }
-        public DateTime Fecha;
+        public DateTime FechaInicio;
+        public DateTime FechaFin;
     }
 }

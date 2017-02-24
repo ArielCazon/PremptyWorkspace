@@ -220,27 +220,6 @@ D:\Version Final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.Ra
 D:\Version Final\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
 D:\Version Final\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
 D:\Version Final\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Mvc.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
-E:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
 C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
 C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
 C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
@@ -269,3 +248,58 @@ C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.dll
 C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.dll
 C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.xml
 C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PremptyWorkSpace.pdb
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Microsoft.Web.Infrastructure.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Helpers.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.Razor.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Deployment.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\System.Web.WebPages.Razor.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Helpers.resources.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Razor.resources.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.resources.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll

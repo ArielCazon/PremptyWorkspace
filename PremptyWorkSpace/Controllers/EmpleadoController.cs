@@ -36,6 +36,7 @@ namespace PremptyWorkSpace.Controllers
 
             var users = (from u in db.Usuarios
                          where u.IdArea.Equals(id)
+                         && u.Entidades.IdEntidad.Equals(1) //"CEL3 colocar entidad
                          select u);
 
             if (!String.IsNullOrEmpty(searchString))
@@ -75,8 +76,6 @@ namespace PremptyWorkSpace.Controllers
 
             return View(users.ToList());
         }
-
-
 
     }
 }

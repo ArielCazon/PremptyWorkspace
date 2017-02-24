@@ -29,9 +29,12 @@ namespace PremptyWorkSpace.Controllers
             {
                 page = 1;
             }
-            ViewBag.CurrentFilter = searchString; 
+            ViewBag.CurrentFilter = searchString;
 
-            var eventos = db.Eventos.Include(l => l.Areas);
+
+            var idEntidad = int.Parse(Session["IdEntidad"].ToString()); // eventos de mi empresa
+
+            var eventos = db.Eventos.Include(l => l.Areas).Where(x=> x.IdEntidad == idEntidad);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -94,15 +97,14 @@ namespace PremptyWorkSpace.Controllers
         {
             if (ModelState.IsValid)
             {
-                eventos.IdEventos = (Int32)Session["IdEvent"];
+                var idEntidad = int.Parse(Session["IdEntidad"].ToString());
                 eventos.Titulo = eventos.Titulo;
                 eventos.Descripcion = eventos.Descripcion;
                 eventos.Fecha = eventos.Fecha;
-                var area = db.Areas.FirstOrDefault(x => x.IdArea == eventos.IdArea);
-                eventos.Areas = area;
+                var areaElegida = eventos.IdArea != null ? db.Areas.FirstOrDefault(x => x.IdArea == eventos.IdArea) : null;
+                eventos.Areas = areaElegida;
                 eventos.Tipo = eventos.Tipo;
-                eventos.IdEntidad = area.IdEntidad;
-
+                eventos.IdEntidad = idEntidad;
                 db.Entry(eventos).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -123,12 +125,13 @@ namespace PremptyWorkSpace.Controllers
         {
             if (ModelState.IsValid)
             {
+                var idEntidad = int.Parse(Session["IdEntidad"].ToString());
                 eventos.Titulo = eventos.Titulo;
                 eventos.Descripcion = eventos.Descripcion;
                 eventos.Fecha = eventos.Fecha;
-                var area = db.Areas.FirstOrDefault(x => x.IdArea == eventos.IdArea);
-                eventos.Areas = area;
-                eventos.IdEntidad = area.IdEntidad;
+                var areaElegida = eventos.IdArea != null ? db.Areas.FirstOrDefault(x => x.IdArea == eventos.IdArea) : null;
+                eventos.Areas = areaElegida;
+                eventos.IdEntidad = idEntidad;
                 db.Eventos.Add(eventos);
                 db.SaveChanges();
                 return RedirectToAction("Index");

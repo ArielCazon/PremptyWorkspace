@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data.Objects;
 using System.Data.Entity.Validation;
 using System.Data;
+using System.Data.Entity;
 
 namespace PremptyWorkSpace.Controllers
 {
@@ -21,25 +22,47 @@ namespace PremptyWorkSpace.Controllers
 
         public ActionResult Novedades()
         {
-            var fecha = DateTime.Today.AddDays(1);
-            var entities = new PremptyDb();
-            var proximoE = entities.Eventos.Where(x => x.Fecha > fecha);
-            var NovedadesList = new List<NovedadesViewModel>();
-            foreach (var evento in proximoE)
-            {
+            var db = new PremptyDb();
+            var idEntidad = int.Parse(Session["IdEntidad"].ToString());
+                        var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
+            var proximosEventos = db.Eventos.Include(e => e.Respuestas)
+                .Where(x => x.Fecha > DateTime.Today)
+                .Where(x => x.Entidades.IdEntidad == idEntidad)
+                .Where(x=> !x.Respuestas.Where(r=> r.IdUsuario == idUsuario).Any())
+                .OrderBy(x=> x.Fecha).Take(4);
 
+
+            var NovedadesList = new List<NovedadesViewModel>();
+            foreach (var evento in proximosEventos)
+            {
                 var item = new NovedadesViewModel()
                 {
                     Fecha = evento.Fecha.ToString("dd/MM/yy"),
                     Descripcion = evento.Descripcion,
                     Titulo = evento.Titulo,
                     IdEventos = evento.IdEventos,
-                    Areas = evento.Areas.Descripcion
+                    Areas = evento.Areas == null ? "Todas" : evento.Areas.Descripcion
                 };
                 NovedadesList.Add(item);
-
             }
 
+            var eventosDeHoy = db.Eventos.Where(x => x.Fecha == DateTime.Today).Where(x => x.Entidades.IdEntidad == idEntidad);
+            var novedadesDelDia = new List<NovedadesViewModel>();
+
+            foreach (var evento in eventosDeHoy)
+            {
+                var item = new NovedadesViewModel()
+                {
+                    Fecha = evento.Fecha.ToString("dd/MM/yy"),
+                    Descripcion = evento.Descripcion,
+                    Titulo = evento.Titulo,
+                    IdEventos = evento.IdEventos,
+                    Areas = evento.Areas == null ? "Todas" : evento.Areas.Descripcion
+                };
+                novedadesDelDia.Add(item);
+            }
+
+            ViewBag.EventosDelDia = novedadesDelDia;
             return View(NovedadesList);
         }
 
@@ -227,10 +250,28 @@ namespace PremptyWorkSpace.Controllers
             return View(user);
         }
 
+        public JsonResult OpinarNovedad(int idNovedad, int respuesta)
+        {
 
+            if (idNovedad != 0 && respuesta != 0)
+            {
+                var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
 
-
-
-
+                var respuestaExistente = db.Respuestas.FirstOrDefault(x => x.IdEvento == idNovedad && x.IdUsuario == idUsuario);
+                if (respuestaExistente == null)
+                {
+                    db.Respuestas.Add(new Respuestas()
+                    {
+                        IdUsuario = idUsuario,
+                        Respuesta = respuesta,
+                        IdEvento = idNovedad
+                    });
+                    db.SaveChanges();
+                    return Json(true);    
+                }
+                return Json(true);            
+            }
+            return Json(false);
+        }
     }
 }
