@@ -303,3 +303,5 @@ C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.xml
 C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.dll
 E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
 E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+C:\Prempty final\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
