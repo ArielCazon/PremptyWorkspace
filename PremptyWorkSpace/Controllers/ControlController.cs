@@ -133,7 +133,7 @@ namespace PremptyWorkSpace.Controllers
 
 
         [HttpPost]
-        public ActionResult Index([Bind(Include = "IdArea, FechaInicio, FechaFinal")]ControlHsViewModel ctrlHs)
+        public ActionResult Index([Bind(Include = "IdArea, FechaInicio, FechaFin")]ControlHsViewModel ctrlHs)
         {
             PremptyDb dc = new PremptyDb();
 
@@ -160,14 +160,14 @@ namespace PremptyWorkSpace.Controllers
                     DateTime fechaFinal_aux = Convert.ToDateTime(ctrlHs.FechaFin);
 
                     int cantidad_ingreso = (from u in dc.Usuarios
-                                            join i in dc.Ingresos
-                                            on u.IdUsuario equals i.IdUsuario
-                                            where u.IdArea.Equals(idAreaI)
-                                            && i.FechaActual >= fechaInicial_aux
-                                            && i.FechaActual <= fechaFinal_aux
-                                            && i.IdUsuario.Equals(item.IdUsuario)
-                                            && u.Entidades.IdEntidad.Equals(1)
-                                            select u).Count();
+                                             join i in dc.Ingresos
+                                             on u.IdUsuario equals i.IdUsuario
+                                             where u.IdArea.Equals(idAreaI)
+                                             && i.FechaActual >= fechaInicial_aux
+                                             && i.FechaActual <= fechaFinal_aux
+                                             && i.IdUsuario.Equals(item.IdUsuario)
+                                             && u.Entidades.IdEntidad.Equals(1)
+                                             select u).Count();   
 
                     resultado.Add(new ControlHsViewModel()
                     {
@@ -188,46 +188,10 @@ namespace PremptyWorkSpace.Controllers
         {
             PremptyDb dc = new PremptyDb();
 
-            var resultado = new List<ControlHsViewModel>();
+            List<ControlHsViewModel> resultado = (List<ControlHsViewModel>)ViewBag.tablaResultado;
             var gv = new GridView();
 
-            //Int32 idAreaI = (Int32)Session["s_idAreaI"];
-            //Int32 idMesI = (Int32)Session["s_idMesI"];
-            //DateTime fechaInicio = (DateTime)Session["s_fechaIni"];
-            //DateTime fechaFinal = (DateTime)Session["s_fechaFin"];
-
-
-            //var user_ingreso = from u in dc.Usuarios
-            //                   join i in dc.Ingresos
-            //                   on u.IdUsuario equals i.IdUsuario
-            //                   where u.IdArea.Equals(idAreaI)
-            //                   && i.FechaActual.Month.Equals(idMesI)
-            //                   && u.Entidades.IdEntidad.Equals(1) //"CEL3 colocar entidad
-            //                   select new
-            //                   {
-            //                       Nombre = u.Nombre,
-            //                       Apellido = u.Apellido,
-            //                       HoraDeIngreso = i.FechaActual,
-            //                       HoraIngreso = i.HoraIngreso,
-            //                       HoraEgreso = i.HoraEgreso
-            //                   };
-
-            //foreach (var item in user_ingreso)
-            //{
-
-            //    resultado.Add(new ControlHsViewModel()
-            //    {
-            //        Nombre = item.Nombre,
-            //        Apellido = item.Apellido
-            //        //FechaIngreso = item.HoraDeIngreso.ToString("dd/MM/yyyy"),  //Fecha de ingreso
-            //        //HoraIngreso = item.HoraIngreso.Value.ToString("HH:mm:ss"),
-            //        //HoraEgreso = item.HoraEgreso.Value.ToString("HH:mm:ss")
-            //    });
-            //}
-
-            
-            //gv.DataSource = resultado;
-            gv.DataSource = ViewBag.tablaResultado;
+            gv.DataSource = resultado;
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;

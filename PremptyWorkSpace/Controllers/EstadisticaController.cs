@@ -58,7 +58,7 @@ namespace PremptyWorkSpace.Controllers
             int anioActual = DateTime.Now.Year;
             int diaActual = DateTime.Now.Day;
             int mesActual = DateTime.Now.Month;
-            int IdEntidad = (Int32)Session["IdEntidad"];
+            int IdEntidad = (int)Session["IdEntidad"];
 
             ObtenerListaDeMeses();
             ObtenerListaDeAreas();
@@ -162,7 +162,7 @@ namespace PremptyWorkSpace.Controllers
                             {
                                 cantEventosPre = EventosHabilesMensualPre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user.IdUsuario, wa_user.FechaNac.Month, IdEntidad);
                                 cantEventosPre = cantEventosPre + AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
-                           
+
                             }
                             else
                             {
@@ -273,7 +273,7 @@ namespace PremptyWorkSpace.Controllers
             }
 
 
-            //SE GUARDAN LOS REGISTROS DE USUARIO PARA MOSTRAR INASISTENCIAS REALES
+            //SE GUARDAN LOS REGISTROS DE USUARIO PARA MOSTRAR INASISTENCIAS REALES, viewbag solo guarda 4 datos
             Session["InasReal"] = new List<UsuarioListado>(usuarioInasReal);
 
             List<UsuarioListado> usuarioInasF = new List<UsuarioListado>();
@@ -281,7 +281,7 @@ namespace PremptyWorkSpace.Controllers
 
 
             //AUSENCIAS Y ASISTENCIA DEL MES A FUTURO SOLO PARA EL GRAFICO, Y PARA MOSTRAR LISTADO DE INASISTENCIAS FUTURAS 
-            int diaInicial = 1;
+            //int diaInicial = 1;
             if (usuLic.IdMes >= mesActual)
             {
                 foreach (var wa_user in user_area)
@@ -298,12 +298,13 @@ namespace PremptyWorkSpace.Controllers
                             {
                                 cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, diaActual, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
                                 cantEventosPos = cantEventosPos + AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
-                            
-                            
+
                             }
                             else
                             {
-                                cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, diaInicial, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                                cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, 1, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                                cantEventosPos = cantEventosPos + AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+
                             }
 
                             break;
@@ -315,7 +316,7 @@ namespace PremptyWorkSpace.Controllers
                             }
                             else
                             {
-                                cantEventosPos = EventosHabilMensulXDeportePos(usuLic, dc, anioActual, diaInicial, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                                cantEventosPos = EventosHabilMensulXDeportePos(usuLic, dc, anioActual, 1, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
                             }
                             break;
 
@@ -330,20 +331,19 @@ namespace PremptyWorkSpace.Controllers
                             }
                             else
                             {
-                                cantEventosPos = EventosHabilMensualXGremioPos(usuLic, dc, anioActual, diaInicial, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
+                                cantEventosPos = EventosHabilMensualXGremioPos(usuLic, dc, anioActual, 1, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
 
                             }
                             break;
                         case 4://faltas injustificadas
+
                             cantEventosPos = AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+
                             break;
 
+
                     }
 
-                    if (usuLic.IdMes > mesActual)
-                    {
-                        diaActual = diasTotalDelMes;
-                    }
 
                     //Cantidad de INGRESOS para de un USUARIO par
                     cantidadFaltas = cantEventosPos;
@@ -400,12 +400,23 @@ namespace PremptyWorkSpace.Controllers
             int faltasXMes = 0;
             int feriadosXMes = 0;
             int cantEventosXMes = 0;
+            int cumple = 0;
+            int cantLicencias = 0;
+
             //Lectura de MESES anteriores
-            for (int j = 1; j < mesActual; j++)
+            for (int j = 1; j < usuLic.IdMes; j++)
             {
+                totalCantMes = 0;
+                cantIngresoXMes = 0;
+                cantDiasHabilesXMes = 0;
+                feriadosXMes = 0;
+                cantEventosXMes = 0;
+                cumple = 0;
+                cantLicencias = 0;
+
                 totalCantMes = DateTime.DaysInMonth(anioActual, j);
 
-                cantDiasHabilesXMes = obtenerDiasHabiles(usuLic.IdMes, anioActual);
+                cantDiasHabilesXMes = obtenerDiasHabiles(j, anioActual);
 
                 cantIngresoXMes = (from u in dc.Usuarios
                                    join i in dc.Ingresos
@@ -418,13 +429,13 @@ namespace PremptyWorkSpace.Controllers
                                     && u.IdUsuario == wa_user.IdUsuario
                                     && u.IdEntidad == IdEntidad
                                    select u).Count();
-
+                //Eventos
                 var tablaEventos = (from e in dc.Eventos
                                     join r in dc.Respuestas
                                     on e.IdEventos equals r.IdEvento
                                     where e.Fecha.Day >= 1
                                        && e.Fecha.Day <= totalCantMes
-                                       && e.Fecha.Month.Equals(usuLic.IdMes)
+                                       && e.Fecha.Month.Equals(j)
                                        && e.Fecha.Year.Equals(anioActual)
                                        && (e.IdArea == usuLic.IdArea || e.IdArea == null)
                                        && r.Respuesta > 3
@@ -441,10 +452,31 @@ namespace PremptyWorkSpace.Controllers
 
                 }
 
+
+                cantLicencias = (from u in dc.Usuarios
+                                 join l in dc.Licencias
+                                 on u.IdUsuario equals l.IdUsuario
+                                 where l.Fecha.Day >= 1
+                                  && l.Fecha.Day <= totalCantMes
+                                  && l.Fecha.Month == j
+                                  && l.Fecha.Year == anioActual
+                                  && l.Estado == 1              //Estado aprobado
+                                  && u.IdArea == wa_user.IdArea
+                                  && u.IdUsuario == wa_user.IdUsuario
+                                  && u.IdEntidad == IdEntidad
+                                 select u).Count();
+
+
+                //Cumple
+                if (wa_user.FechaNac.Month == j)
+                {
+                    cumple = 1;
+                }
+
                 feriadosXMes = FeriadosHabilMesAnterior(j, dc, anioActual, feriadosXMes);
 
                 //Falta injustificada = Asistencias
-                faltasXMes = faltasXMes + cantDiasHabilesXMes - cantIngresoXMes - feriadosXMes - cantEventosXMes;
+                faltasXMes = faltasXMes + cantDiasHabilesXMes - cantIngresoXMes - feriadosXMes - cantEventosXMes - cumple - cantLicencias;
 
             }
 
@@ -1016,7 +1048,7 @@ namespace PremptyWorkSpace.Controllers
             motivo.Add(new MotivoLicencia() { IdMotivo = 1, Descripcion = "Deportes" });
             motivo.Add(new MotivoLicencia() { IdMotivo = 2, Descripcion = "Cumpleaños" });
             motivo.Add(new MotivoLicencia() { IdMotivo = 3, Descripcion = "Cuestiones Gremiales" });
-            motivo.Add(new MotivoLicencia() { IdMotivo = 3, Descripcion = "Faltas injustificadas" }); //Ausencia sin motivo
+            motivo.Add(new MotivoLicencia() { IdMotivo = 4, Descripcion = "Faltas injustificadas" }); //Ausencia sin motivo
 
             ViewBag.IdMotivo = new SelectList(motivo, "IdMotivo", "Descripcion");
 

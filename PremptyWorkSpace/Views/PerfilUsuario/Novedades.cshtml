@@ -80,23 +80,7 @@
                             {
                                 foreach (var item in Model)
                                 {
-<<<<<<< HEAD
-                                    <li>
 
-                                        <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => item.Fecha)</span> </div>
-                                        <div class="news-item-detail">
-                                            <a href="#" class="news-item-title" target="_blank">@Html.DisplayFor(modelItem => item.Titulo)</a>
-                                            <p class="news-item-preview">@Html.DisplayFor(modelItem => item.Descripcion) </p>
-                                        </div>
-                                        <div class="estrellas">
-                                            <div class="rating-star-block" id= @item.IdEventos >
-                                                <a class="star outline" href="#" rating="1" title="No me interesa">No me interesa</a>
-                                                <a class="star outline" href="#" rating="2" title="Me interesa poco">Me interesa poco</a>
-                                                <a class="star outline" href="#" rating="3" title="Me da igual">Me da igual</a>
-                                                <a class="star outline" href="#" rating="4" title="Me interesa">Me interesa</a>
-                                                <a class="star outline" href="#" rating="5" title="Me interesa mucho">Me interesa mucho</a>
-                                            </div>
-=======
                                 <li>
                                     <div>
                                         <div class="rating-star-block" id= @item.IdEventos >
@@ -105,7 +89,6 @@
                                             <a class="star outline" href="#" rating="3" title="Me da igual">Me da igual</a>
                                             <a class="star outline" href="#" rating="4" title="Me interesa">Me interesa</a>
                                             <a class="star outline" href="#" rating="5" title="Me interesa mucho">Me interesa mucho</a>
->>>>>>> b5c9b5161bb22a826c681074292d36f3e486bba8
                                         </div>
                                     </div>
                                     <div class="news-item-date"><span class="news-item-month">@Html.DisplayFor(modelItem => item.Fecha)</span> </div>
