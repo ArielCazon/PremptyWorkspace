@@ -58,7 +58,7 @@ namespace PremptyWorkSpace.Controllers
             int anioActual = DateTime.Now.Year;
             int diaActual = DateTime.Now.Day;
             int mesActual = DateTime.Now.Month;
-            int IdEntidad = (int)Session["IdEntidad"];
+            int IdEntidad = int.Parse(Session["IdEntidad"].ToString());
 
             ObtenerListaDeMeses();
             ObtenerListaDeAreas();
