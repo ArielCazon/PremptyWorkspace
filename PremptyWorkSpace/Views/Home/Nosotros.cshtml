@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PremptyWorkSpace.Models.MailModel
+@{
     ViewBag.Title = "Nosotros";
 }
 
@@ -99,7 +100,7 @@
         <div class="row">
             <div class="span12">
                 <!-- about us -->
-@*                <div class="about-us_2">
+                @*                <div class="about-us_2">
                     <h3>Nosotros</h3>
                     <h5>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
                     <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -112,32 +113,69 @@
 
     <footer>
         <div class="container">
-            <div class="row">
-             
-                <div class="span12 contact-us">
-                    <h3>Contactanos</h3>
-                    <form action="assets/contact.php" method="post">
-                        <input type="text" name="Nombre" class="name" placeholder="Nombre">
-                        <input type="text" name="Email" class="Email" placeholder="Email">
-                        <textarea name="Mensaje" placeholder="Mensaje"></textarea>
-                        <button type="submit">Enviar</button>
-                    </form>
-                </div>
+
+            @*              @using (@Html.BeginForm("Nosotros", "Home", FormMethod.Post, new { @id = "form1", @enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary()                
+    
+                        <table>
+                            <tr>
+                                <td>To:
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.To)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Subject:
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Subject)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Body:
+                                </td>
+                                <td>
+                                    @Html.TextAreaFor(m => m.Body)
+                                </td>
+                            </tr>
+                        </table>  
+                        <input type="submit" value="Send" />  
+                    }*@
+            <div class="span12 contact-us">
+                <h3>Contactanos</h3>
+                <form action="assets/contact.php" method="post">
+                    <input type="text" name="name" class="name" placeholder="Name">
+                    <input type="text" name="email" class="email" placeholder="Email">
+                    <textarea name="message" placeholder="Message"></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
             </div>
 
 
-            <div class="row">
-                <div class="span12 copyright">
-                    <p>Copyright &copy; 2017</p>
-                </div>
+        </div>
+
+
+        <div class="row">
+            <div class="span12 copyright">
+                <p>Copyright &copy; 2017</p>
             </div>
-            <!-- end row -->
+        </div>
+        <!-- end row -->
         </div>
         <!-- end container -->
     </footer>
 
 
     <!-- Javascript -->
+    <script>
+        $(document).ready(function () {
+            if ('@ViewBag.Message' == 'Sent') {
+                alert('Mail has been sent successfully');
+            }
+        });
+    </script>
     <script src="~/js/jquery-1.8.2.min.js"></script>
     <script src="~/js/jquery.backstretch.min.js"></script>
     <script src="~/js/jquery.tweet.js"></script>

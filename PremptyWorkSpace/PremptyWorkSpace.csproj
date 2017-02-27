@@ -157,6 +157,7 @@
     <Compile Include="Models\Licencias.cs">
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\MotivoLicencia.cs">
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>
@@ -208,6 +209,7 @@
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\bootstrap.min2.css" />
     <Content Include="css\external\jquery\jquery.js" />
     <Content Include="css\font-awesome-ie7.css" />
     <Content Include="css\font-awesome-ie7.min.css" />
@@ -238,6 +240,12 @@
     <Content Include="img\backgrounds\6.jpg" />
     <Content Include="img\body-bg.png" />
     <Content Include="img\contact-bg.jpg" />
+    <Content Include="img\datapicker\ui-icons_444444_256x240.png" />
+    <Content Include="img\datapicker\ui-icons_555555_256x240.png" />
+    <Content Include="img\datapicker\ui-icons_777620_256x240.png" />
+    <Content Include="img\datapicker\ui-icons_777777_256x240.png" />
+    <Content Include="img\datapicker\ui-icons_cc0000_256x240.png" />
+    <Content Include="img\datapicker\ui-icons_ffffff_256x240.png" />
     <Content Include="img\glyphicons-halflings-white.html" />
     <Content Include="img\glyphicons-halflings.html" />
     <Content Include="img\icons-sa7c41345d9.png" />

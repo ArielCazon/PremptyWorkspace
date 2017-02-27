@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Data;
+using PagedList;
 
 
 namespace PremptyWorkSpace.Controllers
@@ -25,13 +26,23 @@ namespace PremptyWorkSpace.Controllers
         }
 
         //Devuelve todos los empleados por area que se asigno (como obtener ese dato?)
-        public ViewResult Details(int id, string sortOrder, string searchString)
+        public ViewResult Details(int id, string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.LastNameSortParm = sortOrder == "lastname" ? "lastname_desc" : "lastname";
             ViewBag.UserNameSortParm = sortOrder == "username" ? "username_desc" : "username";
             ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
             ViewBag.Id = id;
+
+            if (Request.HttpMethod == "GET")
+            {
+                searchString = currentFilter;
+            }
+            else
+            {
+                page = 1;
+            }
+            ViewBag.CurrentFilter = searchString; 
 
 
             var users = (from u in db.Usuarios
@@ -74,7 +85,9 @@ namespace PremptyWorkSpace.Controllers
                     break;
             }
 
-            return View(users.ToList());
+            int pageSize = 10;
+            int pageIndex = (page ?? 1);
+            return View(users.ToPagedList(pageIndex, pageSize)); 
         }
 
     }
