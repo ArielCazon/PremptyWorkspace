@@ -22,8 +22,8 @@ namespace PremptyWorkSpace.Controllers
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date desc" : "";
             ViewBag.SearchString = searchString;
 
-            var feriados = from s in db.Feriados
-                           select s;
+            var anioActual = DateTime.Today.Year;
+            var feriados = db.Feriados.Where(x => x.Fecha.Year == anioActual);
 
             if (!String.IsNullOrEmpty(searchString))
             {
