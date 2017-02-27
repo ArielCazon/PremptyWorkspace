@@ -8,6 +8,7 @@ using System.Data.Objects;
 using System.Data.Entity.Validation;
 using System.Data;
 using System.Data.Entity;
+using PagedList;
 
 namespace PremptyWorkSpace.Controllers
 {
@@ -24,12 +25,12 @@ namespace PremptyWorkSpace.Controllers
         {
             var db = new PremptyDb();
             var idEntidad = int.Parse(Session["IdEntidad"].ToString());
-                        var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
+            var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
             var proximosEventos = db.Eventos.Include(e => e.Respuestas)
                 .Where(x => x.Fecha > DateTime.Today)
                 .Where(x => x.Entidades.IdEntidad == idEntidad)
-                .Where(x=> !x.Respuestas.Where(r=> r.IdUsuario == idUsuario).Any())
-                .OrderBy(x=> x.Fecha).Take(4);
+                .Where(x => !x.Respuestas.Where(r => r.IdUsuario == idUsuario).Any())
+                .OrderBy(x => x.Fecha).Take(4);
 
 
             var NovedadesList = new List<NovedadesViewModel>();
@@ -66,33 +67,58 @@ namespace PremptyWorkSpace.Controllers
             return View(NovedadesList);
         }
 
-        public ActionResult Licencia()
+
+        public ViewResult Licencia(string sortOrder, string searchString, string currentFilter, int? page)
         {
-            var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
-            var licencias = db.Licencias.Where(x => x.IdUsuario == idUsuario);
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
+            ViewBag.SearchString = searchString;
 
-
-            var licenciasList = new List<LicenciaViewModel>();
-            foreach (var licencia in licencias)
+            if (Request.HttpMethod == "GET")
             {
-                var estado = (EstadoLicenciaEnum)licencia.Estado;
-                var item = new LicenciaViewModel()
-                {
-                    Estado = estado.ToString(),
-                    Descripcion = licencia.Descripcion,
-                    Fecha = licencia.Fecha.ToString("dd/MM/yyyy"),
-                    IdLicencia = licencia.IdLicencia,
-                    Motivo = licencia.MotivoLicencia.Descripcion,
-                    Usuario = licencia.Usuarios.Nombre + ' ' + licencia.Usuarios.Apellido
-                };
+                searchString = currentFilter;
+            }
+            else
+            {
+                page = 1;
+            }
+            ViewBag.CurrentFilter = searchString;
 
-                licenciasList.Add(item);
+            var idUsuario = int.Parse(Session["sesIdUsuario"].ToString());
+            var idEntidad = int.Parse(Session["IdEntidad"].ToString());
+            var licencias = db.Licencias.Include(l => l.MotivoLicencia).Include(l => l.Usuarios).Where(x => x.MotivoLicencia.IdEntidad == idEntidad).Where(x => x.IdUsuario == idUsuario);
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                licencias = licencias.Where(x => x.Descripcion.Contains(searchString)
+                           || x.MotivoLicencia.Descripcion.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    licencias = licencias.OrderByDescending(s => s.Usuarios.Nombre);
+                    break;
+                case "date":
+                    licencias = licencias.OrderBy(s => s.Fecha);
+                    break;
+                case "date_desc":
+                    licencias = licencias.OrderByDescending(s => s.Fecha);
+                    break;
+                default:
+                    licencias = licencias.OrderBy(s => s.Usuarios.Nombre);
+                    break;
             }
 
-            ViewBag.Motivo = new SelectList(db.MotivoLicencia, "IdMotivo", "Descripcion");
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "IdUsuario", "Nombre");
-            return View(licenciasList);
+            var motivos = db.MotivoLicencia.Where(x => x.IdEntidad == idEntidad);
+            var usuarios = db.Usuarios.Where(x => x.IdEntidad == idEntidad);
+            ViewBag.Motivo = new SelectList(motivos, "IdMotivo", "Descripcion");
+            ViewBag.IdUsuario = new SelectList(usuarios, "IdUsuario", "Nombre");
+
+            List<LicenciaViewModel> listaViewModel = ListFromLicencia(licencias.ToList());
+            int pageSize = 10;
+            int pageIndex = (page ?? 1);
+            return View(listaViewModel.ToPagedList(pageIndex, pageSize));
+
         }
 
         public ActionResult SolicitarLicencia()
@@ -267,11 +293,40 @@ namespace PremptyWorkSpace.Controllers
                         IdEvento = idNovedad
                     });
                     db.SaveChanges();
-                    return Json(true);    
+                    return Json(true);
                 }
-                return Json(true);            
+                return Json(true);
             }
             return Json(false);
+        }
+        private LicenciaViewModel FromLicencia(Licencias licencia)
+        {
+            var estado = (EstadoLicenciaEnum)licencia.Estado;
+
+            string legajo = licencia.Usuarios.Legajo.Value.ToString();
+            var viewmodel = new LicenciaViewModel()
+            {
+                Descripcion = licencia.Descripcion,
+                Estado = estado.ToString(),
+                Fecha = licencia.Fecha.ToString("dd/MM/yyyy"),
+                IdLicencia = licencia.IdLicencia,
+                Motivo = licencia.MotivoLicencia.Descripcion,
+                Usuario = licencia.Usuarios.Apellido + " ," + licencia.Usuarios.Nombre + " (" + legajo + ")"
+
+            };
+            return viewmodel;
+        }
+
+        private List<LicenciaViewModel> ListFromLicencia(List<Licencias> licencias)
+        {
+            var listaLicenciaViewModel = new List<LicenciaViewModel>();
+
+            foreach (var licencia in licencias)
+            {
+                listaLicenciaViewModel.Add(FromLicencia(licencia));
+            }
+
+            return listaLicenciaViewModel;
         }
     }
 }
