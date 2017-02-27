@@ -122,9 +122,19 @@
 
             // Set chart options
             var options1 = {
-                'width': 600,
-                'height': 600
+                'width': 500,
+                'height': 500,
+                is3D: true,
+                legend: 'none',
+                pieSliceText: 'label',
+                pieStartAngle: 100,
+                slices: {
+                    0: { color: '#8C1B24' },
+                    1: { color: '#5BC0C1' },
 
+                }
+            
+                
             };
 
             // Instantiate and draw our chart, passing in some options.
@@ -133,8 +143,16 @@
 
             // Set chart options
             var options2 = {
-                'width': 600,
-                'height': 600
+                'width': 500,
+                'height': 500,
+                is3D: true,
+                legend: 'none',
+                pieSliceText: 'label',
+                pieStartAngle: 100,
+                slices: {
+                    0: { color: '#8C1B24' },
+                    1: { color: '#5BC0C1' },
+                }
             };
             var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
             chart2.draw(data2, options2);
@@ -160,7 +178,8 @@
 					</div> <!-- /widget-header -->
 					
 					<div class="widget-content">
-							 <div id="chart_div"> </div>
+                        <div id="chart_div"> </div>
+                        
                          @Html.ActionLink("Ver detalle Inasistencia Real", "VerDetalleReal", new { IdArea = ViewBag.area, IdMes = ViewBag.mes }, new { @class = "btn btn-danger ingresar" })
 					</div> <!-- /widget-content -->
 						

@@ -11,6 +11,7 @@ using System.Data;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
+using PagedList;
 
 
 
@@ -129,11 +130,8 @@ namespace PremptyWorkSpace.Controllers
             ViewBag.IdArea = new SelectList(area, "IdArea", "Descripcion");
         }
 
-
-
-
         [HttpPost]
-        public ActionResult Index([Bind(Include = "IdArea, FechaInicio, FechaFin")]ControlHsViewModel ctrlHs)
+        public ActionResult Index([Bind(Include = "IdArea, FechaInicio, FechaFin")]ControlHsViewModel ctrlHs, string searchString, string currentFilter, int? page,string sortOrder)
         {
             PremptyDb dc = new PremptyDb();
 
@@ -178,9 +176,22 @@ namespace PremptyWorkSpace.Controllers
 
                 }
             }
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.SearchString = searchString;
+            if (Request.HttpMethod == "GET")
+            {
+                searchString = currentFilter;
+            }
+            else
+            {
+                page = 1;
+            }
+            ViewBag.CurrentFilter = searchString; 
 
             ViewBag.tablaResultado = new SelectList(resultado, "Nombre", "Apellido", "CantIngresos");
-            return View("Index", resultado);
+            int pageSize = 10;
+            int pageIndex = (page ?? 1);
+            return View("Index",resultado.ToPagedList(pageIndex, pageSize)); 
         }
 
 
