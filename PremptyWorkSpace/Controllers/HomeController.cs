@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using PremptyWorkSpace.Models;
 using System.Web.Security;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 
 
 namespace PremptyWorkSpace.Controllers
 {
     public class HomeController : Controller
     {
-        
+
 
         public ActionResult Index(Usuarios usuario)
         {
@@ -22,10 +27,10 @@ namespace PremptyWorkSpace.Controllers
         {
             return View();
         }
-      
+
 
         [HttpPost]
-    //    [ValidateAntiForgeryToken]
+        //    [ValidateAntiForgeryToken]
         public ActionResult logIn(Login l, string ReturnUrl = "")
         {
             if (string.IsNullOrEmpty(l.NombreUsuario))
@@ -92,7 +97,35 @@ namespace PremptyWorkSpace.Controllers
             return View();
         }
 
-
+        [HttpPost]
+        public ActionResult Nosotros(MailModel objModelMail)
+        {
+            if (ModelState.IsValid)
+            {
+                string from = "yucramitarodrigo@gmail.com"; //example:- sourabh9303@gmail.com
+                using (MailMessage mail = new MailMessage(from, objModelMail.To))
+                {
+                    mail.Subject = objModelMail.Subject;
+                    mail.Body = objModelMail.Body;
+                    mail.IsBodyHtml = false;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    NetworkCredential networkCredential = new NetworkCredential(from, "Your Gmail Password");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = networkCredential;
+                    smtp.Port = 587;
+                    smtp.Send(mail);
+                    ViewBag.Message = "Sent";
+                    return View("Nosotros", objModelMail);
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
 
     }
 }
+

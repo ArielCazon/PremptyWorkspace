@@ -1404,6 +1404,12 @@ padding-top:3px;
     position:inherit;
 
 }
+.grafico 
+{
+    margin: 0px 0px 0px 0px !important;
+width:400px !important;
+height:400px !important;
+}
 
 
 /*------------------------------------ Style Stars Ranking    --------------------------*/
