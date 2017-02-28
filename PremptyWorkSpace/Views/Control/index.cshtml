@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<PremptyWorkSpace.Models.ControlHsViewModel>
 @using PagedList.Mvc;
+@using PremptyWorkSpace.Models;
 
 @{
     ViewBag.Title = "Gerente";
@@ -64,7 +65,7 @@
                                     <i class="icon-th-list"></i>
                                     <h3>Listado de Asistencia de Empleados</h3>
                                     <div class="nav pull-right">
-                                        @Html.ActionLink(" Descargar ", "Download", "Control", null, new { @class = "btn btn-danger ingresar" })
+                                        @Html.ActionLink(" Descargar ", "Download", "Control", new {IdArea = ViewBag.IdAreaSeleccionada,FechaInicio = ViewBag.FechaInicio, FechaFin = ViewBag.FechaFin }, new { @class = "btn btn-danger ingresar" })
                                     </div>
                                 </div>
 
@@ -73,9 +74,9 @@
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th><
+                                                <th>
                                                     <div class="display-label">
-                                                        @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, SearchString = ViewBag.SearchString })
+                                                       Nombre
                                                     </div>
                                                 </th>
                                                 <th>
@@ -112,54 +113,59 @@
                                         Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
                                         de @Model.PageCount
                                         &nbsp; 
+
+
+
     @if (Model.HasPreviousPage)
     { 
-        @Html.ActionLink("<<", "Index", new
+        @Html.ActionLink("<<", "Filter", new
    {
-       page = 1,
-       sortOrder = ViewBag.CurrentSort,
-       currentFilter = ViewBag.CurrentFilter,
-       SearchString = ViewBag.SearchString
+       IdArea = ViewBag.IdAreaSeleccionada,
+       FechaInicio = ViewBag.FechaInicio,
+       FechaFin = ViewBag.FechaFin,
+       page = 1
    })
 
         @Html.Raw("&nbsp;"); 
-        @Html.ActionLink("< Anterior", "Index", new
+        @Html.ActionLink("< Anterior", "Filter", new
    {
-       page = Model.PageNumber - 1,
-       sortOrder = ViewBag.CurrentSort,
-       currentFilter = ViewBag.CurrentFilter,
-       SearchString = ViewBag.SearchString
+       IdArea = ViewBag.IdAreaSeleccionada,
+       FechaInicio = ViewBag.FechaInicio,
+       FechaFin = ViewBag.FechaFin,
+       page = Model.PageNumber - 1
    })
     }
     else
     { 
         @:<< 
         @Html.Raw("&nbsp;"); 
-        @:< Prev 
+        @:< Anterior 
     }
                                         &nbsp; 
     @if (Model.HasNextPage)
     { 
-        @Html.ActionLink("Próximo >", "Index", new
+        @Html.ActionLink("Próximo >", "Filter", new
    {
-       page = Model.PageNumber + 1,
-       sortOrder = ViewBag.CurrentSort,
-       currentFilter = ViewBag.CurrentFilter,
-       SearchString = ViewBag.SearchString
+
+       IdArea = ViewBag.IdAreaSeleccionada,
+       FechaInicio = ViewBag.FechaInicio,
+       FechaFin = ViewBag.FechaFin,
+       page = Model.PageNumber + 1
    })
 
         @Html.Raw("&nbsp;"); 
-        @Html.ActionLink(">>", "Index", new
+        @Html.ActionLink(">>", "Filter", new
    {
-       page = Model.PageCount,
-       sortOrder = ViewBag.CurrentSort,
-       currentFilter = ViewBag.CurrentFilter,
-       SearchString = ViewBag.SearchString
+       IdArea = ViewBag.IdAreaSeleccionada,
+       FechaInicio = ViewBag.FechaInicio,
+       FechaFin = ViewBag.FechaFin,
+       page = Model.PageCount
+
    })
     }
     else
     { 
-        @:Next > 
+        @:Proximo > 
         @Html.Raw("&nbsp;") 
         @:>> 
     }
@@ -203,34 +209,6 @@
             yearSuffix: ''
         };
         $.datepicker.setDefaults($.datepicker.regional['es']);
-
-        //$(document).ready(function () {
-        //    $('#FechaInicio').datepicker({
-        //        changeMonth: true
-        //    }).on("change", function () {
-        //        $('#FechaFin').datepicker("option", "minDate", getDate(this));
-        //    });
-
-        //    $("#FechaFin").datepicker({
-        //        changeMonth: true
-        //    })
-        //      .on("change", function () {
-        //          $('#FechaInicio').datepicker("option", "maxDate", getDate(this));
-        //      });
-
-        //    function getDate(element) {
-        //        var date;
-        //        try {
-        //            date = $.datepicker.parseDate(dateFormat, element.value);
-        //        } catch (error) {
-        //            date = null;
-        //        }
-
-        //        return date;
-        //    }
-
-        //});//fin
-
 
         $(function () {
             $("#FechaInicio").datepicker({

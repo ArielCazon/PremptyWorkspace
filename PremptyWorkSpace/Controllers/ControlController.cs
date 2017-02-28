@@ -25,83 +25,12 @@ namespace PremptyWorkSpace.Controllers
         public ActionResult Index()
         {
             //Metodos para completar el DropDown List
-            ObtenerListaDeMeses();
 
             ObtenerListaDeAreas();
 
             return View();
         }
 
-
-
-        private void ObtenerListaDeMeses()
-        {
-            var mes = new List<Mes>();
-
-            mes.Add(new Mes()
-            {
-                Id = 1,
-                Nombre = "Enero"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 2,
-                Nombre = "Febrero"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 3,
-                Nombre = "Marzo"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 4,
-                Nombre = "Abril"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 5,
-                Nombre = "Mayo"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 6,
-                Nombre = "Junio"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 7,
-                Nombre = "Julio"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 8,
-                Nombre = "Agosto"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 9,
-                Nombre = "Septiembre"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 10,
-                Nombre = "Octubre"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 11,
-                Nombre = "Noviembre"
-            });
-            mes.Add(new Mes()
-            {
-                Id = 12,
-                Nombre = "Diciembre"
-            });
-
-            ViewBag.IdMes = new SelectList(mes, "Id", "Nombre");
-
-        }
 
         private void ObtenerListaDeAreas()
         {
@@ -130,27 +59,51 @@ namespace PremptyWorkSpace.Controllers
             ViewBag.IdArea = new SelectList(area, "IdArea", "Descripcion");
         }
 
-        [HttpPost]
-        public ActionResult Index([Bind(Include = "IdArea, FechaInicio, FechaFin")]ControlHsViewModel ctrlHs, string searchString, string currentFilter, int? page,string sortOrder)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Index([Bind(Include = "IdArea, FechaInicio, FechaFin")]ControlHsViewModel ctrlHs, int? page)
         {
-            PremptyDb dc = new PremptyDb();
+            return Paginar(ctrlHs, ref page);
+        }
+
+        public ActionResult Filter([Bind(Include = "IdArea, FechaInicio, FechaFin")]ControlHsViewModel ctrlHs, int? page)
+        {
+            return Paginar(ctrlHs, ref page);
+        }
+
+        private ActionResult Paginar(ControlHsViewModel ctrlHs, ref int? page)
+        {
+
 
             ObtenerListaDeAreas();
 
             var idAreaI = ctrlHs.IdArea;
-            Session["s_idAreaI"] = ctrlHs.IdArea;
-            Session["s_fechaIni"] = ctrlHs.FechaInicio;
-            Session["s_fechaFin"] = ctrlHs.FechaFin;
+            ViewBag.IdAreaSeleccionada = ctrlHs.IdArea;
+            ViewBag.FechaInicio = ctrlHs.FechaInicio;
+            ViewBag.FechaFin = ctrlHs.FechaFin;
 
+            var resultado = ObtenerCantidadDeIngresos(ctrlHs);
+
+            if (Request.HttpMethod != "GET")
+            {
+                page = 1;
+            }
+
+            int pageSize = 5;
+            int pageIndex = (page ?? 1);
+            return View("Index", resultado.ToPagedList(pageIndex, pageSize));
+        }
+
+        private static List<ControlHsViewModel> ObtenerCantidadDeIngresos(ControlHsViewModel ctrlHs)
+        {
             var resultado = new List<ControlHsViewModel>();
 
-            if (idAreaI > 0 )
+            if (ctrlHs.IdArea > 0)
             {
-
+                PremptyDb dc = new PremptyDb();
                 var usuariosPorArea = (from u in dc.Usuarios
-                                where u.IdArea.Equals(idAreaI)
-                                && u.Entidades.IdEntidad.Equals(1)
-                                select u).ToList();
+                                       where u.IdArea.Equals(ctrlHs.IdArea)
+                                       && u.Entidades.IdEntidad.Equals(1)
+                                       select u).ToList();
 
                 foreach (var item in usuariosPorArea)
                 {
@@ -158,14 +111,14 @@ namespace PremptyWorkSpace.Controllers
                     DateTime fechaFinal_aux = Convert.ToDateTime(ctrlHs.FechaFin);
 
                     int cantidad_ingreso = (from u in dc.Usuarios
-                                             join i in dc.Ingresos
-                                             on u.IdUsuario equals i.IdUsuario
-                                             where u.IdArea.Equals(idAreaI)
-                                             && i.FechaActual >= fechaInicial_aux
-                                             && i.FechaActual <= fechaFinal_aux
-                                             && i.IdUsuario.Equals(item.IdUsuario)
-                                             && u.Entidades.IdEntidad.Equals(1)
-                                             select u).Count();   
+                                            join i in dc.Ingresos
+                                            on u.IdUsuario equals i.IdUsuario
+                                            where u.IdArea.Equals(ctrlHs.IdArea)
+                                            && i.FechaActual >= fechaInicial_aux
+                                            && i.FechaActual <= fechaFinal_aux
+                                            && i.IdUsuario.Equals(item.IdUsuario)
+                                            && u.Entidades.IdEntidad.Equals(1)
+                                            select u).Count();
 
                     resultado.Add(new ControlHsViewModel()
                     {
@@ -176,37 +129,31 @@ namespace PremptyWorkSpace.Controllers
 
                 }
             }
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.SearchString = searchString;
-            if (Request.HttpMethod == "GET")
-            {
-                searchString = currentFilter;
-            }
-            else
-            {
-                page = 1;
-            }
-            ViewBag.CurrentFilter = searchString; 
-
-            ViewBag.tablaResultado = new SelectList(resultado, "Nombre", "Apellido", "CantIngresos");
-            int pageSize = 10;
-            int pageIndex = (page ?? 1);
-            return View("Index",resultado.ToPagedList(pageIndex, pageSize)); 
+            return resultado;
         }
 
 
-        public ActionResult Download()
+        public ActionResult Download([Bind(Include = "IdArea, FechaInicio, FechaFin")]ControlHsViewModel ctrlHs)
         {
-            PremptyDb dc = new PremptyDb();
 
-            List<ControlHsViewModel> resultado = (List<ControlHsViewModel>)ViewBag.tablaResultado;
+            var registros = ObtenerCantidadDeIngresos(ctrlHs);
+
+            var fechaInicio = ctrlHs.FechaInicio.ToString();
+            var fechaFin = ctrlHs.FechaFin.ToString();
+            var nombreArchivo = string.Format("Asistencia_{0}_{1}.xls", fechaInicio, fechaFin);
+            var resultadoFormateado = registros.Select(a => new {
+            Nombre = a.Nombre,
+            Apellido = a.Apellido,
+            Cantidad_De_Ingresos = a.CantIngresos
+            });
+
             var gv = new GridView();
 
-            gv.DataSource = resultado;
+            gv.DataSource = resultadoFormateado;
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename = _Empleados_Area.xls");
+            Response.AddHeader("content-disposition", "attachment; filename =" + nombreArchivo);
             Response.Charset = "";
             StringWriter sw = new StringWriter();
             HtmlTextWriter htw = new HtmlTextWriter(sw);

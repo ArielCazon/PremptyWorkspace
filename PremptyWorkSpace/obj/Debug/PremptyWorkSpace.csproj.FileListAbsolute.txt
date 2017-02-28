@@ -299,3 +299,13 @@ C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.WebPages.Razor.res
 C:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.csprojResolveAssemblyReference.cache
 C:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.dll
 C:\Codigo\PremptyWorkspace\PremptyWorkSpace\obj\Debug\PremptyWorkSpace.pdb
+<<<<<<< HEAD
+=======
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.dll
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\PagedList.Mvc.xml
+C:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\EntityFramework.dll
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\Newtonsoft.Json.xml
+E:\Codigo\PremptyWorkspace\PremptyWorkSpace\bin\es\System.Web.Mvc.resources.dll
+>>>>>>> 4380c3b713751f4afc7c97315c7bc5b3bc812298

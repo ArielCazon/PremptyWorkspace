@@ -15,7 +15,7 @@ namespace PremptyWorkSpace.Controllers
     {
         private PremptyDb db = new PremptyDb();
 
-        public ViewResult Index(string sortOrder, string searchString, string currentFilter, int? page)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.TituloSortParm = sortOrder == "Titulo" ? "titulo_desc" : "Titulo";
@@ -32,9 +32,14 @@ namespace PremptyWorkSpace.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
+            if (Session["IdEntidad"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             var idEntidad = int.Parse(Session["IdEntidad"].ToString()); // eventos de mi empresa
 
-            var eventos = db.Eventos.Include(l => l.Areas).Where(x=> x.IdEntidad == idEntidad);
+            var eventos = db.Eventos.Include(l => l.Areas).Where(x => x.IdEntidad == idEntidad);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -58,7 +63,7 @@ namespace PremptyWorkSpace.Controllers
             }
             int pageSize = 10;
             int pageIndex = (page ?? 1);
-            return View(eventos.ToPagedList(pageIndex, pageSize)); 
+            return View(eventos.ToPagedList(pageIndex, pageSize));
 
         }
 
@@ -97,6 +102,11 @@ namespace PremptyWorkSpace.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Session["IdEntidad"] == null)
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 var idEntidad = int.Parse(Session["IdEntidad"].ToString());
                 eventos.Titulo = eventos.Titulo;
                 eventos.Descripcion = eventos.Descripcion;
@@ -125,6 +135,11 @@ namespace PremptyWorkSpace.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Session["IdEntidad"] == null)
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 var idEntidad = int.Parse(Session["IdEntidad"].ToString());
                 eventos.Titulo = eventos.Titulo;
                 eventos.Descripcion = eventos.Descripcion;
