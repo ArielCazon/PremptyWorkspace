@@ -188,9 +188,6 @@
     <Compile Include="Models\Roles.cs">
       <DependentUpon>PremptyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>PremptyModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\UsuarioBuscar.cs" />
     <Compile Include="Models\UsuarioLic.cs" />
     <Compile Include="Models\UsuarioListado.cs" />
@@ -204,6 +201,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bin\PremptyWorkSpace.dll" />
+    <Content Include="bin\PremptyWorkSpace.pdb" />
     <Content Include="Content\PagedList.css" />
     <Content Include="css\base-admin-responsive.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
@@ -372,6 +371,18 @@
     <Content Include="Views\Estadistica\Visual.cshtml" />
     <Content Include="Views\Horas\Index.cshtml" />
     <Content Include="Views\PerfilUsuario\EditarPerfil.cshtml" />
+    <Content Include="Views\Feriados\Index.cshtml" />
+    <Content Include="Views\Feriados\Details.cshtml" />
+    <Content Include="Views\Feriados\Create.cshtml" />
+    <Content Include="Views\Feriados\Edit.cshtml" />
+    <Content Include="Views\Feriados\Delete.cshtml" />
+    <Content Include="Views\Home\Nosotros.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Layout.cshtml" />
     <EntityDeploy Include="Models\PremptyModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PremptyModel.Designer.cs</LastGenOutput>
@@ -389,18 +400,6 @@
       <DependentUpon>PremptyModel.edmx</DependentUpon>
       <LastGenOutput>PremptyModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Feriados\Index.cshtml" />
-    <Content Include="Views\Feriados\Details.cshtml" />
-    <Content Include="Views\Feriados\Create.cshtml" />
-    <Content Include="Views\Feriados\Edit.cshtml" />
-    <Content Include="Views\Feriados\Delete.cshtml" />
-    <Content Include="Views\Home\Nosotros.cshtml" />
-    <Content Include="Views\Usuarios\Create.cshtml" />
-    <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

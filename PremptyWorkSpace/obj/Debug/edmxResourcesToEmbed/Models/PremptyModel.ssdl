@@ -1,66 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="PremptyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="PremptyModelStoreContainer">
-    <EntitySet Name="Areas" EntityType="PremptyModel.Store.Areas" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Entidades" EntityType="PremptyModel.Store.Entidades" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Eventos" EntityType="PremptyModel.Store.Eventos" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Feriados" EntityType="PremptyModel.Store.Feriados" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Ingresos" EntityType="PremptyModel.Store.Ingresos" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Licencias" EntityType="PremptyModel.Store.Licencias" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MotivoLicencia" EntityType="PremptyModel.Store.MotivoLicencia" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Respuestas" EntityType="PremptyModel.Store.Respuestas" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Roles" EntityType="PremptyModel.Store.Roles" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="sysdiagrams" EntityType="PremptyModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Usuarios" EntityType="PremptyModel.Store.Usuarios" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK__Licencias__Motivos" Association="PremptyModel.Store.FK__Licencias__Motivos">
+<Schema Namespace="PremptyWorkSpace.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PremptyWorkSpaceStoreContainer">
+    <EntitySet Name="Areas" EntityType="PremptyWorkSpace.Store.Areas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Entidades" EntityType="PremptyWorkSpace.Store.Entidades" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Eventos" EntityType="PremptyWorkSpace.Store.Eventos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Feriados" EntityType="PremptyWorkSpace.Store.Feriados" store:Type="Tables" store:Schema="dbo" store:Name="Feriados">
+      <DefiningQuery>SELECT 
+      [Feriados].[IdFeriado] AS [IdFeriado], 
+      [Feriados].[Fecha] AS [Fecha], 
+      [Feriados].[Descripcion] AS [Descripcion]
+      FROM [dbo].[Feriados] AS [Feriados]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Ingresos" EntityType="PremptyWorkSpace.Store.Ingresos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Licencias" EntityType="PremptyWorkSpace.Store.Licencias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MotivoLicencia" EntityType="PremptyWorkSpace.Store.MotivoLicencia" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Respuestas" EntityType="PremptyWorkSpace.Store.Respuestas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="PremptyWorkSpace.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios" EntityType="PremptyWorkSpace.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Licencias__Motivos" Association="PremptyWorkSpace.Store.FK__Licencias__Motivos">
       <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
       <End Role="Licencias" EntitySet="Licencias" />
     </AssociationSet>
-    <AssociationSet Name="FK__Usuarios__Area" Association="PremptyModel.Store.FK__Usuarios__Area">
+    <AssociationSet Name="FK__Usuarios__Area" Association="PremptyWorkSpace.Store.FK__Usuarios__Area">
       <End Role="Areas" EntitySet="Areas" />
       <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>
-    <AssociationSet Name="FK__Usuarios__IdRol" Association="PremptyModel.Store.FK__Usuarios__IdRol">
+    <AssociationSet Name="FK__Usuarios__IdRol" Association="PremptyWorkSpace.Store.FK__Usuarios__IdRol">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>
-    <AssociationSet Name="FK_Areas_Entidades" Association="PremptyModel.Store.FK_Areas_Entidades">
+    <AssociationSet Name="FK_Areas_Entidades" Association="PremptyWorkSpace.Store.FK_Areas_Entidades">
       <End Role="Entidades" EntitySet="Entidades" />
       <End Role="Areas" EntitySet="Areas" />
     </AssociationSet>
-    <AssociationSet Name="FK_Eventos_Areas" Association="PremptyModel.Store.FK_Eventos_Areas">
+    <AssociationSet Name="FK_Eventos_Areas" Association="PremptyWorkSpace.Store.FK_Eventos_Areas">
       <End Role="Areas" EntitySet="Areas" />
       <End Role="Eventos" EntitySet="Eventos" />
     </AssociationSet>
-    <AssociationSet Name="FK_Eventos_Entidades" Association="PremptyModel.Store.FK_Eventos_Entidades">
+    <AssociationSet Name="FK_Eventos_Entidades" Association="PremptyWorkSpace.Store.FK_Eventos_Entidades">
       <End Role="Entidades" EntitySet="Entidades" />
       <End Role="Eventos" EntitySet="Eventos" />
     </AssociationSet>
-    <AssociationSet Name="FK_Ingresos_Usuarios" Association="PremptyModel.Store.FK_Ingresos_Usuarios">
+    <AssociationSet Name="FK_Ingresos_Usuarios" Association="PremptyWorkSpace.Store.FK_Ingresos_Usuarios">
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="Ingresos" EntitySet="Ingresos" />
     </AssociationSet>
-    <AssociationSet Name="FK_Licencias_Licencias" Association="PremptyModel.Store.FK_Licencias_Licencias">
-      <End Role="Licencias" EntitySet="Licencias" />
-      <End Role="Licencias1" EntitySet="Licencias" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Licencias_Usuarios" Association="PremptyModel.Store.FK_Licencias_Usuarios">
+    <AssociationSet Name="FK_Licencias_Usuarios" Association="PremptyWorkSpace.Store.FK_Licencias_Usuarios">
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="Licencias" EntitySet="Licencias" />
     </AssociationSet>
-    <AssociationSet Name="FK_MotivoLicencia_Entidades" Association="PremptyModel.Store.FK_MotivoLicencia_Entidades">
+    <AssociationSet Name="FK_MotivoLicencia_Entidades" Association="PremptyWorkSpace.Store.FK_MotivoLicencia_Entidades">
       <End Role="Entidades" EntitySet="Entidades" />
       <End Role="MotivoLicencia" EntitySet="MotivoLicencia" />
     </AssociationSet>
-    <AssociationSet Name="FK_Respuestas_Eventos" Association="PremptyModel.Store.FK_Respuestas_Eventos">
+    <AssociationSet Name="FK_Respuestas_Eventos" Association="PremptyWorkSpace.Store.FK_Respuestas_Eventos">
       <End Role="Eventos" EntitySet="Eventos" />
       <End Role="Respuestas" EntitySet="Respuestas" />
     </AssociationSet>
-    <AssociationSet Name="FK_Respuestas_Usuarios" Association="PremptyModel.Store.FK_Respuestas_Usuarios">
+    <AssociationSet Name="FK_Respuestas_Usuarios" Association="PremptyWorkSpace.Store.FK_Respuestas_Usuarios">
       <End Role="Usuarios" EntitySet="Usuarios" />
       <End Role="Respuestas" EntitySet="Respuestas" />
     </AssociationSet>
-    <AssociationSet Name="FK_Usuarios_Entidades" Association="PremptyModel.Store.FK_Usuarios_Entidades">
+    <AssociationSet Name="FK_Usuarios_Entidades" Association="PremptyWorkSpace.Store.FK_Usuarios_Entidades">
       <End Role="Entidades" EntitySet="Entidades" />
       <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>
@@ -98,12 +99,17 @@
     <Property Name="Tipo" Type="char" MaxLength="1" />
     <Property Name="IdEntidad" Type="int" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'Prempty.dbo.Feriados' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
   <EntityType Name="Feriados">
     <Key>
       <PropertyRef Name="IdFeriado" />
+      <PropertyRef Name="Fecha" />
+      <PropertyRef Name="Descripcion" />
     </Key>
     <Property Name="IdFeriado" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <EntityType Name="Ingresos">
@@ -122,7 +128,7 @@
     </Key>
     <Property Name="IdLicencia" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="IdUsuario" Type="int" Nullable="false" />
-    <Property Name="Fecha" Type="date" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Motivo" Type="int" />
     <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Estado" Type="int" Nullable="false" />
@@ -152,16 +158,6 @@
     <Property Name="IdRol" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Rol" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="Usuarios">
     <Key>
       <PropertyRef Name="IdUsuario" />
@@ -181,8 +177,8 @@
     <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <Association Name="FK__Licencias__Motivos">
-    <End Role="MotivoLicencia" Type="PremptyModel.Store.MotivoLicencia" Multiplicity="0..1" />
-    <End Role="Licencias" Type="PremptyModel.Store.Licencias" Multiplicity="*" />
+    <End Role="MotivoLicencia" Type="PremptyWorkSpace.Store.MotivoLicencia" Multiplicity="0..1" />
+    <End Role="Licencias" Type="PremptyWorkSpace.Store.Licencias" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="MotivoLicencia">
         <PropertyRef Name="IdMotivo" />
@@ -193,8 +189,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Usuarios__Area">
-    <End Role="Areas" Type="PremptyModel.Store.Areas" Multiplicity="1" />
-    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="*" />
+    <End Role="Areas" Type="PremptyWorkSpace.Store.Areas" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyWorkSpace.Store.Usuarios" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Areas">
         <PropertyRef Name="IdArea" />
@@ -205,8 +201,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Usuarios__IdRol">
-    <End Role="Roles" Type="PremptyModel.Store.Roles" Multiplicity="1" />
-    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="*" />
+    <End Role="Roles" Type="PremptyWorkSpace.Store.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyWorkSpace.Store.Usuarios" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Roles">
         <PropertyRef Name="IdRol" />
@@ -217,8 +213,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Areas_Entidades">
-    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
-    <End Role="Areas" Type="PremptyModel.Store.Areas" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyWorkSpace.Store.Entidades" Multiplicity="1" />
+    <End Role="Areas" Type="PremptyWorkSpace.Store.Areas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />
@@ -229,8 +225,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Eventos_Areas">
-    <End Role="Areas" Type="PremptyModel.Store.Areas" Multiplicity="0..1" />
-    <End Role="Eventos" Type="PremptyModel.Store.Eventos" Multiplicity="*" />
+    <End Role="Areas" Type="PremptyWorkSpace.Store.Areas" Multiplicity="0..1" />
+    <End Role="Eventos" Type="PremptyWorkSpace.Store.Eventos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Areas">
         <PropertyRef Name="IdArea" />
@@ -241,8 +237,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Eventos_Entidades">
-    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
-    <End Role="Eventos" Type="PremptyModel.Store.Eventos" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyWorkSpace.Store.Entidades" Multiplicity="1" />
+    <End Role="Eventos" Type="PremptyWorkSpace.Store.Eventos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />
@@ -253,10 +249,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Ingresos_Usuarios">
-    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Ingresos" Type="PremptyModel.Store.Ingresos" Multiplicity="*" />
+    <End Role="Usuarios" Type="PremptyWorkSpace.Store.Usuarios" Multiplicity="1" />
+    <End Role="Ingresos" Type="PremptyWorkSpace.Store.Ingresos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Usuarios">
         <PropertyRef Name="IdUsuario" />
@@ -266,23 +260,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Licencias_Licencias">
-    <End Role="Licencias" Type="PremptyModel.Store.Licencias" Multiplicity="1" />
-    <End Role="Licencias1" Type="PremptyModel.Store.Licencias" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Licencias">
-        <PropertyRef Name="IdLicencia" />
-      </Principal>
-      <Dependent Role="Licencias1">
-        <PropertyRef Name="IdLicencia" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Licencias_Usuarios">
-    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Licencias" Type="PremptyModel.Store.Licencias" Multiplicity="*" />
+    <End Role="Usuarios" Type="PremptyWorkSpace.Store.Usuarios" Multiplicity="1" />
+    <End Role="Licencias" Type="PremptyWorkSpace.Store.Licencias" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Usuarios">
         <PropertyRef Name="IdUsuario" />
@@ -293,8 +273,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_MotivoLicencia_Entidades">
-    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
-    <End Role="MotivoLicencia" Type="PremptyModel.Store.MotivoLicencia" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyWorkSpace.Store.Entidades" Multiplicity="1" />
+    <End Role="MotivoLicencia" Type="PremptyWorkSpace.Store.MotivoLicencia" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />
@@ -305,8 +285,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Respuestas_Eventos">
-    <End Role="Eventos" Type="PremptyModel.Store.Eventos" Multiplicity="1" />
-    <End Role="Respuestas" Type="PremptyModel.Store.Respuestas" Multiplicity="*" />
+    <End Role="Eventos" Type="PremptyWorkSpace.Store.Eventos" Multiplicity="1" />
+    <End Role="Respuestas" Type="PremptyWorkSpace.Store.Respuestas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Eventos">
         <PropertyRef Name="IdEventos" />
@@ -317,8 +297,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Respuestas_Usuarios">
-    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="1" />
-    <End Role="Respuestas" Type="PremptyModel.Store.Respuestas" Multiplicity="*" />
+    <End Role="Usuarios" Type="PremptyWorkSpace.Store.Usuarios" Multiplicity="1" />
+    <End Role="Respuestas" Type="PremptyWorkSpace.Store.Respuestas" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Usuarios">
         <PropertyRef Name="IdUsuario" />
@@ -329,8 +309,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Usuarios_Entidades">
-    <End Role="Entidades" Type="PremptyModel.Store.Entidades" Multiplicity="1" />
-    <End Role="Usuarios" Type="PremptyModel.Store.Usuarios" Multiplicity="*" />
+    <End Role="Entidades" Type="PremptyWorkSpace.Store.Entidades" Multiplicity="1" />
+    <End Role="Usuarios" Type="PremptyWorkSpace.Store.Usuarios" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Entidades">
         <PropertyRef Name="IdEntidad" />

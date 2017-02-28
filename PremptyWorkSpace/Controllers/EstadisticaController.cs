@@ -54,10 +54,17 @@ namespace PremptyWorkSpace.Controllers
             int feriadosPos = 0;
             int cantDiasHabilesPre = 0;
             int cantDiasHabilesPos = 0;
+            int cantLicencias = 0;
 
-            int anioActual = DateTime.Now.Year;
-            int diaActual = DateTime.Now.Day;
-            int mesActual = DateTime.Now.Month;
+            //int anioActual = DateTime.Now.Year;
+            //int diaActual = DateTime.Now.Day;
+            //int mesActual = DateTime.Now.Month;
+
+            int anioActual = 2017;
+            int mesActual = 3;
+            int diaActual = 1;
+
+
             int IdEntidad = int.Parse(Session["IdEntidad"].ToString());
 
             ObtenerListaDeMeses();
@@ -146,7 +153,7 @@ namespace PremptyWorkSpace.Controllers
             //var item = new Usuarios();
 
             //AUSENCIAS Y ASISTENCIA DEL MES ANTERIOR SOLO PARA EL GRAFICO, Y PARA MOSTRAR LISTADO DE INASISTENCIAS REALES 
-            if (usuLic.IdMes <= mesActual)
+            if (usuLic.IdMes < mesActual)
             {
                 //Cuento la cantidad de asistencias del mes por empleado
                 foreach (var wa_user in user_area)
@@ -154,60 +161,10 @@ namespace PremptyWorkSpace.Controllers
                     cantidadFaltas = 0;
                     cantidadPresente = 0;
                     cantEventosPre = 0;
+                    cantLicencias = 0;
 
-                    switch (usuLic.IdMotivo)
-                    {
-                        case 0: //Motivos en un rango de Fecha para ese usuario
-                            if (usuLic.IdMes == mesActual)
-                            {
-                                cantEventosPre = EventosHabilesMensualPre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user.IdUsuario, wa_user.FechaNac.Month, IdEntidad);
-                                cantEventosPre = cantEventosPre + AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
-
-                            }
-                            else
-                            {
-                                cantEventosPre = EventosHabilesMensualPre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user.IdUsuario, wa_user.FechaNac.Month, IdEntidad);
-                            }
-                            break;
-
-                        case 1: //Motivo por DEPORTE
-                            if (usuLic.IdMes == mesActual)
-                            {
-                                cantEventosPre = EventosHabilMensualXDeportePre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user, IdEntidad);
-                            }
-                            else
-                            {
-                                cantEventosPre = EventosHabilMensualXDeportePre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
-                            }
-                            break;
-
-                        case 2: //Motivo por CUMPLEAÑOS
-                            cantEventosPre = EventoCumpleaniosPre(usuLic, cantEventosPre, diaActual, mesActual, wa_user);
-
-                            break;
-
-                        case 3: //Gremio
-
-                            if (usuLic.IdMes == mesActual)  // Mes Seleccionado == Mes Actual
-                            {
-                                cantEventosPre = EventosHabilMensualXGremioPre(usuLic, dc, anioActual, diaActual, cantEventosPre, wa_user, IdEntidad);
-                            }
-                            else
-                            {
-                                cantEventosPre = EventosHabilMensualXGremioPre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
-                            }
-                            break;
-
-                        case 4: //faltas injustificadas
-                            cantEventosPre = AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
-                            break;
-
-                    }
-
-                    if (usuLic.IdMes < mesActual)
-                    {
-                        diaActual = diasTotalDelMes;
-                    }
+                   diaActual = diasTotalDelMes;
+                  
 
                     //Cantidad de asistencias por IDUSUARIO
                     int cantIngreso = (from u in dc.Usuarios
@@ -222,38 +179,76 @@ namespace PremptyWorkSpace.Controllers
                                         && u.IdEntidad == IdEntidad
                                        select u).Count();
 
-                    int cantLicencias = (from u in dc.Usuarios
-                                         join l in dc.Licencias
-                                         on u.IdUsuario equals l.IdUsuario
-                                         where l.Fecha.Day >= 1
-                                          && l.Fecha.Day <= diaActual
-                                          && l.Fecha.Month == usuLic.IdMes
-                                          && l.Fecha.Year == anioActual
-                                          && l.Estado == 1              //Estado aprobado
-                                          && u.IdArea == wa_user.IdArea
-                                          && u.IdUsuario == wa_user.IdUsuario
-                                          && u.IdEntidad == IdEntidad
-                                         select u).Count();
-
-                    cantidadPresente = cantIngreso + cantLicencias;
-
-                    if (cantidadPresente == cantDiasHabilesPre)
+                    switch (usuLic.IdMotivo)
                     {
-                        cantidadFaltas = 0;
+                        case 0: //Motivos en un rango de Fecha para ese usuario
+                                cantEventosPre = cantDiasHabilesPre - cantIngreso;
+                                break;
+
+                        case 1: //Motivo por DEPORTE
+                            cantEventosPre = EventosHabilMensualXDeportePre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
+                            break;
+
+                        case 2: //Motivo por CUMPLEAÑOS
+                            cantEventosPre = EventoCumpleaniosPre(usuLic, cantEventosPre, diaActual, mesActual, wa_user);
+                            break;
+
+                        case 3: //Gremio
+                            cantEventosPre = EventosHabilMensualXGremioPre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
+                            break;
+
+                        case 4: //faltas injustificadas
+                            int cantEventosPreV = 0;
+                            //cantEventosPre = AusenciaInjustificada(usuLic, dc, cantEventosPre, anioActual, mesActual, IdEntidad, wa_user);
+                            cantEventosPreV = EventosHabilMensualXDeportePre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
+                            cantEventosPreV = cantEventosPreV + EventoCumpleaniosPre(usuLic, cantEventosPre, diaActual, mesActual, wa_user);
+                            cantEventosPreV = cantEventosPreV + EventosHabilMensualXGremioPre(usuLic, dc, anioActual, diasTotalDelMes, cantEventosPre, wa_user, IdEntidad);
+
+                            cantEventosPre = cantDiasHabilesPre - cantIngreso - cantEventosPreV;
+                            break;
+
                     }
-                    else
+
+                    if (usuLic.IdMotivo != 4)
                     {
-                        int diferencia = cantDiasHabilesPre - cantidadPresente;
-                        if (diferencia < cantEventosPre)
+                        cantLicencias = (from u in dc.Usuarios
+                                             join l in dc.Licencias
+                                             on u.IdUsuario equals l.IdUsuario
+                                             where l.Fecha.Day >= 1
+                                              && l.Fecha.Day <= diaActual
+                                              && l.Fecha.Month == usuLic.IdMes
+                                              && l.Fecha.Year == anioActual
+                                              && l.Estado == 1              //Estado aprobado
+                                              && u.IdArea == wa_user.IdArea
+                                              && u.IdUsuario == wa_user.IdUsuario
+                                              && u.IdEntidad == IdEntidad
+                                             select u).Count();
+
+                        cantidadPresente = cantIngreso + cantLicencias;
+
+                        if (cantidadPresente == cantDiasHabilesPre)
                         {
-                            cantidadFaltas = diferencia;
+                            cantidadFaltas = 0;
                         }
                         else
                         {
-                            cantidadFaltas = cantEventosPre;
+                            int diferencia = cantDiasHabilesPre - cantidadPresente;
+                            if (diferencia < cantEventosPre)
+                            {
+                                cantidadFaltas = diferencia;
+                            }
+                            else
+                            {
+                                cantidadFaltas = cantEventosPre;
+                            }
                         }
                     }
+                    else
+                    {
+                        cantidadFaltas = cantEventosPre;
+                        cantidadPresente = cantIngreso + cantLicencias;
 
+                    }
                     //SE GUARDAN LAS INASISTENCIAS REALES DEL USUARIO
                     usuarioInasReal.Add(new UsuarioListado()
                     {
@@ -297,13 +292,13 @@ namespace PremptyWorkSpace.Controllers
                             if (usuLic.IdMes == mesActual)
                             {
                                 cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, diaActual, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
-                                cantEventosPos = cantEventosPos + AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+                                cantEventosPos = cantEventosPos + AusenciaInjustificadaPos(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
 
                             }
                             else
                             {
                                 cantEventosPos = EventosHabilMensualPos(usuLic, dc, anioActual, 1, cantEventosPos, diasTotalDelMes, wa_user, IdEntidad);
-                                cantEventosPos = cantEventosPos + AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+                                cantEventosPos = cantEventosPos + AusenciaInjustificadaPos(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
 
                             }
 
@@ -337,7 +332,7 @@ namespace PremptyWorkSpace.Controllers
                             break;
                         case 4://faltas injustificadas
 
-                            cantEventosPos = AusenciaInjustificada(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
+                            cantEventosPos = AusenciaInjustificadaPos(usuLic, dc, cantEventosPos, anioActual, mesActual, IdEntidad, wa_user);
 
                             break;
 
@@ -392,6 +387,128 @@ namespace PremptyWorkSpace.Controllers
             return View();
         }
 
+        private int AusenciaInjustificadaPos(UsuarioLicencia usuLic, PremptyDb dc, int cantEventosPos, int anioActual, int mesActual, int IdEntidad, Usuarios wa_user)
+        {
+            int totalCantMes = 0;
+            int cantIngresoXMes = 0;
+            int cantDiasHabilesXMes = 0;
+            int faltasXMes = 0;
+            int feriadosXMes = 0;
+            int cantEventosXMes = 0;
+            int cumple = 0;
+            int cantLicencias = 0;
+
+            int antiguedad = anioActual - wa_user.FechaIngreso.Year;
+
+            //Empleado nuevo
+            if (antiguedad < 1)
+            {
+                //Lectura de MESES anteriores
+                for (int mes = 1; mes < usuLic.IdMes; mes++)
+                {
+                    faltasXMes = faltasXMes + AusenciasInjustificadasXMesPos(usuLic, dc, anioActual, IdEntidad, wa_user, totalCantMes, cantIngresoXMes, cantDiasHabilesXMes, faltasXMes, feriadosXMes, cantEventosXMes, cumple, cantLicencias, mes);
+                }
+
+                cantEventosPos = (int)faltasXMes / mesActual;
+
+            }
+            //Empleado con historico
+            else
+            {
+
+                for (int anio = wa_user.FechaIngreso.Year; anio < anioActual; anio++)
+                {
+                    faltasXMes = faltasXMes + AusenciasInjustificadasXMesPos(usuLic, dc, anio, IdEntidad, wa_user, totalCantMes, cantIngresoXMes, cantDiasHabilesXMes, faltasXMes, feriadosXMes, cantEventosXMes, cumple, cantLicencias, wa_user.FechaIngreso.Month);
+
+                }
+
+                cantEventosPos = (int)faltasXMes / antiguedad;
+
+            }
+
+
+
+            return cantEventosPos;
+        }
+
+        private int AusenciasInjustificadasXMesPos(UsuarioLicencia usuLic, PremptyDb dc, int anioActual, int IdEntidad, Usuarios wa_user, int totalCantMes, int cantIngresoXMes, int cantDiasHabilesXMes, int faltasXMes, int feriadosXMes, int cantEventosXMes, int cumple, int cantLicencias, int mes)
+        {
+            totalCantMes = 0;
+            cantIngresoXMes = 0;
+            cantDiasHabilesXMes = 0;
+            feriadosXMes = 0;
+            cantEventosXMes = 0;
+            cumple = 0;
+            cantLicencias = 0;
+
+            totalCantMes = DateTime.DaysInMonth(anioActual, usuLic.IdMes);
+
+            cantDiasHabilesXMes = obtenerDiasHabiles(usuLic.IdMes, anioActual);
+
+            cantIngresoXMes = (from u in dc.Usuarios
+                               join i in dc.Ingresos
+                               on u.IdUsuario equals i.IdUsuario
+                               where i.FechaActual.Day >= 1
+                                && i.FechaActual.Day <= totalCantMes
+                                && i.FechaActual.Month == usuLic.IdMes
+                                && i.FechaActual.Year == anioActual
+                                && u.IdArea == wa_user.IdArea
+                                && u.IdUsuario == wa_user.IdUsuario
+                                && u.IdEntidad == IdEntidad
+                               select u).Count();
+            //Eventos
+            var tablaEventos = (from e in dc.Eventos
+                                join r in dc.Respuestas
+                                on e.IdEventos equals r.IdEvento
+                                where e.Fecha.Day >= 1
+                                   && e.Fecha.Day <= totalCantMes
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
+                                   && e.Fecha.Year.Equals(anioActual)
+                                   && (e.IdArea == usuLic.IdArea || e.IdArea == null)
+                                   && r.Respuesta > 3
+                                   && r.Usuarios.IdUsuario == wa_user.IdUsuario
+                                   && e.Entidades.IdEntidad.Equals(IdEntidad)
+                                select e).ToList();
+
+            foreach (var item in tablaEventos)
+            {
+                if (diaHabil(item.Fecha.Year, item.Fecha.Month, item.Fecha.Day) == true)
+                {
+                    cantEventosXMes = cantEventosXMes + 1;
+                }
+
+            }
+
+
+            cantLicencias = (from u in dc.Usuarios
+                             join l in dc.Licencias
+                             on u.IdUsuario equals l.IdUsuario
+                             where l.Fecha.Day >= 1
+                              && l.Fecha.Day <= totalCantMes
+                              && l.Fecha.Month == usuLic.IdMes
+                              && l.Fecha.Year == anioActual
+                              && l.Estado == 1              //Estado aprobado
+                              && u.IdArea == wa_user.IdArea
+                              && u.IdUsuario == wa_user.IdUsuario
+                              && u.IdEntidad == IdEntidad
+                             select u).Count();
+
+
+            //Cumple
+            //if (wa_user.FechaNac.Month == j)
+            if (wa_user.FechaNac.Month == usuLic.IdMes)
+            {
+                cumple = 1;
+            }
+
+            feriadosXMes = FeriadosHabilMesAnterior(usuLic.IdMes, dc, anioActual, feriadosXMes);
+
+            //Falta injustificada = Asistencias
+            faltasXMes = faltasXMes + cantDiasHabilesXMes - cantIngresoXMes - feriadosXMes - cantEventosXMes - cumple - cantLicencias;
+
+            return faltasXMes;
+        }
+
         private int AusenciaInjustificada(UsuarioLicencia usuLic, PremptyDb dc, int cantEventosPre, int anioActual, int mesActual, int IdEntidad, Usuarios wa_user)
         {
             int totalCantMes = 0;
@@ -411,7 +528,7 @@ namespace PremptyWorkSpace.Controllers
                 //Lectura de MESES anteriores
                 for (int mes = 1; mes < usuLic.IdMes; mes++)
                 {
-                    faltasXMes = AusenciasInjustificadasXMes(usuLic, dc, anioActual, IdEntidad, wa_user, totalCantMes, cantIngresoXMes, cantDiasHabilesXMes, faltasXMes, feriadosXMes, cantEventosXMes, cumple, cantLicencias, mes);
+                    faltasXMes = faltasXMes + AusenciasInjustificadasXMes(usuLic, dc, anioActual, IdEntidad, wa_user, totalCantMes, cantIngresoXMes, cantDiasHabilesXMes, faltasXMes, feriadosXMes, cantEventosXMes, cumple, cantLicencias, mes);
                 }
 
                 cantEventosPre = (int)faltasXMes / mesActual;
@@ -423,7 +540,7 @@ namespace PremptyWorkSpace.Controllers
 
                 for (int anio = wa_user.FechaIngreso.Year; anio < anioActual; anio++)
                 {
-                    faltasXMes = AusenciasInjustificadasXMes(usuLic, dc, anio, IdEntidad, wa_user, totalCantMes, cantIngresoXMes, cantDiasHabilesXMes, faltasXMes, feriadosXMes, cantEventosXMes, cumple, cantLicencias, wa_user.FechaIngreso.Month);
+                    faltasXMes = faltasXMes + AusenciasInjustificadasXMes(usuLic, dc, anio, IdEntidad, wa_user, totalCantMes, cantIngresoXMes, cantDiasHabilesXMes, faltasXMes, feriadosXMes, cantEventosXMes, cumple, cantLicencias, wa_user.FechaIngreso.Month);
 
                 }
 
@@ -457,7 +574,8 @@ namespace PremptyWorkSpace.Controllers
                                on u.IdUsuario equals i.IdUsuario
                                where i.FechaActual.Day >= 1
                                 && i.FechaActual.Day <= totalCantMes
-                                && i.FechaActual.Month == j
+                                //&& i.FechaActual.Month == j
+                                && i.FechaActual.Month == usuLic.IdMes
                                 && i.FechaActual.Year == anioActual
                                 && u.IdArea == wa_user.IdArea
                                 && u.IdUsuario == wa_user.IdUsuario
@@ -469,7 +587,7 @@ namespace PremptyWorkSpace.Controllers
                                 on e.IdEventos equals r.IdEvento
                                 where e.Fecha.Day >= 1
                                    && e.Fecha.Day <= totalCantMes
-                                   && e.Fecha.Month.Equals(j)
+                                   && e.Fecha.Month.Equals(usuLic.IdMes)
                                    && e.Fecha.Year.Equals(anioActual)
                                    && (e.IdArea == usuLic.IdArea || e.IdArea == null)
                                    && r.Respuesta > 3
@@ -492,7 +610,7 @@ namespace PremptyWorkSpace.Controllers
                              on u.IdUsuario equals l.IdUsuario
                              where l.Fecha.Day >= 1
                               && l.Fecha.Day <= totalCantMes
-                              && l.Fecha.Month == j
+                              && l.Fecha.Month == usuLic.IdMes
                               && l.Fecha.Year == anioActual
                               && l.Estado == 1              //Estado aprobado
                               && u.IdArea == wa_user.IdArea
@@ -502,12 +620,13 @@ namespace PremptyWorkSpace.Controllers
 
 
             //Cumple
-            if (wa_user.FechaNac.Month == j)
+            //if (wa_user.FechaNac.Month == j)
+            if (wa_user.FechaNac.Month == usuLic.IdMes)
             {
                 cumple = 1;
             }
 
-            feriadosXMes = FeriadosHabilMesAnterior(j, dc, anioActual, feriadosXMes);
+            feriadosXMes = FeriadosHabilMesAnterior(usuLic.IdMes, dc, anioActual, feriadosXMes);
 
             //Falta injustificada = Asistencias
             faltasXMes = faltasXMes + cantDiasHabilesXMes - cantIngresoXMes - feriadosXMes - cantEventosXMes - cumple - cantLicencias;
@@ -521,7 +640,7 @@ namespace PremptyWorkSpace.Controllers
         {
             if (usuLic.IdMes == mesActual)  // Mes Seleccionado == Mes Actual
             {
-                if (wa_user.FechaNac.Month == usuLic.IdMes && wa_user.FechaNac.Day > diaActual)
+                if (wa_user.FechaNac.Month == usuLic.IdMes && wa_user.FechaNac.Day >= diaActual)
                 {
                     cantEventosPos = cantEventosPos + 1;
                 }
@@ -555,8 +674,8 @@ namespace PremptyWorkSpace.Controllers
             var tablaEventos = (from e in dc.Eventos
                                 join r in dc.Respuestas
                                 on e.IdEventos equals r.IdEvento
-                                where e.Fecha.Day > diaInicial
-                                   && e.Fecha.Day < diasTotalDelMes
+                                where e.Fecha.Day >= diaInicial
+                                   && e.Fecha.Day <= diasTotalDelMes
                                    && e.Fecha.Month.Equals(usuLic.IdMes)
                                    && e.Fecha.Year.Equals(anioActual)
                                    && (e.Titulo.Contains("Paro") || e.Titulo.Contains("Colectivo") || e.Titulo.Contains("Gremio"))
@@ -612,7 +731,7 @@ namespace PremptyWorkSpace.Controllers
             var tablaEventos = (from e in dc.Eventos
                                 join r in dc.Respuestas
                                 on e.IdEventos equals r.IdEvento
-                                where e.Fecha.Day > diaInicial
+                                where e.Fecha.Day >= diaInicial
                                    && e.Fecha.Day <= diasTotalDelMes
                                    && e.Fecha.Month.Equals(usuLic.IdMes)
                                    && e.Fecha.Year.Equals(anioActual)
@@ -958,6 +1077,7 @@ namespace PremptyWorkSpace.Controllers
             ObtenerListaDeMeses();
             ObtenerListaDeAreas();
             ObtenerListaDeMotivos();
+            ViewBag.real = 1;
 
             return View("Index", usuarioListReal);
 

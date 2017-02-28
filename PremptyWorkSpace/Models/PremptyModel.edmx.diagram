@@ -4,31 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="631b5666f6f743488ab2b43306709446" Name="Diagrama1">
-        <EntityTypeShape EntityType="PremptyModel.Areas" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Entidades" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Eventos" Width="1.5" PointX="5.375" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Feriados" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Ingresos" Width="1.5" PointX="10.5" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Licencias" Width="1.5" PointX="10.5" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.MotivoLicencia" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Respuestas" Width="1.5" PointX="10.375" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Roles" Width="1.5" PointX="7.625" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PremptyModel.Usuarios" Width="1.5" PointX="8.375" PointY="8.375" IsExpanded="true" />
-        <AssociationConnector Association="PremptyModel.FK__Usuarios__Area" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Areas_Entidades" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Eventos_Areas" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Eventos_Entidades" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_MotivoLicencia_Entidades" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Usuarios_Entidades" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Respuestas_Eventos" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Ingresos_Usuarios" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK__Licencias__Motivos" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Licencias_Usuarios" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK_Respuestas_Usuarios" ManuallyRouted="false" />
-        <AssociationConnector Association="PremptyModel.FK__Usuarios__IdRol" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PremptyModel.sysdiagrams" Width="1.5" PointX="13.625" PointY="10" />
-        <AssociationConnector Association="PremptyModel.FK_Licencias_Licencias" />
+      <Diagram DiagramId="6345823857484a6ca59143d2a0518f13" Name="Diagram1">
+        <EntityTypeShape EntityType="PremptyWorkSpace.Areas" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Entidades" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Eventos" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Feriados" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Ingresos" Width="1.5" PointX="10.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Licencias" Width="1.5" PointX="10.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.MotivoLicencia" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Respuestas" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Roles" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PremptyWorkSpace.Usuarios" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="PremptyWorkSpace.FK__Usuarios__Area" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Areas_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Eventos_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Eventos_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_MotivoLicencia_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Usuarios_Entidades" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Respuestas_Eventos" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Ingresos_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK__Licencias__Motivos" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Licencias_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK_Respuestas_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="PremptyWorkSpace.FK__Usuarios__IdRol" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

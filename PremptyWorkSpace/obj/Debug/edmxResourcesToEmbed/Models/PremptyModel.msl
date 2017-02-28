@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="PremptyModelStoreContainer" CdmEntityContainer="PremptyDb">
+  <EntityContainerMapping StorageEntityContainer="PremptyWorkSpaceStoreContainer" CdmEntityContainer="PremptyDb">
     <EntitySetMapping Name="Areas">
-      <EntityTypeMapping TypeName="PremptyModel.Areas">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Areas">
         <MappingFragment StoreEntitySet="Areas">
           <ScalarProperty Name="IdArea" ColumnName="IdArea" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -11,7 +11,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Entidades">
-      <EntityTypeMapping TypeName="PremptyModel.Entidades">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Entidades">
         <MappingFragment StoreEntitySet="Entidades">
           <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
           <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
@@ -25,7 +25,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Eventos">
-      <EntityTypeMapping TypeName="PremptyModel.Eventos">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Eventos">
         <MappingFragment StoreEntitySet="Eventos">
           <ScalarProperty Name="IdEventos" ColumnName="IdEventos" />
           <ScalarProperty Name="Titulo" ColumnName="Titulo" />
@@ -38,7 +38,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Feriados">
-      <EntityTypeMapping TypeName="PremptyModel.Feriados">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Feriados">
         <MappingFragment StoreEntitySet="Feriados">
           <ScalarProperty Name="IdFeriado" ColumnName="IdFeriado" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -47,7 +47,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Ingresos">
-      <EntityTypeMapping TypeName="PremptyModel.Ingresos">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Ingresos">
         <MappingFragment StoreEntitySet="Ingresos">
           <ScalarProperty Name="IdIngresos" ColumnName="IdIngresos" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -58,7 +58,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Licencias">
-      <EntityTypeMapping TypeName="PremptyModel.Licencias">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Licencias">
         <MappingFragment StoreEntitySet="Licencias">
           <ScalarProperty Name="IdLicencia" ColumnName="IdLicencia" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -70,7 +70,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="MotivoLicencia">
-      <EntityTypeMapping TypeName="PremptyModel.MotivoLicencia">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.MotivoLicencia">
         <MappingFragment StoreEntitySet="MotivoLicencia">
           <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -79,7 +79,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Respuestas">
-      <EntityTypeMapping TypeName="PremptyModel.Respuestas">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Respuestas">
         <MappingFragment StoreEntitySet="Respuestas">
           <ScalarProperty Name="IdRespuesta" ColumnName="IdRespuesta" />
           <ScalarProperty Name="IdEvento" ColumnName="IdEvento" />
@@ -90,7 +90,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Roles">
-      <EntityTypeMapping TypeName="PremptyModel.Roles">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Roles">
         <MappingFragment StoreEntitySet="Roles">
           <ScalarProperty Name="IdRol" ColumnName="IdRol" />
           <ScalarProperty Name="Rol" ColumnName="Rol" />
@@ -98,7 +98,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Usuarios">
-      <EntityTypeMapping TypeName="PremptyModel.Usuarios">
+      <EntityTypeMapping TypeName="PremptyWorkSpace.Usuarios">
         <MappingFragment StoreEntitySet="Usuarios">
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
           <ScalarProperty Name="IdRol" ColumnName="IdRol" />
@@ -113,17 +113,6 @@
           <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
           <ScalarProperty Name="IdEntidad" ColumnName="IdEntidad" />
           <ScalarProperty Name="Email" ColumnName="Email" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="PremptyModel.sysdiagrams">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="definition" ColumnName="definition" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="name" ColumnName="name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
