@@ -82,6 +82,11 @@ namespace PremptyWorkSpace.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Session["IdEntidad"] == null)
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 var idEntidad = int.Parse(Session["IdEntidad"].ToString());
                 area.IdEntidad = idEntidad;
                 db.Areas.Add(area);
